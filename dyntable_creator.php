@@ -47,8 +47,7 @@ $form  = new Form($db);
 
 print $form->selectarray('table', $tables,'table',1,0,1,'',0,0,0,'','',1);
 
-$champs = $db->DDLInfoTable('llx_accounting_account');
-var_dump($champs);
+
 
 
 // print '<table class="noborder" width="100%">';
