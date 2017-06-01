@@ -1,6 +1,6 @@
 CREATE TABLE IF NOT EXISTS `llx_dyntable` (
   `rowid` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  `title` varchar(255) NOT NULL
+  `title` varchar(255) NOT NULL,
   `default_sortfield` varchar(255) NOT NULL,
   `export_name` varchar(255),
   `context` varchar(255) NOT NULL,
