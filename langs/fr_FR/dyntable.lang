@@ -1,6 +1,6 @@
 Fieldtitle = titre
 Fielddefault_sortfield = Tri par défaut
-Fieldexportname = Nom d'export
+Fieldexport_name = Nom d'export
 Fieldcontext = nom du contexte
 Fieldsearch_button = Bouton de recherche
 Fieldremove_filter_button = Bouton de suppresion de filtre
