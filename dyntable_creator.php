@@ -449,6 +449,9 @@ function drop(ev) {
  	})
 }
 
+document.getElementById("table").onchange = function(){
+	alert( "table: " +document.getElementById("table").value);
+}
 </script>
 <?php
 dol_fiche_end();
