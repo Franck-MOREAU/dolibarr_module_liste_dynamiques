@@ -463,7 +463,7 @@ document.getElementById("table").onchange = function(){
  		},
  		error: function(msg){
  			alert( "erreur: " + msg );
- 		}
+ 		})
 }
 </script>
 <?php
