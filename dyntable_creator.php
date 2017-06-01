@@ -43,10 +43,9 @@ llxHeader('', $title);
 // print '</table>';
 
 $tables = $db->DDLListTables($db->database_name,MAIN_DB_PREFIX.'%');
-var_dump($tables);
 $form  = new Form($db);
 
-print $form->selectarray('table', $tables,'table',0,0,1,'',0,0,0,'','',1);
+print $form->selectarray('table', $tables,'table',1,0,1,'',0,0,0,'','',1);
 
 
 
