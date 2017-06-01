@@ -26,7 +26,7 @@ class moddyntable extends DolibarrModules
 		$this->version = '1.0';
 		$this->const_name = 'MAIN_MODULE_' . strtoupper($this->name);
 		$this->special = 1;
-		$this->picto = 'list2@dyntable';
+		$this->picto = 'list@dyntable';
 		$this->module_parts = array(
 				// 'triggers' => 1,
 				// 'login' => 0,
