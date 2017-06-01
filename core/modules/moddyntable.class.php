@@ -150,7 +150,7 @@ class moddyntable extends DolibarrModules
 				'type' => 'top',
 				'titre' => 'Tableaux',
 				'mainmenu' => 'dyntable',
-				'url' => '/dyntable/index.php',
+				'url' => '/dyntable/dyntable_list.php',
 				'langs' => 'dyntable@dyntable',
 				'position' => 100,
 				'enabled' => '1',

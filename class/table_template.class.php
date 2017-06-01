@@ -53,6 +53,746 @@ class Dyntable
 
 	}
 
+	public function create(User $user, $notrigger = false)
+	{
+		dol_syslog(__METHOD__, LOG_DEBUG);
+
+		$error = 0;
+
+		// Clean parameters
+
+		if (isset($this->title)) {
+			$this->title = trim($this->title);
+		}
+		if (isset($this->default_sortfield)) {
+			$this->default_sortfield = trim($this->default_sortfield);
+		}
+		if (isset($this->export_name)) {
+			$this->export_name = trim($this->export_name);
+		}
+		if (isset($this->context)) {
+			$this->context = trim($this->context);
+		}
+		if (isset($this->search_button)) {
+			$this->search_button = trim($this->search_button);
+		}
+		if (isset($this->remove_filter_button)) {
+			$this->remove_filter_button = trim($this->remove_filter_button);
+		}
+		if (isset($this->export_button)) {
+			$this->export_button = trim($this->export_button);
+		}
+		if (isset($this->select_fields_button)) {
+			$this->select_fields_button = trim($this->select_fields_button);
+		}
+		if (isset($this->mode)) {
+			$this->mode = trim($this->mode);
+		}
+		if (isset($this->limite)) {
+			$this->limite = trim($this->limite);
+		}
+		if (isset($this->filter_clause)) {
+			$this->filter_clause = trim($this->filter_clause);
+		}
+		if (isset($this->filter_mode)) {
+			$this->filter_mode = trim($this->filter_mode);
+		}
+		if (isset($this->filter_line)) {
+			$this->filter_line = trim($this->filter_line);
+		}
+		if (isset($this->sql_from)) {
+			$this->sql_from = trim($this->sql_from);
+		}
+		if (isset($this->sql_where)) {
+			$this->sql_where = trim($this->sql_where);
+		}
+		if (isset($this->sql_having)) {
+			$this->sql_having = trim($this->sql_having);
+		}
+		if (isset($this->sql_group)) {
+			$this->sql_group = trim($this->sql_group);
+		}
+		if (isset($this->sql_filter_action)) {
+			$this->sql_filter_action = trim($this->sql_filter_action);
+		}
+		if (isset($this->sql_select)) {
+			$this->sql_select = trim($this->sql_select);
+		}
+		if (isset($this->subtitle)) {
+			$this->subtitle = trim($this->subtitle);
+		}
+		if (isset($this->active)) {
+			$this->active = trim($this->active);
+		}
+
+
+
+		// Check parameters
+		// Put here code to add control on parameters values
+
+		// Insert request
+		$sql = 'INSERT INTO ' . MAIN_DB_PREFIX . $this->table_element . '(';
+
+		$sql.= 'title,';
+		$sql.= 'default_sortfield,';
+		$sql.= 'export_name,';
+		$sql.= 'context,';
+		$sql.= 'search_button,';
+		$sql.= 'remove_filter_button,';
+		$sql.= 'export_button,';
+		$sql.= 'select_fields_button,';
+		$sql.= 'mode,';
+		$sql.= 'limite,';
+		$sql.= 'filter_clause,';
+		$sql.= 'filter_mode,';
+		$sql.= 'filter_line,';
+		$sql.= 'sql_from,';
+		$sql.= 'sql_where,';
+		$sql.= 'sql_having,';
+		$sql.= 'sql_group,';
+		$sql.= 'sql_filter_action,';
+		$sql.= 'sql_select,';
+		$sql.= 'subtitle';
+		$sql.= 'active';
+
+
+		$sql .= ') VALUES (';
+
+		$sql .= ' '.(! isset($this->title)?'NULL':"'".$this->db->escape($this->title)."'").',';
+		$sql .= ' '.(! isset($this->default_sortfield)?'NULL':"'".$this->db->escape($this->default_sortfield)."'").',';
+		$sql .= ' '.(! isset($this->export_name)?'NULL':"'".$this->db->escape($this->export_name)."'").',';
+		$sql .= ' '.(! isset($this->context)?'NULL':"'".$this->db->escape($this->context)."'").',';
+		$sql .= ' '.(! isset($this->search_button)?'NULL':$this->search_button).',';
+		$sql .= ' '.(! isset($this->remove_filter_button)?'NULL':$this->remove_filter_button).',';
+		$sql .= ' '.(! isset($this->export_button)?'NULL':$this->export_button).',';
+		$sql .= ' '.(! isset($this->select_fields_button)?'NULL':$this->select_fields_button).',';
+		$sql .= ' '.(! isset($this->mode)?'NULL':"'".$this->db->escape($this->mode)."'").',';
+		$sql .= ' '.(! isset($this->limite)?'NULL':$this->limite).',';
+		$sql .= ' '.(! isset($this->filter_clause)?'NULL':"'".$this->db->escape($this->filter_clause)."'").',';
+		$sql .= ' '.(! isset($this->filter_mode)?'NULL':"'".$this->db->escape($this->filter_mode)."'").',';
+		$sql .= ' '.(! isset($this->filter_line)?'NULL':$this->filter_line).',';
+		$sql .= ' '.(! isset($this->sql_from)?'NULL':"'".$this->db->escape($this->sql_from)."'").',';
+		$sql .= ' '.(! isset($this->sql_where)?'NULL':"'".$this->db->escape($this->sql_where)."'").',';
+		$sql .= ' '.(! isset($this->sql_having)?'NULL':"'".$this->db->escape($this->sql_having)."'").',';
+		$sql .= ' '.(! isset($this->sql_group)?'NULL':"'".$this->db->escape($this->sql_group)."'").',';
+		$sql .= ' '.(! isset($this->sql_filter_action)?'NULL':"'".$this->db->escape($this->sql_filter_action)."'").',';
+		$sql .= ' '.(! isset($this->sql_select)?'NULL':"'".$this->db->escape($this->sql_select)."'").',';
+		$sql .= ' '.(! isset($this->subtitle)?'NULL':"'".$this->db->escape($this->subtitle)."'").',';
+		$sql .= ' '.(! isset($this->active)?'NULL':$this->active);
+
+
+		$sql .= ')';
+
+		$this->db->begin();
+
+		$resql = $this->db->query($sql);
+		if (!$resql) {
+			$error ++;
+			$this->errors[] = 'Error ' . $this->db->lasterror();
+			dol_syslog(__METHOD__ . ' ' . join(',', $this->errors), LOG_ERR);
+		}
+
+		if (!$error) {
+			$this->id = $this->db->last_insert_id(MAIN_DB_PREFIX . $this->table_element);
+
+			if (!$notrigger) {
+				// Uncomment this and change MYOBJECT to your own tag if you
+				// want this action to call a trigger.
+
+				//// Call triggers
+				//$result=$this->call_trigger('MYOBJECT_CREATE',$user);
+				//if ($result < 0) $error++;
+				//// End call triggers
+			}
+		}
+
+		// Commit or rollback
+		if ($error) {
+			$this->db->rollback();
+
+			return - 1 * $error;
+		} else {
+			$this->db->commit();
+
+			return $this->id;
+		}
+	}
+
+	/**
+	 * Load object in memory from the database
+	 *
+	 * @param int    $id  Id object
+	 * @param string $ref Ref
+	 *
+	 * @return int <0 if KO, 0 if not found, >0 if OK
+	 */
+	public function fetch($id, $ref = null)
+	{
+		dol_syslog(__METHOD__, LOG_DEBUG);
+
+		$sql = 'SELECT';
+		$sql .= ' t.rowid,';
+
+		$sql .= " t.title,";
+		$sql .= " t.default_sortfield,";
+		$sql .= " t.export_name,";
+		$sql .= " t.context,";
+		$sql .= " t.search_button,";
+		$sql .= " t.remove_filter_button,";
+		$sql .= " t.export_button,";
+		$sql .= " t.select_fields_button,";
+		$sql .= " t.mode,";
+		$sql .= " t.limite,";
+		$sql .= " t.filter_clause,";
+		$sql .= " t.filter_mode,";
+		$sql .= " t.filter_line,";
+		$sql .= " t.sql_from,";
+		$sql .= " t.sql_where,";
+		$sql .= " t.sql_having,";
+		$sql .= " t.sql_group,";
+		$sql .= " t.sql_filter_action,";
+		$sql .= " t.sql_select,";
+		$sql .= " t.subtitle,";
+		$sql .= " t.active";
+
+
+		$sql .= ' FROM ' . MAIN_DB_PREFIX . $this->table_element . ' as t';
+		if (null !== $ref) {
+			$sql .= ' WHERE t.ref = ' . '\'' . $ref . '\'';
+		} else {
+			$sql .= ' WHERE t.rowid = ' . $id;
+		}
+
+		$resql = $this->db->query($sql);
+		if ($resql) {
+			$numrows = $this->db->num_rows($resql);
+			if ($numrows) {
+				$obj = $this->db->fetch_object($resql);
+
+				$this->id = $obj->rowid;
+
+				$this->title = $obj->title;
+				$this->default_sortfield = $obj->default_sortfield;
+				$this->export_name = $obj->export_name;
+				$this->context = $obj->context;
+				$this->search_button = $obj->search_button;
+				$this->remove_filter_button = $obj->remove_filter_button;
+				$this->export_button = $obj->export_button;
+				$this->select_fields_button = $obj->select_fields_button;
+				$this->mode = $obj->mode;
+				$this->limite = $obj->limite;
+				$this->filter_clause = $obj->filter_clause;
+				$this->filter_mode = $obj->filter_mode;
+				$this->filter_line = $obj->filter_line;
+				$this->sql_from = $obj->sql_from;
+				$this->sql_where = $obj->sql_where;
+				$this->sql_having = $obj->sql_having;
+				$this->sql_group = $obj->sql_group;
+				$this->sql_filter_action = $obj->sql_filter_action;
+				$this->sql_select = $obj->sql_select;
+				$this->subtitle = $obj->subtitle;
+				$this->active = $obj->active;
+
+
+			}
+			$this->db->free($resql);
+
+			if ($numrows) {
+				return 1;
+			} else {
+				return 0;
+			}
+		} else {
+			$this->errors[] = 'Error ' . $this->db->lasterror();
+			dol_syslog(__METHOD__ . ' ' . join(',', $this->errors), LOG_ERR);
+
+			return - 1;
+		}
+	}
+
+	/**
+	 * Load object in memory from the database
+	 *
+	 * @param string $sortorder Sort Order
+	 * @param string $sortfield Sort field
+	 * @param int    $limit     offset limit
+	 * @param int    $offset    offset limit
+	 * @param array  $filter    filter array
+	 * @param string $filtermode filter mode (AND or OR)
+	 *
+	 * @return int <0 if KO, >0 if OK
+	 */
+	public function fetchAll($sortorder='', $sortfield='', $limit=0, $offset=0, array $filter = array(), $filtermode='AND')
+	{
+		dol_syslog(__METHOD__, LOG_DEBUG);
+
+		$sql = 'SELECT';
+		$sql .= ' t.rowid,';
+
+		$sql .= " t.title,";
+		$sql .= " t.default_sortfield,";
+		$sql .= " t.export_name,";
+		$sql .= " t.context,";
+		$sql .= " t.search_button,";
+		$sql .= " t.remove_filter_button,";
+		$sql .= " t.export_button,";
+		$sql .= " t.select_fields_button,";
+		$sql .= " t.mode,";
+		$sql .= " t.limite,";
+		$sql .= " t.filter_clause,";
+		$sql .= " t.filter_mode,";
+		$sql .= " t.filter_line,";
+		$sql .= " t.sql_from,";
+		$sql .= " t.sql_where,";
+		$sql .= " t.sql_having,";
+		$sql .= " t.sql_group,";
+		$sql .= " t.sql_filter_action,";
+		$sql .= " t.sql_select,";
+		$sql .= " t.subtitle,";
+		$sql .= " t.active";
+
+
+		$sql .= ' FROM ' . MAIN_DB_PREFIX . $this->table_element. ' as t';
+
+		// Manage filter
+		$sqlwhere = array();
+		if (count($filter) > 0) {
+			foreach ($filter as $key => $value) {
+				$sqlwhere [] = $key . ' LIKE \'%' . $this->db->escape($value) . '%\'';
+			}
+		}
+		if (count($sqlwhere) > 0) {
+			$sql .= ' WHERE ' . implode(' '.$filtermode.' ', $sqlwhere);
+		}
+
+		if (!empty($sortfield)) {
+			$sql .= $this->db->order($sortfield,$sortorder);
+		}
+		if (!empty($limit)) {
+			$sql .=  ' ' . $this->db->plimit($limit + 1, $offset);
+		}
+		$this->lines = array();
+
+		$resql = $this->db->query($sql);
+		if ($resql) {
+			$num = $this->db->num_rows($resql);
+
+			while ($obj = $this->db->fetch_object($resql)) {
+				$line = new DyntableLine();
+
+				$line->id = $obj->rowid;
+
+				$line->title = $obj->title;
+				$line->default_sortfield = $obj->default_sortfield;
+				$line->export_name = $obj->export_name;
+				$line->context = $obj->context;
+				$line->search_button = $obj->search_button;
+				$line->remove_filter_button = $obj->remove_filter_button;
+				$line->export_button = $obj->export_button;
+				$line->select_fields_button = $obj->select_fields_button;
+				$line->mode = $obj->mode;
+				$line->limite = $obj->limite;
+				$line->filter_clause = $obj->filter_clause;
+				$line->filter_mode = $obj->filter_mode;
+				$line->filter_line = $obj->filter_line;
+				$line->sql_from = $obj->sql_from;
+				$line->sql_where = $obj->sql_where;
+				$line->sql_having = $obj->sql_having;
+				$line->sql_group = $obj->sql_group;
+				$line->sql_filter_action = $obj->sql_filter_action;
+				$line->sql_select = $obj->sql_select;
+				$line->subtitle = $obj->subtitle;
+				$line->active = $obj->active;
+
+
+
+				$this->lines[$line->id] = $line;
+			}
+			$this->db->free($resql);
+
+			return $num;
+		} else {
+			$this->errors[] = 'Error ' . $this->db->lasterror();
+			dol_syslog(__METHOD__ . ' ' . join(',', $this->errors), LOG_ERR);
+
+			return - 1;
+		}
+	}
+
+	/**
+	 * Update object into database
+	 *
+	 * @param  User $user      User that modifies
+	 * @param  bool $notrigger false=launch triggers after, true=disable triggers
+	 *
+	 * @return int <0 if KO, >0 if OK
+	 */
+	public function update(User $user, $notrigger = false)
+	{
+		$error = 0;
+
+		dol_syslog(__METHOD__, LOG_DEBUG);
+
+		// Clean parameters
+
+		if (isset($this->title)) {
+			$this->title = trim($this->title);
+		}
+		if (isset($this->default_sortfield)) {
+			$this->default_sortfield = trim($this->default_sortfield);
+		}
+		if (isset($this->export_name)) {
+			$this->export_name = trim($this->export_name);
+		}
+		if (isset($this->context)) {
+			$this->context = trim($this->context);
+		}
+		if (isset($this->search_button)) {
+			$this->search_button = trim($this->search_button);
+		}
+		if (isset($this->remove_filter_button)) {
+			$this->remove_filter_button = trim($this->remove_filter_button);
+		}
+		if (isset($this->export_button)) {
+			$this->export_button = trim($this->export_button);
+		}
+		if (isset($this->select_fields_button)) {
+			$this->select_fields_button = trim($this->select_fields_button);
+		}
+		if (isset($this->mode)) {
+			$this->mode = trim($this->mode);
+		}
+		if (isset($this->limite)) {
+			$this->limite = trim($this->limite);
+		}
+		if (isset($this->filter_clause)) {
+			$this->filter_clause = trim($this->filter_clause);
+		}
+		if (isset($this->filter_mode)) {
+			$this->filter_mode = trim($this->filter_mode);
+		}
+		if (isset($this->filter_line)) {
+			$this->filter_line = trim($this->filter_line);
+		}
+		if (isset($this->sql_from)) {
+			$this->sql_from = trim($this->sql_from);
+		}
+		if (isset($this->sql_where)) {
+			$this->sql_where = trim($this->sql_where);
+		}
+		if (isset($this->sql_having)) {
+			$this->sql_having = trim($this->sql_having);
+		}
+		if (isset($this->sql_group)) {
+			$this->sql_group = trim($this->sql_group);
+		}
+		if (isset($this->sql_filter_action)) {
+			$this->sql_filter_action = trim($this->sql_filter_action);
+		}
+		if (isset($this->sql_select)) {
+			$this->sql_select = trim($this->sql_select);
+		}
+		if (isset($this->subtitle)) {
+			$this->subtitle = trim($this->subtitle);
+		}
+		if (isset($this->active)) {
+			$this->active = trim($this->active);
+		}
+
+
+
+		// Check parameters
+		// Put here code to add a control on parameters values
+
+		// Update request
+		$sql = 'UPDATE ' . MAIN_DB_PREFIX . $this->table_element . ' SET';
+
+		$sql .= ' title = '.(isset($this->title)?"'".$this->db->escape($this->title)."'":"null").',';
+		$sql .= ' default_sortfield = '.(isset($this->default_sortfield)?"'".$this->db->escape($this->default_sortfield)."'":"null").',';
+		$sql .= ' export_name = '.(isset($this->export_name)?"'".$this->db->escape($this->export_name)."'":"null").',';
+		$sql .= ' context = '.(isset($this->context)?"'".$this->db->escape($this->context)."'":"null").',';
+		$sql .= ' search_button = '.(isset($this->search_button)?$this->search_button:"null").',';
+		$sql .= ' remove_filter_button = '.(isset($this->remove_filter_button)?$this->remove_filter_button:"null").',';
+		$sql .= ' export_button = '.(isset($this->export_button)?$this->export_button:"null").',';
+		$sql .= ' select_fields_button = '.(isset($this->select_fields_button)?$this->select_fields_button:"null").',';
+		$sql .= ' mode = '.(isset($this->mode)?"'".$this->db->escape($this->mode)."'":"null").',';
+		$sql .= ' limite = '.(isset($this->limite)?$this->limite:"null").',';
+		$sql .= ' filter_clause = '.(isset($this->filter_clause)?"'".$this->db->escape($this->filter_clause)."'":"null").',';
+		$sql .= ' filter_mode = '.(isset($this->filter_mode)?"'".$this->db->escape($this->filter_mode)."'":"null").',';
+		$sql .= ' filter_line = '.(isset($this->filter_line)?$this->filter_line:"null").',';
+		$sql .= ' sql_from = '.(isset($this->sql_from)?"'".$this->db->escape($this->sql_from)."'":"null").',';
+		$sql .= ' sql_where = '.(isset($this->sql_where)?"'".$this->db->escape($this->sql_where)."'":"null").',';
+		$sql .= ' sql_having = '.(isset($this->sql_having)?"'".$this->db->escape($this->sql_having)."'":"null").',';
+		$sql .= ' sql_group = '.(isset($this->sql_group)?"'".$this->db->escape($this->sql_group)."'":"null").',';
+		$sql .= ' sql_filter_action = '.(isset($this->sql_filter_action)?"'".$this->db->escape($this->sql_filter_action)."'":"null").',';
+		$sql .= ' sql_select = '.(isset($this->sql_select)?"'".$this->db->escape($this->sql_select)."'":"null").',';
+		$sql .= ' subtitle = '.(isset($this->subtitle)?"'".$this->db->escape($this->subtitle)."'":"null").',';
+		$sql .= ' active = '.(isset($this->active)?$this->active:"null");
+
+
+		$sql .= ' WHERE rowid=' . $this->id;
+
+		$this->db->begin();
+
+		$resql = $this->db->query($sql);
+		if (!$resql) {
+			$error ++;
+			$this->errors[] = 'Error ' . $this->db->lasterror();
+			dol_syslog(__METHOD__ . ' ' . join(',', $this->errors), LOG_ERR);
+		}
+
+		if (!$error && !$notrigger) {
+			// Uncomment this and change MYOBJECT to your own tag if you
+			// want this action calls a trigger.
+
+			//// Call triggers
+			//$result=$this->call_trigger('MYOBJECT_MODIFY',$user);
+			//if ($result < 0) { $error++; //Do also what you must do to rollback action if trigger fail}
+			//// End call triggers
+		}
+
+		// Commit or rollback
+		if ($error) {
+			$this->db->rollback();
+
+			return - 1 * $error;
+		} else {
+			$this->db->commit();
+
+			return 1;
+		}
+	}
+
+	/**
+	 * Delete object in database
+	 *
+	 * @param User $user      User that deletes
+	 * @param bool $notrigger false=launch triggers after, true=disable triggers
+	 *
+	 * @return int <0 if KO, >0 if OK
+	 */
+	public function delete(User $user, $notrigger = false)
+	{
+		dol_syslog(__METHOD__, LOG_DEBUG);
+
+		$error = 0;
+
+		$this->db->begin();
+
+		if (!$error) {
+			if (!$notrigger) {
+				// Uncomment this and change MYOBJECT to your own tag if you
+				// want this action calls a trigger.
+
+				//// Call triggers
+				//$result=$this->call_trigger('MYOBJECT_DELETE',$user);
+				//if ($result < 0) { $error++; //Do also what you must do to rollback action if trigger fail}
+				//// End call triggers
+			}
+		}
+
+		if (!$error) {
+			$sql = 'DELETE FROM ' . MAIN_DB_PREFIX . $this->table_element;
+			$sql .= ' WHERE rowid=' . $this->id;
+
+			$resql = $this->db->query($sql);
+			if (!$resql) {
+				$error ++;
+				$this->errors[] = 'Error ' . $this->db->lasterror();
+				dol_syslog(__METHOD__ . ' ' . join(',', $this->errors), LOG_ERR);
+			}
+		}
+
+		// Commit or rollback
+		if ($error) {
+			$this->db->rollback();
+
+			return - 1 * $error;
+		} else {
+			$this->db->commit();
+
+			return 1;
+		}
+	}
+
+	/**
+	 * Load an object from its id and create a new one in database
+	 *
+	 * @param int $fromid Id of object to clone
+	 *
+	 * @return int New id of clone
+	 */
+	public function createFromClone($fromid)
+	{
+		dol_syslog(__METHOD__, LOG_DEBUG);
+
+		global $user;
+		$error = 0;
+		$object = new Dyntable($this->db);
+
+		$this->db->begin();
+
+		// Load source object
+		$object->fetch($fromid);
+		// Reset object
+		$object->id = 0;
+
+		// Clear fields
+		// ...
+
+		// Create clone
+		$result = $object->create($user);
+
+		// Other options
+		if ($result < 0) {
+			$error ++;
+			$this->errors = $object->errors;
+			dol_syslog(__METHOD__ . ' ' . join(',', $this->errors), LOG_ERR);
+		}
+
+		// End
+		if (!$error) {
+			$this->db->commit();
+
+			return $object->id;
+		} else {
+			$this->db->rollback();
+
+			return - 1;
+		}
+	}
+
+	/**
+	 *  Return a link to the user card (with optionaly the picto)
+	 * 	Use this->id,this->lastname, this->firstname
+	 *
+	 *	@param	int		$withpicto			Include picto in link (0=No picto, 1=Include picto into link, 2=Only picto)
+	 *	@param	string	$option				On what the link point to
+	 *  @param	integer	$notooltip			1=Disable tooltip
+	 *  @param	int		$maxlen				Max length of visible user name
+	 *  @param  string  $morecss            Add more css on link
+	 *	@return	string						String with URL
+	 */
+	function getNomUrl($withpicto=0, $option='', $notooltip=0, $maxlen=24, $morecss='')
+	{
+		global $langs, $conf, $db;
+		global $dolibarr_main_authentication, $dolibarr_main_demo;
+		global $menumanager;
+
+
+		$result = '';
+		$companylink = '';
+
+		$label = '<u>' . $langs->trans("MyModule") . '</u>';
+		$label.= '<div width="100%">';
+		$label.= '<b>' . $langs->trans('Ref') . ':</b> ' . $this->ref;
+
+		$link = '<a href="'.DOL_URL_ROOT.'/dyntable/card.php?id='.$this->id.'"';
+		$link.= ($notooltip?'':' title="'.dol_escape_htmltag($label, 1).'" class="classfortooltip'.($morecss?' '.$morecss:'').'"');
+		$link.= '>';
+		$linkend='</a>';
+
+		if ($withpicto)
+		{
+			$result.=($link.img_object(($notooltip?'':$label), 'label', ($notooltip?'':'class="classfortooltip"')).$linkend);
+			if ($withpicto != 2) $result.=' ';
+		}
+		$result.= $link . $this->ref . $linkend;
+		return $result;
+	}
+
+	/**
+	 *  Retourne le libelle du status d'un user (actif, inactif)
+	 *
+	 *  @param	int		$mode          0=libelle long, 1=libelle court, 2=Picto + Libelle court, 3=Picto, 4=Picto + Libelle long, 5=Libelle court + Picto
+	 *  @return	string 			       Label of status
+	 */
+	function getLibStatut($mode=0)
+	{
+		return $this->LibStatut($this->status,$mode);
+	}
+
+	/**
+	 *  Renvoi le libelle d'un status donne
+	 *
+	 *  @param	int		$status        	Id status
+	 *  @param  int		$mode          	0=libelle long, 1=libelle court, 2=Picto + Libelle court, 3=Picto, 4=Picto + Libelle long, 5=Libelle court + Picto
+	 *  @return string 			       	Label of status
+	 */
+	function LibStatut($status,$mode=0)
+	{
+		global $langs;
+
+		if ($mode == 0)
+		{
+			$prefix='';
+			if ($status == 1) return $langs->trans('Enabled');
+			if ($status == 0) return $langs->trans('Disabled');
+		}
+		if ($mode == 1)
+		{
+			if ($status == 1) return $langs->trans('Enabled');
+			if ($status == 0) return $langs->trans('Disabled');
+		}
+		if ($mode == 2)
+		{
+			if ($status == 1) return img_picto($langs->trans('Enabled'),'statut4').' '.$langs->trans('Enabled');
+			if ($status == 0) return img_picto($langs->trans('Disabled'),'statut5').' '.$langs->trans('Disabled');
+		}
+		if ($mode == 3)
+		{
+			if ($status == 1) return img_picto($langs->trans('Enabled'),'statut4');
+			if ($status == 0) return img_picto($langs->trans('Disabled'),'statut5');
+		}
+		if ($mode == 4)
+		{
+			if ($status == 1) return img_picto($langs->trans('Enabled'),'statut4').' '.$langs->trans('Enabled');
+			if ($status == 0) return img_picto($langs->trans('Disabled'),'statut5').' '.$langs->trans('Disabled');
+		}
+		if ($mode == 5)
+		{
+			if ($status == 1) return $langs->trans('Enabled').' '.img_picto($langs->trans('Enabled'),'statut4');
+			if ($status == 0) return $langs->trans('Disabled').' '.img_picto($langs->trans('Disabled'),'statut5');
+		}
+	}
+
+
+	/**
+	 * Initialise object with example values
+	 * Id must be 0 if object instance is a specimen
+	 *
+	 * @return void
+	 */
+	public function initAsSpecimen()
+	{
+		$this->id = 0;
+
+		$this->title = '';
+		$this->default_sortfield = '';
+		$this->export_name = '';
+		$this->context = '';
+		$this->search_button = '';
+		$this->remove_filter_button = '';
+		$this->export_button = '';
+		$this->select_fields_button = '';
+		$this->mode = '';
+		$this->limite = '';
+		$this->filter_clause = '';
+		$this->filter_mode = '';
+		$this->filter_line = '';
+		$this->sql_from = '';
+		$this->sql_where = '';
+		$this->sql_having = '';
+		$this->sql_group = '';
+		$this->sql_filter_action = '';
+		$this->sql_select = '';
+		$this->subtitle = '';
+		$this->active = '';
+
+
+	}
+
+
 	function multiSelectArrayWithCheckbox()
 	{
 		global $conf,$user;
