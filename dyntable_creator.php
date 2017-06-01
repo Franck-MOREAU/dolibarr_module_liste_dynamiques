@@ -47,7 +47,8 @@ $form  = new Form($db);
 
 print $form->selectarray('table', $tables,'table',1,0,1,'',0,0,0,'','',1);
 
-
+$champs = $db->DDLInfoTable('llx_accounting_acount');
+var_dump($champs);
 
 
 // print '<table class="noborder" width="100%">';
@@ -466,6 +467,18 @@ document.getElementById("table").onchange = function(){
  		}
 	})
 }
+
+function visibilite(thingId) {
+	var targetElement;
+	targetElement = document.getElementById(thingId) ;
+	if (targetElement.style.display == "none") {
+		targetElement.style.display = "" ;
+	} else {
+		targetElement.style.display = "none" ;
+	}
+}
+
+
 </script>
 <?php
 
