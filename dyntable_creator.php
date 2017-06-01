@@ -36,6 +36,18 @@ if (! $user->rights->dyntable->admin)
 $title = 'Création de liste';
 
 llxHeader('', $title);
+print '<table class="noborder" width="100%">';
+print '<tr>';
+print '<td class="colone" style="height:540px;"><div align="center" id="encours_chaude_1" class="dropper" ondrop="drop(event);" ondragover="allowDrop(event);" style="height:540px; width:219px; overflow: auto;">';
+Print '</tr>';
+print '</table>';
+
+$tables = $db->DDLListTables($database);
+var_dump($tables);
+
+
+
+
 // print '<table class="noborder" width="100%">';
 // print '<tr>';
 // print '<td width = "70px">Légende:</td>';
