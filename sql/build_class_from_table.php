@@ -33,7 +33,7 @@ if (substr($sapi_type, 0, 3) == 'cgi') {
 }
 
 // Include Dolibarr environment
-require_once($path."../../htdocs/master.inc.php");
+require_once("../../htdocs/master.inc.php");
 // After this $db is a defined handler to database.
 
 // Main
@@ -277,15 +277,15 @@ $i=0;
 
 foreach($property as $key => $prop)
 {
-	
+
 	$addfield=1;
 	if ($prop['field'] == 'tms') $addfield=0;	// This is a field of type timestamp edited automatically
 	if ($prop['extra'] == 'auto_increment') $addfield=0;
-	
+
 	if ($addfield)
 	{
 		$i++;
-		
+
 		$varprop.="\t\t\$sql .= ' ";
 		if ($prop['field']=='datec')
 		{
@@ -319,7 +319,7 @@ foreach($property as $key => $prop)
 			$varprop.="\$this->".$prop['field'];
 			$varprop.='."\'")';
 		}
-		
+
 		if ($i < (count($property)-$no_output_field)) $varprop.=".','";
 		$varprop.=';';
 		$varprop.="\n";
@@ -345,14 +345,14 @@ $cleanparam='';
 $i=0;
 foreach($property as $key => $prop)
 {
-	
+
 	$addfield=1;
 	if ($prop['extra'] == 'auto_increment') $addfield=0;
-	
+
 	if ($addfield)
 	{
 		$i++;
-		
+
 		$varprop.="\t\t\$sql .= ' ";
 		$varprop.=$prop['field'].' = ';
 		if ($prop['field']=='tms') {
@@ -366,7 +366,7 @@ foreach($property as $key => $prop)
 			$varprop.='$this->'.$prop['field'];
 			$varprop.=')."\'" : \'null\')';
 		}
-		
+
 		elseif ($prop['field']=='fk_user_mod') {
 			$varprop.="'.\$user->id";
 		}
@@ -406,7 +406,7 @@ foreach($property as $key => $prop)
 		if ($prop['istime']) $varprop.=')';
 		$varprop.=";";
 		$varprop.="\n";
-		
+
 		$varpropline.="\t\t\t\t\$line->".$prop['field']." = ";
 		if ($prop['istime']) $varpropline.='$this->db->jdate(';
 		$varpropline.='$obj->'.$prop['field'];
@@ -455,11 +455,11 @@ else $error++;
 //--------------------------------------------------------------------
 
 $skeletonfiles=array(
-    $path.'skeleton_script.php' => $classmin.'_script.php', 
-    $path.'skeleton_list.php' => $classmin.'_list.php', 
+    $path.'skeleton_script.php' => $classmin.'_script.php',
+    $path.'skeleton_list.php' => $classmin.'_list.php',
     $path.'skeleton_card.php' => $classmin.'_card.php'
     );
-    
+
 foreach ($skeletonfiles as $skeletonfile => $outfile)
 {
     $sourcecontent=file_get_contents($skeletonfile);
@@ -470,15 +470,15 @@ foreach ($skeletonfiles as $skeletonfile => $outfile)
     	print "Try to run script from skeletons directory.\n";
     	exit;
     }
-    
+
     // Define output variables
     $targetcontent=$sourcecontent;
-    
+
     // Substitute module name
     $targetcontent=preg_replace('/dev\/skeletons/', $module, $targetcontent);
     $targetcontent=preg_replace('/mymodule othermodule1 othermodule2/', $module, $targetcontent);
     $targetcontent=preg_replace('/mymodule/', $module, $targetcontent);
-    
+
     // Substitute class name
     $targetcontent=preg_replace('/skeleton_class\.class\.php/', $classmin.'.class.php', $targetcontent);
     $targetcontent=preg_replace('/skeleton_script\.php/', $classmin.'_script.php', $targetcontent);
@@ -487,15 +487,15 @@ foreach ($skeletonfiles as $skeletonfile => $outfile)
     $targetcontent=preg_replace('/Skeleton_Class/', $classname, $targetcontent);
     $targetcontent=preg_replace('/skeletons/', $classmin, $targetcontent);
     $targetcontent=preg_replace('/skeleton/', $classmin, $targetcontent);
-    
+
     // Substitute comments
     $targetcontent=preg_replace('/This file is an example to create a new class file/', 'Put here description of this class', $targetcontent);
     $targetcontent=preg_replace('/\s*\/\/\.\.\./', '', $targetcontent);
     $targetcontent=preg_replace('/Put here some comments/','Initialy built by build_class_from_table on '.strftime('%Y-%m-%d %H:%M',mktime()), $targetcontent);
-    
+
     // Substitute table name
     $targetcontent=preg_replace('/MAIN_DB_PREFIX."mytable/', 'MAIN_DB_PREFIX."'.$tablenoprefix, $targetcontent);
-        
+
     // Substitute GETPOST search_fieldx
     $varprop="\n";
     $cleanparam='';
@@ -509,7 +509,7 @@ foreach ($skeletonfiles as $skeletonfile => $outfile)
     }
     $targetcontent=preg_replace('/'.preg_quote('$search_field1=GETPOST("search_field1");','/').'/', $varprop, $targetcontent);
     $targetcontent=preg_replace('/'.preg_quote('$search_field2=GETPOST("search_field2");','/').'/', '', $targetcontent);
-    
+
     // Substitute GETPOST fieldx
     $varprop="\n";
     $cleanparam='';
@@ -523,7 +523,7 @@ foreach ($skeletonfiles as $skeletonfile => $outfile)
     }
     $targetcontent=preg_replace('/'.preg_quote('$object->prop1=GETPOST("field1");','/').'/', $varprop, $targetcontent);
     $targetcontent=preg_replace('/'.preg_quote('$object->prop2=GETPOST("field2");','/').'/', '', $targetcontent);
-    
+
     // Substitute reset search_field = '';
     $varprop="\n";
     $cleanparam='';
@@ -536,11 +536,11 @@ foreach ($skeletonfiles as $skeletonfile => $outfile)
     }
     $targetcontent=preg_replace('/'.preg_quote('$search_field1=\'\';','/').'/', $varprop, $targetcontent);
     $targetcontent=preg_replace('/'.preg_quote('$search_field2=\'\';','/').'/', '', $targetcontent);
-    
+
     // Substitute fetch/select parameters
     $targetcontent=preg_replace('/\$sql\s*\.= " t\.field1,";/', $varpropselect, $targetcontent);
     $targetcontent=preg_replace('/\$sql\s*\.= " t\.field2";/', '', $targetcontent);
-    
+
     // Substitute where for search
     $varprop="\n";
     $cleanparam='';
@@ -553,7 +553,7 @@ foreach ($skeletonfiles as $skeletonfile => $outfile)
     }
     $targetcontent=preg_replace('/'.preg_quote('if ($search_field1) $sql.= natural_search("field1",$search_field1);','/').'/', $varprop, $targetcontent);
     $targetcontent=preg_replace('/'.preg_quote('if ($search_field2) $sql.= natural_search("field2",$search_field2);','/').'/', '', $targetcontent);
-    
+
     // substitute $params.=
     $varprop="\n";
     $cleanparam='';
@@ -566,7 +566,7 @@ foreach ($skeletonfiles as $skeletonfile => $outfile)
     }
     $targetcontent=preg_replace('/'.preg_quote("if (\$search_field1 != '') \$params.= '&amp;search_field1='.urlencode(\$search_field1);",'/').'/', $varprop, $targetcontent);
     $targetcontent=preg_replace('/'.preg_quote("if (\$search_field2 != '') \$params.= '&amp;search_field2='.urlencode(\$search_field2);",'/').'/', '', $targetcontent);
-    
+
     // Substitute arrayfields
     $varprop="\n";
     $cleanparam='';
@@ -579,7 +579,7 @@ foreach ($skeletonfiles as $skeletonfile => $outfile)
     }
     $targetcontent=preg_replace('/'.preg_quote("'t.field1'=>array('label'=>\$langs->trans(\"Field1\"), 'checked'=>1),",'/').'/', $varprop, $targetcontent);
     $targetcontent=preg_replace('/'.preg_quote("'t.field2'=>array('label'=>\$langs->trans(\"Field2\"), 'checked'=>1),",'/').'/', '', $targetcontent);
-    
+
     // Substitute print_liste_field_titre
     $varprop="\n";
     $cleanparam='';
@@ -592,7 +592,7 @@ foreach ($skeletonfiles as $skeletonfile => $outfile)
     }
     $targetcontent=preg_replace('/'.preg_quote("if (! empty(\$arrayfields['t.field1']['checked'])) print_liste_field_titre(\$langs->trans('field1'),\$_SERVER['PHP_SELF'],'t.field1','',\$param,'',\$sortfield,\$sortorder);",'/').'/', $varprop, $targetcontent);
     $targetcontent=preg_replace('/'.preg_quote("if (! empty(\$arrayfields['t.field2']['checked'])) print_liste_field_titre(\$langs->trans('field2'),\$_SERVER['PHP_SELF'],'t.field2','',\$param,'',\$sortfield,\$sortorder);",'/').'/', '', $targetcontent);
-    
+
     // Substitute fields title search
     $varprop="\n";
     $cleanparam='';
@@ -605,7 +605,7 @@ foreach ($skeletonfiles as $skeletonfile => $outfile)
     }
     $targetcontent=preg_replace('/'.preg_quote("if (! empty(\$arrayfields['t.field1']['checked'])) print '<td class=\"liste_titre\"><input type=\"text\" class=\"flat\" name=\"search_field1\" value=\"'.\$search_field1.'\" size=\"10\"></td>';",'/').'/', $varprop, $targetcontent);
     $targetcontent=preg_replace('/'.preg_quote("if (! empty(\$arrayfields['t.field2']['checked'])) print '<td class=\"liste_titre\"><input type=\"text\" class=\"flat\" name=\"search_field2\" value=\"'.\$search_field2.'\" size=\"10\"></td>';",'/').'/', '', $targetcontent);
-    
+
     // Substitute where for <td>.fieldx.</td>
     $varprop="\n";
     $cleanparam='';
@@ -619,7 +619,7 @@ foreach ($skeletonfiles as $skeletonfile => $outfile)
     $targetcontent=preg_replace('/'.preg_quote("if (! empty(\$arrayfields['t.field1']['checked'])) print '<td>'.\$obj->field1.'</td>';",'/').'/', $varprop, $targetcontent);
     $targetcontent=preg_replace('/'.preg_quote("if (! empty(\$arrayfields['t.field2']['checked'])) print '<td>'.\$obj->field2.'</td>';",'/').'/', '', $targetcontent);
 
-    // LIST_OF_TD_LABEL_FIELDS_CREATE - List of td for card view 
+    // LIST_OF_TD_LABEL_FIELDS_CREATE - List of td for card view
     $varprop="\n";
     $cleanparam='';
     foreach($property as $key => $prop)
@@ -631,7 +631,7 @@ foreach ($skeletonfiles as $skeletonfile => $outfile)
     }
     $targetcontent=preg_replace('/LIST_OF_TD_LABEL_FIELDS_CREATE/', $varprop, $targetcontent);
 
-    // LIST_OF_TD_LABEL_FIELDS_EDIT - List of td for card view 
+    // LIST_OF_TD_LABEL_FIELDS_EDIT - List of td for card view
     $varprop="\n";
     $cleanparam='';
     foreach($property as $key => $prop)
@@ -642,8 +642,8 @@ foreach ($skeletonfiles as $skeletonfile => $outfile)
     	}
     }
     $targetcontent=preg_replace('/LIST_OF_TD_LABEL_FIELDS_EDIT/', $varprop, $targetcontent);
-    
-    // LIST_OF_TD_LABEL_FIELDS_VIEW - List of td for card view 
+
+    // LIST_OF_TD_LABEL_FIELDS_VIEW - List of td for card view
     $varprop="\n";
     $cleanparam='';
     foreach($property as $key => $prop)
@@ -654,8 +654,8 @@ foreach ($skeletonfiles as $skeletonfile => $outfile)
     	}
     }
     $targetcontent=preg_replace('/LIST_OF_TD_LABEL_FIELDS_VIEW/', $varprop, $targetcontent);
-    
-    
+
+
     // Build file
     $fp=fopen($outfile,"w");
     if ($fp)
