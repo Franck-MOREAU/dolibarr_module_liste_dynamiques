@@ -36,14 +36,17 @@ if (! $user->rights->dyntable->admin)
 $title = 'Création de liste';
 
 llxHeader('', $title);
-print '<table class="noborder" width="100%">';
-print '<tr>';
-print '<td class="colone" style="height:540px;"><div align="center" id="encours_chaude_1" class="dropper" ondrop="drop(event);" ondragover="allowDrop(event);" style="height:540px; width:219px; overflow: auto;">';
-Print '</tr>';
-print '</table>';
+// print '<table class="noborder" width="100%">';
+// print '<tr>';
+// print '<td class="colone" style="height:540px;"><div align="center" id="encours_chaude_1" class="dropper" ondrop="drop(event);" ondragover="allowDrop(event);" style="height:540px; width:219px; overflow: auto;">';
+// Print '</tr>';
+// print '</table>';
 
 $tables = $db->DDLListTables($db->database_name,MAIN_DB_PREFIX.'%');
 var_dump($tables);
+$form  = new Form($db);
+
+print $form->selectarray('table', $tables,'table',0,0,1,'',0,0,0,'','',1);
 
 
 
