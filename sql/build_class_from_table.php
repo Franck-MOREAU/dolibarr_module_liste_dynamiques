@@ -33,7 +33,7 @@ if (substr($sapi_type, 0, 3) == 'cgi') {
 }
 
 // Include Dolibarr environment
-require_once($path."../../../htdocs/master.inc.php");
+require_once("/home/erp-theobald/public_html/dolibarr/htdocs/master.inc.php");
 // After this $db is a defined handler to database.
 
 // Main
