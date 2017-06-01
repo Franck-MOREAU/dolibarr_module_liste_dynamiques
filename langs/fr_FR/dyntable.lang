@@ -1,12 +1,12 @@
-fieldtitle = titre
+Fieldtitle = titre
 Fielddefault_sortfield = Tri par défaut
 Fieldexportname = Nom d'export
 Fieldcontext = nom du contexte
 Fieldsearch_button = Bouton de recherche
 Fieldremove_filter_button = Bouton de suppresion de filtre
-Field_export_button = Bouton d'export
-Field_select_fields_button = Bouton de selection de colonne
+Fieldexport_button = Bouton d'export
+Fieldselect_fields_button = Bouton de selection de colonne
 Fieldmode = Mode
-Filedlimite = Limite
+Fieldlimite = Limite
 Fieldfilter_clause = Application du filtre
 Fieldfilter_mode = Mode du filtre
