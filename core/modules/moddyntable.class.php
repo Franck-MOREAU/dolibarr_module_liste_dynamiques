@@ -178,6 +178,8 @@ class moddyntable extends DolibarrModules
 
 		$sql = array();
 
+		$result = $this->loadTables();
+
 		return $this->_init($sql, $options);
 	}
 
