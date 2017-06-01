@@ -33,7 +33,9 @@ dol_include_once('/core/class/html.formother.class.php');
 if (! $user->rights->dyntable->admin)
 	accessforbidden();
 
+$title = 'Création de liste';
 
+llxHeader('', $title);
 // print '<table class="noborder" width="100%">';
 // print '<tr>';
 // print '<td width = "70px">Légende:</td>';
