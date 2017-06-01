@@ -36,11 +36,11 @@ if (! $user->rights->dyntable->admin)
 $title = 'Création de liste';
 
 llxHeader('', $title);
-// print '<table class="noborder" width="100%">';
-// print '<tr>';
-// print '<td class="colone" style="height:540px;"><div align="center" id="encours_chaude_1" class="dropper" ondrop="drop(event);" ondragover="allowDrop(event);" style="height:540px; width:219px; overflow: auto;">';
-// Print '</tr>';
-// print '</table>';
+print '<table class="noborder" width="100%">';
+print '<tr>';
+print '<td class="colone" style="height:540px;"><div align="center" id="table_in" class="dropper" ondrop="drop(event);" ondragover="allowDrop(event);" style="height:540px; width:219px; overflow: auto;">';
+Print '</tr>';
+print '</table>';
 
 $tables = $db->DDLListTables($db->database_name,MAIN_DB_PREFIX.'%');
 $form  = new Form($db);
@@ -450,10 +450,24 @@ function drop(ev) {
 }
 
 document.getElementById("table").onchange = function(){
-	alert( "table: " +document.getElementById("table").value);
+	$.ajax({
+ 		method: "POST",
+ 		url: "ajax/table_select.php",
+ 		data: {
+ 			table_add: document.getElementById("table").value,
+ 		},
+ 		success: function(msg){
+ 			if (msg != ""){
+ 				$('div.fiche ').first().prepend(msg);
+ 			}
+ 		},
+ 		error: function(msg){
+ 			alert( "erreur: " + msg );
+ 		}
 }
 </script>
 <?php
+
 dol_fiche_end();
 llxFooter();
 $db->close();
