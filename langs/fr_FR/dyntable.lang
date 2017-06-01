@@ -10,3 +10,12 @@ Fieldmode = Mode
 Fieldlimite = Limite
 Fieldfilter_clause = Application du filtre
 Fieldfilter_mode = Mode du filtre
+Fieldfilter_line = Ligne de filtre
+Fieldsql_from = Clause From
+Fieldsql_where	= Clause Where
+Fieldsql_having	= Clause = Having
+Fieldsql_group	= Clause Group By
+Fieldsql_filter_action = Tableau d'effet des filtres
+Fieldsql_select	= Clause Select
+Fieldsubtitle = Tableau des surtitre de colonnes
+Fieldactive = Actif
