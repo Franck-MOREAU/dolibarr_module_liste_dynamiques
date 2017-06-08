@@ -36,7 +36,7 @@ class moddyntable extends DolibarrModules
 				//'models' => 1,
 				//'tpl' => 1,
 				// 'css' => '/lead/css/mycss.css.php',
-				//'js'=>'/volvo/js/jquery.flot.orderBars.js',
+				'js'=>'/dyntable/includes/ckeditor/ckeditor.js',
 				//'hooks' => array('ordercard','ordersuppliercard','thirdpartycard'),
 				// 'workflow' => array('order' => array('WORKFLOW_ORDER_AUTOCREATE_INVOICE'))
 		);
