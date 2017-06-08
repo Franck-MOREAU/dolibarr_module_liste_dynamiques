@@ -28,6 +28,7 @@ if (! $res)
 	die("Include of main fails");
 
 dol_include_once('/core/class/html.formother.class.php');
+require_once DOL_DOCUMENT_ROOT . '/core/class/doleditor.class.php';
 
 // Security check
 if (! $user->rights->dyntable->admin)
@@ -36,6 +37,11 @@ if (! $user->rights->dyntable->admin)
 $title = 'Création de liste';
 
 llxHeader('', $title);
+
+$editor = New DolEditor('editor', '',520,200,full,'In',true,false,true);
+$editor->Create();
+
+
 print '<table class="noborder" width="100%">';
 print '<tr>';
 print '<td class="colone" style="height:540px;"><div align="center" id="table_in" class="dropper" ondrop="drop(event);" ondragover="allowDrop(event);" style="height:540px; width:219px; overflow: auto;">';
