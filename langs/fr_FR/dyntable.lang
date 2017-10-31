@@ -22,6 +22,6 @@ Fieldactive = Actif
 createlisttitle = Création d'une liste 
 context = nom contextuel
 Filter_button = Boutton Filtre
-remove_filter_button = Boutton Supprimer filtrage
+limit = Nb Enr par page
 export_button = Boutton exporter
 select_field_button = Boutton de selection de champs
