@@ -218,10 +218,10 @@ if($step == 1){
 	<script type="text/javascript" language="javascript">
 	jQuery(document).ready(function () {
 		var from_query = document.getElementById("query_from").value
-		if (from_query.length == 0){
-			document.getElementById("jonction").style.display = "none"
-		} else {
+		if (undefined !== from_query){
 			document.getElementById("jonction").style.display = ""
+		} else {
+			document.getElementById("jonction").style.display = "none"
 		}
 	})
 
