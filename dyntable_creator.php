@@ -38,6 +38,8 @@ if (! $user->rights->dyntable->admin)
 
 $title = $langs->trans("createlisttitle");
 
+
+$form = new Form($db);
 llxHeader('', $title);
 dol_fiche_head();
 print_fiche_titre($title, '', dol_buildpath('/dyntable/img/object_list.png', 1), 1);
@@ -47,17 +49,41 @@ print '<input type="hidden" name="action" value="add">';
 
 print '<table class="border" width="100%">';
 print '<tr>';
-print '<td class="fieldrequired"  width="20%">';
+print '<td class="fieldrequired"  width="25%" colspan="2">';
 print $langs->trans('title') .': ';
 print '<input type="text" name="title" size="26" value=""/>';
 print '</td>';
 
-print '<td class="fieldrequired"  width="20%">';
+print '<td class="fieldrequired"  width="25%" colspan="2">';
 print $langs->trans('context') .': ';
 print '<input type="text" name="context" size="10" value=""/>';
 print '</td>';
 
 print '</tr>';
+
+print '<tr>';
+print '<td class="fieldrequired"  width="25%">';
+print $langs->trans('Filter_button') .': ';
+print $form->selectyesno("filter_button",'1',1);
+print '</td>';
+
+print '<td class="fieldrequired"  width="25%">';
+print $langs->trans('remove_filter_button') .': ';
+print $form->selectyesno("remove_filter_button",'1',1);
+print '</td>';
+
+print '<td class="fieldrequired"  width="25%">';
+print $langs->trans('export_button') .': ';
+print $form->selectyesno("export_button",'1',1);
+print '</td>';
+
+print '<td class="fieldrequired"  width="25%">';
+print $langs->trans('select_field_button') .': ';
+print $form->selectyesno("select_field_button",'1',1);
+print '</td>';
+
+print '</tr>';
+
 
 print '</table>';
 
