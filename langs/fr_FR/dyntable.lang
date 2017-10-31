@@ -25,3 +25,4 @@ Filter_button = Bouttons de Filtrage
 limit = Nb Enr par page
 export_button = Boutton exporter
 select_field_button = Boutton de selection de champs
+export_name = nom d'export
