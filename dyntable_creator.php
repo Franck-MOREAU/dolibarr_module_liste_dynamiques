@@ -45,6 +45,25 @@ print '<form name="addlead" action="' . $_SERVER["PHP_SELF"] . '" method="POST">
 print '<input type="hidden" name="token" value="' . $_SESSION['newtoken'] . '">';
 print '<input type="hidden" name="action" value="add">';
 
+print '<table class="border" width="100%">';
+print '<tr>';
+print '<td class="fieldrequired"  width="20%">';
+print $langs->trans('LeadCommercial');
+print '</td>';
+print '<td>';
+print $form->select_dolusers(empty($userid) ? $user->id : $userid, 'userid', 0, array(), 0, $includeuserlist, '', 0, 0, 0, '', 0, '', '', 1);
+print '</td>';
+print '</tr>';
+
+print '</table>';
+
+print '<div class="center">';
+print '<input type="submit" class="button" value="' . $langs->trans("Create") . '">';
+print '&nbsp;<input type="button" class="button" value="' . $langs->trans("Cancel") . '" onClick="javascript:history.go(-1)">';
+print '</div>';
+
+print '</form>';
+
 
 
 dol_fiche_end();
