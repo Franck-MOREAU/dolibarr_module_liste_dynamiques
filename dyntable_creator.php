@@ -70,7 +70,7 @@ print '</td>';
 print '<td class="fieldrequired"  width="30%">';
 print $langs->trans('export_button') .': ';
 print $form->selectyesno("export_button",'1',1);
-print '<div id ="export_name_div">';
+print '<div id ="export_name_div" style="display:inline">';
 print ' ' . $langs->trans('export_name') .': ';
 print '<input type="text" name="export_name" id="export_name" size="15" value=""/>';
 print '</div>';
@@ -182,7 +182,7 @@ function visibilite(thingId) {
 	var targetElement;
 	targetElement = document.getElementById(thingId) ;
 	if (targetElement.style.display == "none") {
-		targetElement.style.display = "" ;
+		targetElement.style.display = "inline" ;
 	} else {
 		targetElement.style.display = "none" ;
 	}
