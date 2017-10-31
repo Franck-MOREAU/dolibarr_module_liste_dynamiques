@@ -68,11 +68,6 @@ print $form->selectyesno("filter_button",'1',1);
 print '</td>';
 
 print '<td class="fieldrequired"  width="25%">';
-print $langs->trans('remove_filter_button') .': ';
-print $form->selectyesno("remove_filter_button",'1',1);
-print '</td>';
-
-print '<td class="fieldrequired"  width="25%">';
 print $langs->trans('export_button') .': ';
 print $form->selectyesno("export_button",'1',1);
 print '</td>';
@@ -80,6 +75,11 @@ print '</td>';
 print '<td class="fieldrequired"  width="25%">';
 print $langs->trans('select_field_button') .': ';
 print $form->selectyesno("select_field_button",'1',1);
+print '</td>';
+
+print '<td class="fieldrequired"  width="25%">';
+print $langs->trans('limite') .': ';
+print '<input type="text" name="limit" size="3" value="' . $conf->liste_limit . '"/>';
 print '</td>';
 
 print '</tr>';
