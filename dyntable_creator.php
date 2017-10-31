@@ -200,6 +200,7 @@ if($step == 1){
 	print '<div id="jonction_div">Jonction ' . $form->selectarray('jonction', $join,'jonction',1,0,1,'',0,0,0,'','',1) . '</br></br></div>';
 	$tables = $db->DDLListTables($db->database_name,MAIN_DB_PREFIX.'%');
 	print 'Table ' . $form->selectarray('table', $tables,'table',1,0,1,'',0,0,0,'','',1) . '</br></br>';
+	print '<div id="add_button" class="inline-block divButAction" style="height:13px;"><a href="javascript:addtable()" class="butAction">Ajouter</a></div>';
 	print '</td>';
 
 	print '<td class="fieldrequired"  width="50%" colspan="2">';
@@ -216,6 +217,14 @@ if($step == 1){
 
 	?>
 	<script type="text/javascript" language="javascript">
+	document.getElementById("table").onchange = function(){
+		if (undefined !== document.getElementById("table").value){
+			document.getElementById("add_button").style.display = ""
+		} else {
+			document.getElementById("add_button").style.display = "none"
+		}
+	}
+
 	jQuery(document).ready(function () {
 		var from_query = document.getElementById("query_from").value
 		if (undefined == from_query){
