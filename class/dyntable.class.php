@@ -173,7 +173,7 @@ class Dyntable
 		$sql.= 'sql_group,';
 		$sql.= 'sql_filter_action,';
 		$sql.= 'sql_select,';
-		$sql.= 'subtitle';
+		$sql.= 'subtitle, ';
 		$sql.= 'active';
 
 
