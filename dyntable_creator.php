@@ -172,19 +172,9 @@ function drop(ev) {
 
 document.getElementById("export_button").onchange = function(){
 	if (document.getElementById("export_button").value ==1){
-		document.getElementById("export_name_div").style.display = ""
+		document.getElementById("export_name_div").style.display = "inline"
 	} else {
 		document.getElementById("export_name_div").style.display = "none"
-	}
-}
-
-function visibilite(thingId) {
-	var targetElement;
-	targetElement = document.getElementById(thingId) ;
-	if (targetElement.style.display == "none") {
-		targetElement.style.display = "inline" ;
-	} else {
-		targetElement.style.display = "none" ;
 	}
 }
 
