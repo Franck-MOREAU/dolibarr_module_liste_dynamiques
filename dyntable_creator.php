@@ -62,16 +62,18 @@ print '</td>';
 print '</tr>';
 
 print '<tr>';
-print '<td class="fieldrequired"  width="25%">';
+print '<td class="fieldrequired"  width="20%">';
 print $langs->trans('Filter_button') .': ';
 print $form->selectyesno("filter_button",'1',1);
 print '</td>';
 
-print '<td class="fieldrequired"  width="25%">';
+print '<td class="fieldrequired"  width="30%">';
 print $langs->trans('export_button') .': ';
 print $form->selectyesno("export_button",'1',1);
+print '<div id ="export_name_div">';
 print ' ' . $langs->trans('export_name') .': ';
 print '<input type="text" name="export_name" id="export_name" size="15" value=""/>';
+print '</div>';
 print '</td>';
 
 print '<td class="fieldrequired"  width="25%">';
@@ -170,9 +172,9 @@ function drop(ev) {
 
 document.getElementById("export_button").onchange = function(){
 	if (document.getElementById("export_button").value ==1){
-		document.getElementById("export_name").style.display = ""
+		document.getElementById("export_name_div").style.display = ""
 	} else {
-		document.getElementById("export_name").style.display = "none"
+		document.getElementById("export_name_div").style.display = "none"
 	}
 }
 
