@@ -219,7 +219,7 @@ if($step == 1){
 	<script type="text/javascript" language="javascript">
 	$(document).ready(function(){
 
-		 $('#table').select2.change(function(){
+		 $('#select2-chosen-2').change(function(){
 			 alert( "erreur: ");
 			 if (document.getElementById("select2-chosen-2").value == " "){
 					document.getElementById("add_button").style.display = "none"
