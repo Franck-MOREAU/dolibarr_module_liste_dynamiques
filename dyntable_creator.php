@@ -38,7 +38,7 @@ if (! $user->rights->dyntable->admin)
 $action = GETPOST('action');
 $step = GETPOST('step');
 $id = GETPOST('id');
-if(!isset($step)){
+if($step==0){
 	$step = 1;
 }
 
