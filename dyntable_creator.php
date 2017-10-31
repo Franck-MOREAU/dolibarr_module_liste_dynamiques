@@ -217,8 +217,8 @@ if($step == 1){
 
 	?>
 	<script type="text/javascript" language="javascript">
-	document.getElementById("select2-chosen-2").onchange = function(){
-		if (document.getElementById("select2-chosen-2").value == " "){
+	document.getElementById("table").onchange = function(){
+		if (document.getElementById("table").value == " "){
 			document.getElementById("add_button").style.display = "none"
 		} else {
 			document.getElementById("add_button").style.display = ""
