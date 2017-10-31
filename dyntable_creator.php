@@ -78,7 +78,7 @@ print $form->selectyesno("select_field_button",'1',1);
 print '</td>';
 
 print '<td class="fieldrequired"  width="25%">';
-print $langs->trans('limite') .': ';
+print $langs->trans('limit') .': ';
 print '<input type="text" name="limit" size="3" value="' . $conf->liste_limit . '"/>';
 print '</td>';
 
