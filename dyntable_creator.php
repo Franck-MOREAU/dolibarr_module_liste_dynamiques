@@ -217,11 +217,11 @@ if($step == 1){
 
 	?>
 	<script type="text/javascript" language="javascript">
-	document.getElementById("s2id_table").onchange = function(){
-		if (undefined !== document.getElementById("s2id_table").value){
-			document.getElementById("add_button").style.display = ""
-		} else {
+	document.getElementById("select2-chosen-2").onchange = function(){
+		if (document.getElementById("select2-chosen-2").value == " "){
 			document.getElementById("add_button").style.display = "none"
+		} else {
+			document.getElementById("add_button").style.display = ""
 		}
 	}
 
