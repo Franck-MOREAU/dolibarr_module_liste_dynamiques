@@ -146,7 +146,7 @@ class Dyntable
 			$this->errors[] = "Saisie du nom d'export obligatoire";
 		}
 
-		if(!isset($this->limit)){
+		if(!isset($this->limite)){
 			$error ++;
 			$this->errors[] = 'Saisie du Nb Enr par page obligatoire';
 		}
