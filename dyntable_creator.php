@@ -49,14 +49,14 @@ print '<input type="hidden" name="action" value="add">';
 
 print '<table class="border" width="100%">';
 print '<tr>';
-print '<td class="fieldrequired"  width="25%" colspan="2">';
+print '<td class="fieldrequired"  width="50%" colspan="2">';
 print $langs->trans('title') .': ';
-print '<input type="text" name="title" size="26" value=""/>';
+print '<input type="text" name="title" size="50" value=""/>';
 print '</td>';
 
-print '<td class="fieldrequired"  width="25%" colspan="2">';
+print '<td class="fieldrequired"  width="50%" colspan="2">';
 print $langs->trans('context') .': ';
-print '<input type="text" name="context" size="10" value=""/>';
+print '<input type="text" name="context" size="15" value=""/>';
 print '</td>';
 
 print '</tr>';
