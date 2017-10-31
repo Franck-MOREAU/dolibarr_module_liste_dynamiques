@@ -38,11 +38,13 @@ $title = 'Création de liste';
 
 llxHeader('', $title);
 
-print '<table class="noborder" width="100%">';
-print '<tr>';
-print '<td class="colone" style="height:540px;"><div align="center" id="table_in" class="dropper" ondrop="drop(event);" ondragover="allowDrop(event);" style="height:540px; width:219px; overflow: auto;">';
-Print '</tr>';
-print '</table>';
+// print '<table class="noborder" width="100%">';
+// print '<tr>';
+// print '<td class="colone" style="height:540px;">';
+print '<div align="center" id="table_in" class="dropper" ondrop="drop(event);" ondragover="allowDrop(event);" style="height:540px; width:219px; overflow: auto;">';
+//print '</td>';
+// Print '</tr>';
+// print '</table>';
 
 $tables = $db->DDLListTables($db->database_name,MAIN_DB_PREFIX.'%');
 $form  = new Form($db);
