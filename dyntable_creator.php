@@ -197,7 +197,7 @@ if($step == 1){
 	print '<td class="fieldrequired"  width="50%" colspan="2">';
 	print "Ajout d'une table </br></br>";
 	$join = array('INNER JOIN', 'LEFT JOIN', 'JOIN', 'UNION');
-	print '<div id="jonction">Jonction ' . $form->selectarray('jonction', $join,'jonction',1,0,1,'',0,0,0,'','',1) . '</br></br></div>';
+	print '<div id="jonction_div">Jonction ' . $form->selectarray('jonction', $join,'jonction',1,0,1,'',0,0,0,'','',1) . '</br></br></div>';
 	$tables = $db->DDLListTables($db->database_name,MAIN_DB_PREFIX.'%');
 	print 'Table ' . $form->selectarray('table', $tables,'table',1,0,1,'',0,0,0,'','',1) . '</br></br>';
 	print '</td>';
@@ -219,9 +219,9 @@ if($step == 1){
 	jQuery(document).ready(function () {
 		var from_query = document.getElementById("query_from").value
 		if (undefined == from_query){
-			document.getElementById("jonction").style.display = "none"
+			document.getElementById("jonction_div").style.display = "none"
 		} else {
-			document.getElementById("jonction").style.display = ""
+			document.getElementById("jonction_div").style.display = ""
 		}
 	})
 
