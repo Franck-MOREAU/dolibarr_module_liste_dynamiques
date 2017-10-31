@@ -130,6 +130,26 @@ class Dyntable
 		// Check parameters
 		// Put here code to add control on parameters values
 
+		if(!isset($this->title)){
+			$error ++;
+			$this->errors[] = 'Saisie du titre obligatoire';
+		}
+
+		if(!isset($this->context)){
+			$error ++;
+			$this->errors[] = 'Saisie du nom contextuel obligatoire';
+		}
+
+		if($this->export_button == 1 && !isset($this->export_name)){
+			$error ++;
+			$this->errors[] = "Saisie du nom d'export obligatoire";
+		}
+
+		if(!isset($this->limit)){
+			$error ++;
+			$this->errors[] = 'Saisie du Nb Enr par page obligatoire';
+		}
+
 		// Insert request
 		$sql = 'INSERT INTO ' . MAIN_DB_PREFIX . $this->table_element . '(';
 
