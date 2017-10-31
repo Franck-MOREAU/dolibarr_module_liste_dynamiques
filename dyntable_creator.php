@@ -217,8 +217,8 @@ if($step == 1){
 	?>
 	<script type="text/javascript" language="javascript">
 	jQuery(document).ready(function () {
-
-		if (document.getElementById("query_from").value.length == 0){
+		var from = document.getElementById("query_from").value
+		if (from.length == 0){
 			document.getElementById("jonction").style.display = "none"
 		} else {
 			document.getElementById("jonction").style.display = ""
