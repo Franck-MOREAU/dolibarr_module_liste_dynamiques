@@ -52,7 +52,7 @@ if($action == 'new-step1'){
 	$dyntable->export_button = GETPOST('export_button');
 	$dyntable->export_name = GETPOST('export_name');
 	$dyntable->select_fields_button = GETPOST('select_field_button');
-	$dyntable->limit = GETPOST('limit');
+	$dyntable->limite = GETPOST('limit');
 	$dyntable->mode = 'sql_methode';
 	$dyntable->filter_mode = 'AND ';
 	$id = $dyntable->create($user);
