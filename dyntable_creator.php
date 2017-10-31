@@ -55,6 +55,7 @@ if($action == 'new-step1'){
 	$dyntable->limite = GETPOST('limit');
 	$dyntable->mode = 'sql_methode';
 	$dyntable->filter_mode = 'AND ';
+	$dyntable->active = 0;
 	$id = $dyntable->create($user);
 	if($id>0){
 		$step=2;
