@@ -220,7 +220,7 @@ if($step == 1){
 
  	document.getElementById("table").onchange = function(){
  		alert( "erreur: ");
- 		if (document.getElementById("table").value == " "){
+ 		if (document.getElementById("table").value == "-1"){
  			document.getElementById("add_button").style.display = "none"
  		} else {
  			document.getElementById("add_button").style.display = ""
