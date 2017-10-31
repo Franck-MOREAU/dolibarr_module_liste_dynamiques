@@ -220,7 +220,7 @@ if($step == 1){
 	$(document).ready(function(){
 
 		 $('#select2-chosen-2').change(function(){
-			 if (document.getElementById("s2id_table").value == " "){
+			 if (document.getElementById("select2-chosen-2").value == " "){
 					document.getElementById("add_button").style.display = "none"
 				} else {
 					document.getElementById("add_button").style.display = ""
