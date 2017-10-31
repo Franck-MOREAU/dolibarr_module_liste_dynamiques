@@ -41,7 +41,7 @@ llxHeader('', $title);
 // print '<table class="noborder" width="100%">';
 // print '<tr>';
 // print '<td class="colone" style="height:540px;">';
-print '<div align="center" id="table_in" class="dropper" ondrop="drop(event);" ondragover="allowDrop(event);" style="height:540px; width:219px; overflow: auto;">';
+print '<div align="center" id="table_in" class="dropper" ondrop="drop(event);" ondragover="allowDrop(event);" style="height:540px; width:219px; overflow: auto;"></div>';
 //print '</td>';
 // Print '</tr>';
 // print '</table>';
