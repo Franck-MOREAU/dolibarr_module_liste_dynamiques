@@ -7,6 +7,7 @@ require_once DOL_DOCUMENT_ROOT . '/user/class/user.class.php';
 
 class Dyntable
 {
+	public $table_element = 'dyntable';
 	public $arrayfields = array();
 	public $title;
 	public $extra_tools=array();
