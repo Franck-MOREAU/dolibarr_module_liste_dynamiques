@@ -78,9 +78,6 @@ llxHeader('', $title);
 dol_fiche_head();
 print_fiche_titre($title.' - Step 1', '', dol_buildpath('/dyntable/img/object_list.png', 1), 1);
 
-print $db->lastquery;
-
-
 if($step == 1){
 	print '<form name="addlead" action="' . $_SERVER["PHP_SELF"] . '" method="POST">';
 	print '<input type="hidden" name="token" value="' . $_SESSION['newtoken'] . '">';
@@ -184,7 +181,20 @@ if($step == 1){
 	print '<input type="hidden" name="step" value="2">';
 	print '<input type="hidden" name="id" value="'. $id .'">';
 
+	print '<table class="border" width="100%">';
+	print '<tr>';
+	print '<td class="fieldrequired"  width="50%" colspan="2">';
+	print "Ajout d'une table </br>";
+	$tables = $db->DDLListTables($db->database_name,MAIN_DB_PREFIX.'%');
+	print $form->selectarray('table', $tables,'table',1,0,1,'',0,0,0,'','',1);
+	print '</td>';
 
+	print '<td class="fieldrequired"  width="50%" colspan="2">';
+
+
+	print '</td>';
+	print '</tr>';
+	print '</table>';
 	print '<div class="center">';
 	print '<input type="submit" class="button" value="' . $langs->trans("Create") . '">';
 	print '&nbsp;<input type="button" class="button" value="' . $langs->trans("Cancel") . '" onClick="javascript:history.go(-1)">';
