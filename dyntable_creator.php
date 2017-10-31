@@ -217,14 +217,27 @@ if($step == 1){
 
 	?>
 	<script type="text/javascript" language="javascript">
+	$(document).ready(function(){
 
-	document.getElementById("s2id_table").onchange = function(){
-		if (document.getElementById("s2id_table").value == " "){
-			document.getElementById("add_button").style.display = "none"
-		} else {
-			document.getElementById("add_button").style.display = ""
-		}
-	}
+		 $('#select2-chosen-2').change(function(){
+			 if (document.getElementById("s2id_table").value == " "){
+					document.getElementById("add_button").style.display = "none"
+				} else {
+					document.getElementById("add_button").style.display = ""
+				}
+		 })
+
+		});
+
+
+
+// 	document.getElementById("s2id_table").onchange = function(){
+// 		if (document.getElementById("s2id_table").value == " "){
+// 			document.getElementById("add_button").style.display = "none"
+// 		} else {
+// 			document.getElementById("add_button").style.display = ""
+// 		}
+// 	}
 
 	jQuery(document).ready(function () {
 		var from_query = document.getElementById("query_from").value
