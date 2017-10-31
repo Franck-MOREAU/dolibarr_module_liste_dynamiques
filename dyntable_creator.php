@@ -37,7 +37,7 @@ if (! $user->rights->dyntable->admin)
 $title = 'Création de liste';
 
 llxHeader('', $title);
-print load_fiche_titre($this->title, '', '');
+print load_fiche_titre($title, '', '');
 
 
 
