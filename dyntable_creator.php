@@ -30,15 +30,20 @@ if (! $res)
 dol_include_once('/core/class/html.formother.class.php');
 require_once DOL_DOCUMENT_ROOT . '/core/class/doleditor.class.php';
 
+$langs->load('dyntable@dyntable');
+
 // Security check
 if (! $user->rights->dyntable->admin)
 	accessforbidden();
 
-$title = 'Création de liste';
+$title = $langs->trans("createlisttitle");
 
 llxHeader('', $title);
 dol_fiche_head();
 print_fiche_titre($title, '', dol_buildpath('/dyntable/img/object_list.png', 1), 1);
+print '<form name="addlead" action="' . $_SERVER["PHP_SELF"] . '" method="POST">';
+print '<input type="hidden" name="token" value="' . $_SESSION['newtoken'] . '">';
+print '<input type="hidden" name="action" value="add">';
 
 
 
