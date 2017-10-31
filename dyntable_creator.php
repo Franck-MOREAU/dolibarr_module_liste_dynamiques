@@ -184,14 +184,16 @@ if($step == 1){
 	print '<table class="border" width="100%">';
 	print '<tr>';
 	print '<td class="fieldrequired"  width="50%" colspan="2">';
-	print "Ajout d'une table </br>";
+	print "Ajout d'une table </br></br>";
+	$join = array('INNER JOIN', 'LEFT JOIN', 'JOIN', 'UNION');
+	print 'Jonction ' . $form->selectarray('jonction', $join,'jonction',1,0,1,'',0,0,0,'','',1);
 	$tables = $db->DDLListTables($db->database_name,MAIN_DB_PREFIX.'%');
-	print $form->selectarray('table', $tables,'table',1,0,1,'',0,0,0,'','',1);
+	print 'Table ' . $form->selectarray('table', $tables,'table',1,0,1,'',0,0,0,'','',1);
 	print '</td>';
 
 	print '<td class="fieldrequired"  width="50%" colspan="2">';
-
-
+	Print '<div id="query_from">';
+	print '</div>';
 	print '</td>';
 	print '</tr>';
 	print '</table>';
@@ -281,6 +283,14 @@ document.getElementById("export_button").onchange = function(){
 	}
 }
 
+jQuery(document).ready(function () {
+
+	if (document.getElementById("query_from").value.length == 0){
+		document.getElementById("jonction").style.display = "none"
+	} else {
+		document.getElementById("jonction").style.display = ""
+	}
+}
 
 </script>
 <?php
