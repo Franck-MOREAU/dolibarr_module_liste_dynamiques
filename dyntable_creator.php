@@ -290,7 +290,7 @@ jQuery(document).ready(function () {
 	} else {
 		document.getElementById("jonction").style.display = ""
 	}
-}
+})
 
 </script>
 <?php
