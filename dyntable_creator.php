@@ -197,9 +197,9 @@ if($step == 1){
 	print '<td class="fieldrequired"  width="50%" colspan="2">';
 	print "Ajout d'une table </br></br>";
 	$join = array('INNER JOIN', 'LEFT JOIN', 'JOIN', 'UNION');
-	print '<div id="jonction_div">Jonction ' . $form->selectarray('jonction', $join,'jonction',1,0,1,'',0,0,0,'','',1) . '</br></br></div>';
+	print '<div id="jonction_div">Jonction ' . $form->selectarray('jonction', $join,'jonction',1,0,1,'',0,0,0,'','',0) . '</br></br></div>';
 	$tables = $db->DDLListTables($db->database_name,MAIN_DB_PREFIX.'%');
-	print 'Table ' . $form->selectarray('table', $tables,'table',1,0,1,'',0,0,0,'','',1) . '</br></br>';
+	print 'Table ' . $form->selectarray('table', $tables,'table',1,0,1,'',0,0,0,'','',0) . '</br></br>';
 	print '<div id="add_button" class="inline-block divButAction" style="height:13px;"><a href="javascript:addtable()" class="butAction">Ajouter</a></div>';
 	print '</td>';
 
@@ -217,28 +217,14 @@ if($step == 1){
 
 	?>
 	<script type="text/javascript" language="javascript">
-	$(document).ready(function(){
 
-		 $('#select2-chosen-2').change(function(){
-			 alert( "erreur: ");
-			 if (document.getElementById("select2-chosen-2").value == " "){
-					document.getElementById("add_button").style.display = "none"
-				} else {
-					document.getElementById("add_button").style.display = ""
-				}
-		 })
-
-		});
-
-
-
-// 	document.getElementById("s2id_table").onchange = function(){
-// 		if (document.getElementById("s2id_table").value == " "){
-// 			document.getElementById("add_button").style.display = "none"
-// 		} else {
-// 			document.getElementById("add_button").style.display = ""
-// 		}
-// 	}
+ 	document.getElementById("s2id_table").onchange = function(){
+ 		if (document.getElementById("s2id_table").value == " "){
+ 			document.getElementById("add_button").style.display = "none"
+ 		} else {
+ 			document.getElementById("add_button").style.display = ""
+ 		}
+ 	}
 
 	jQuery(document).ready(function () {
 		var from_query = document.getElementById("query_from").value
