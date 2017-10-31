@@ -98,9 +98,6 @@ print '</form>';
 
 
 
-dol_fiche_end();
-llxFooter();
-$db->close();
 ?>
 <script type="text/javascript" language="javascript">
 
