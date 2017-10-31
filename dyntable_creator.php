@@ -170,6 +170,7 @@ function drop(ev) {
 
 document.getElementById("export_button").onchange = function(){
 	var exp = document.getElementById("export_button").value;
+	alert( "erreur: " + exp );
 	if (exp=1){
 		document.getElementById("export_name").style.display = ""
 	} else {
