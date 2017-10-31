@@ -219,9 +219,9 @@ if($step == 1){
 	jQuery(document).ready(function () {
 		var from_query = document.getElementById("query_from").value
 		if (undefined == from_query){
-			document.getElementById("jonction").style.display = "none"
+			document.getElementById("s2id_jonction").style.display = "none"
 		} else {
-			document.getElementById("jonction").style.display = ""
+			document.getElementById("s2id_jonction").style.display = ""
 		}
 	})
 
