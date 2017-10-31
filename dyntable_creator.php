@@ -217,8 +217,8 @@ if($step == 1){
 
 	?>
 	<script type="text/javascript" language="javascript">
-	document.getElementById("table").onchange = function(){
-		if (undefined !== document.getElementById("table").value){
+	document.getElementById("s2id_table").onchange = function(){
+		if (undefined !== document.getElementById("s2id_table").value){
 			document.getElementById("add_button").style.display = ""
 		} else {
 			document.getElementById("add_button").style.display = "none"
