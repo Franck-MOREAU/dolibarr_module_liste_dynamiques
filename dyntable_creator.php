@@ -37,7 +37,8 @@ if (! $user->rights->dyntable->admin)
 $title = 'Création de liste';
 
 llxHeader('', $title);
-print load_fiche_titre($title, '', '');
+dol_fiche_head();
+print_fiche_titre($title, '', dol_buildpath('/dyntable/img/object_list.png', 1), 1);
 
 
 
