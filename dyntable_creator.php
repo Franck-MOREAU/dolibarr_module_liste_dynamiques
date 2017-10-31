@@ -70,6 +70,8 @@ print '</td>';
 print '<td class="fieldrequired"  width="25%">';
 print $langs->trans('export_button') .': ';
 print $form->selectyesno("export_button",'1',1);
+print ' ' . $langs->trans('export_name') .': ';
+print '<input type="text" name="export_name" id="export_name" size="15" value=""/>';
 print '</td>';
 
 print '<td class="fieldrequired"  width="25%">';
@@ -95,6 +97,102 @@ print '</div>';
 print '</form>';
 
 
+
+dol_fiche_end();
+llxFooter();
+$db->close();
+?>
+<script type="text/javascript" language="javascript">
+
+function createlead() {
+	$div = $('<div id="createlead"><iframe width="100%" height="100%" frameborder="0" src="<?php echo dol_buildpath('/volvo/lead/leadexpress.php?action=create&userid='.$search_commercial, 1); ?>" style="display: block;"></iframe></div>');
+	$div.dialog({
+		modal:true,
+		width:"90%",
+		height:$(window).height() - 25,
+		close:function() {
+ 			document.location.reload(true);
+ 		}
+	});
+}
+
+function wievlead(idlead) {
+	$div = $('<div id="wievlead"><iframe width="100%" height="100%" frameborder="0" src="<?php echo dol_buildpath('/volvo/lead/leadexpress.php', 1) . '?id='; ?>' + idlead + '" style="display: block;"></iframe></div>');
+	$div.dialog({
+ 		modal:true,
+		width:"90%",
+		height:$(window).height() - 25,
+		close:function() {
+			if($('#ordercreatedid').val()>0){
+				document.location.href='<?php echo dol_buildpath('/commande/card.php',2).'?id=';?>'+$('#ordercreatedid').val();
+			}else{
+				document.location.reload(true);
+			}
+		}
+ 	})
+}
+
+
+function allowDrop(ev) {
+ 	ev.preventDefault();
+}
+
+function drag(ev) {
+	ev.dataTransfer.setData("text", ev.target.id);
+}
+
+function drop(ev) {
+	ev.preventDefault();
+	var element = ev.dataTransfer.getData("text");
+	var dest = ev.target.className;
+	if (ev.target.className.indexOf('cal_event cal_event_busy')!=-1){
+		dest = ev.target.parentNode.id;
+		ev.target.parentNode.appendChild(document.getElementById(element));
+	}
+ 	if (ev.target.className.indexOf('dropper')!=-1){
+		dest = ev.target.id;
+		ev.target.appendChild(document.getElementById(element));
+ 	}
+ 	$.ajax({
+ 		method: "POST",
+ 		url: "dragdrop.php",
+ 		data: {
+ 			id_lead: element,
+ 			new_statut: dest
+ 		},
+ 		success: function(msg){
+ 			if (msg != ""){
+ 				$('div.fiche ').first().prepend(msg);
+ 			}
+ 		},
+ 		error: function(msg){
+ 			alert( "erreur: " + msg );
+ 		}
+ 	})
+}
+
+document.getElementById("export_button").onchange = function(){
+	var exp = document.getElementById("export_button").value;
+	if (exp=1){
+		document.getElementById("export_name").style.display = ""
+	} else {
+		document.getElementById("export_name").style.display = "none"
+	}
+}
+
+function visibilite(thingId) {
+	var targetElement;
+	targetElement = document.getElementById(thingId) ;
+	if (targetElement.style.display == "none") {
+		targetElement.style.display = "" ;
+	} else {
+		targetElement.style.display = "none" ;
+	}
+}
+
+
+</script>
+<?php
 
 dol_fiche_end();
 llxFooter();
