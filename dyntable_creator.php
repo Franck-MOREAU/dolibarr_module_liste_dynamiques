@@ -48,11 +48,15 @@ print '<input type="hidden" name="action" value="add">';
 print '<table class="border" width="100%">';
 print '<tr>';
 print '<td class="fieldrequired"  width="20%">';
-print $langs->trans('LeadCommercial');
+print $langs->trans('title') .': ';
+print '<input type="text" name="title" size="26" value=""/>';
 print '</td>';
-print '<td>';
-print $form->select_dolusers(empty($userid) ? $user->id : $userid, 'userid', 0, array(), 0, $includeuserlist, '', 0, 0, 0, '', 0, '', '', 1);
+
+print '<td class="fieldrequired"  width="20%">';
+print $langs->trans('context') .': ';
+print '<input type="text" name="context" size="10" value=""/>';
 print '</td>';
+
 print '</tr>';
 
 print '</table>';
