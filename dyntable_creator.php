@@ -462,7 +462,7 @@ document.getElementById("table").onchange = function(){
  		},
  		success: function(msg){
  			if (msg != ""){
- 				$('div.fiche div.table_in').prepend(msg);
+ 				document.getElementById("table_in").prepend(msg);
  			}
  		},
  		error: function(msg){
