@@ -28,6 +28,7 @@ if (! $res)
 	die("Include of main fails");
 
 dol_include_once('/core/class/html.formother.class.php');
+dol_include_once('/dyntable/class/dyntable.class.php');
 require_once DOL_DOCUMENT_ROOT . '/core/class/doleditor.class.php';
 
 $langs->load('dyntable@dyntable');
@@ -73,7 +74,7 @@ $form = new Form($db);
 llxHeader('', $title);
 dol_fiche_head();
 print_fiche_titre($title.' - Step 1', '', dol_buildpath('/dyntable/img/object_list.png', 1), 1);
-print 'step' . $step;
+
 if($step == 1){
 	print '<form name="addlead" action="' . $_SERVER["PHP_SELF"] . '" method="POST">';
 	print '<input type="hidden" name="token" value="' . $_SESSION['newtoken'] . '">';
