@@ -218,8 +218,8 @@ if($step == 1){
 	?>
 	<script type="text/javascript" language="javascript">
 
- 	document.getElementById("s2id_table").onchange = function(){
- 		if (document.getElementById("s2id_table").value == " "){
+ 	document.getElementById("table").onchange = function(){
+ 		if (document.getElementById("table").value == " "){
  			document.getElementById("add_button").style.display = "none"
  		} else {
  			document.getElementById("add_button").style.display = ""
