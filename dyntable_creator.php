@@ -233,6 +233,10 @@ if($step == 1){
 	print '</td>';
 
 	print '<td class="fieldrequired">';
+	print '<input type="text" name="alias" size="15" value=""/>';
+	print '</td>';
+
+	print '<td class="fieldrequired">';
 	$fields = array();
 	foreach ($from->lines as $line){
 		$tableinfo=$db->DDLInfoTable($line->table);
