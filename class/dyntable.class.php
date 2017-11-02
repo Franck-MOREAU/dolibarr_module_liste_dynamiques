@@ -1832,7 +1832,7 @@ class dyntable_from{
 		$sql .= ' '.(! isset($this->table)?'NULL':"'".$this->db->escape($this->table)."'").',';
 		$sql .= ' '.(! isset($this->as)?'NULL':$this->db->escape($this->as)).',';
 		$sql .= ' '.(! isset($this->field1)?'NULL':$this->db->escape($this->field1)).',';
-		$sql .= ' '.(! isset($this->field2)?'NULL':$this->db->escape($this->active));
+		$sql .= ' '.(! isset($this->field2)?'NULL':$this->db->escape($this->field2));
 
 
 		$sql .= ')';
