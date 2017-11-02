@@ -83,6 +83,13 @@ if($action == 'add-from'){
 	}
 }
 
+if($action == 'delete_from'){
+	$from_id = GETPOST('element');
+	$from = new dyntable_from($db);
+	$from->fetch($from_id);
+	$from->delete($user);
+}
+
 if($step>1){
 	$object = new Dyntable($db);
 	$object->fetch($id);
@@ -205,8 +212,7 @@ if($step == 1){
 	print_fiche_titre($title.' - Step 2', '', dol_buildpath('/dyntable/img/object_list.png', 1), 1);
 
 	$from = new dyntable_from($db);
-	$res = $from->fetchAll('ASC','ordre',0,0,array('fk_dyntable'=>$id),'AND');
-	print 'res: ' . $db->lastquery;
+	$from->fetchAll('ASC','ordre',0,0,array('fk_dyntable'=>$id),'AND');
 
 	print '<table class="border" width="100%">';
 	print '<tr>';
@@ -227,7 +233,9 @@ if($step == 1){
 		print '<td>' . $line->as . '</td>';
 		print '<td>' . $line->field1 . '</td>';
 		print '<td>' . $line->field2 . '</td>';
-		print '<td></td>';
+		print '<td>';
+		print '<a href="' . $_SERVER['PHP_SELF'] . '?id='.$id.'&action=del_from&element='. $line->id .'&step=2">' . img_delete() . '</a>';
+		print '</td>';
 		print '</tr>';
 	}
 	print '<tr>';
