@@ -289,6 +289,7 @@ if($step == 1){
 	print '<input type="hidden" name="token" value="' . $_SESSION['newtoken'] . '">';
 	if($action == 'edit_from'){
 		print '<input type="hidden" name="action" value="edit-from">';
+		print '<input type="hidden" name="element" value="' . GETPOST('element') . '">';
 	}else{
 		print '<input type="hidden" name="action" value="add-from">';
 	}
