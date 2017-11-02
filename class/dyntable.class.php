@@ -1816,10 +1816,10 @@ class dyntable_from{
 		$sql = 'INSERT INTO ' . MAIN_DB_PREFIX . $this->table_element . '(';
 
 		$sql.= 'fk_dyntable,';
-		$sql.= 'order,';
-		$sql.= 'from,';
+		$sql.= 'ordre,';
+		$sql.= 'jonction,';
 		$sql.= 'table,';
-		$sql.= 'as,';
+		$sql.= 'alias,';
 		$sql.= 'field1,';
 		$sql.= 'field2';
 
@@ -1879,10 +1879,10 @@ class dyntable_from{
 		$sql = 'SELECT';
 		$sql .= ' t.rowid,';
 		$sql .= " t.fk_dyntable,";
-		$sql .= " t.order,";
-		$sql .= " t.from,";
+		$sql .= " t.ordre,";
+		$sql .= " t.jonction,";
 		$sql .= " t.table,";
-		$sql .= " t.as,";
+		$sql .= " t.alias,";
 		$sql .= " t.field1,";
 		$sql .= " t.field2";
 
@@ -1898,10 +1898,10 @@ class dyntable_from{
 
 				$this->id = $obj->rowid;
 				$this->fk_dyntable = $obj->fk_dyntable;
-				$this->order = $obj->order;
-				$this->from = $obj->from;
+				$this->order = $obj->ordre;
+				$this->from = $obj->jonction;
 				$this->table = $obj->table;
-				$this->as = $obj->as;
+				$this->as = $obj->alias;
 				$this->field1 = $obj->field1;
 				$this->field2 = $obj->field2;
 			}
@@ -1927,10 +1927,10 @@ class dyntable_from{
 		$sql = 'SELECT';
 		$sql .= ' t.rowid,';
 		$sql .= " t.fk_dyntable,";
-		$sql .= " t.order,";
-		$sql .= " t.from,";
+		$sql .= " t.ordre,";
+		$sql .= " t.jonction,";
 		$sql .= " t.table,";
-		$sql .= " t.as,";
+		$sql .= " t.alias,";
 		$sql .= " t.field1,";
 		$sql .= " t.field2";
 
@@ -1964,10 +1964,10 @@ class dyntable_from{
 
 				$line->id = $obj->rowid;
 				$line->fk_dyntable = $obj->fk_dyntable;
-				$line->order = $obj->order;
-				$line->from = $obj->from;
+				$line->order = $obj->ordre;
+				$line->from = $obj->jonction;
 				$line->table = $obj->table;
-				$line->as = $obj->as;
+				$line->as = $obj->alias;
 				$line->field1 = $obj->field1;
 				$line->field2 = $obj->field2;
 
@@ -2048,10 +2048,10 @@ class dyntable_from{
 		$sql = 'UPDATE ' . MAIN_DB_PREFIX . $this->table_element . ' SET';
 
 		$sql .= ' fk_dyntable = '.(isset($this->fk_dyntable)?"'".$this->db->escape($this->fk_dyntable)."'":"null").',';
-		$sql .= ' order = '.(isset($this->order)?"'".$this->db->escape($this->order)."'":"null").',';
-		$sql .= ' from = '.(isset($this->from)?"'".$this->db->escape($this->from)."'":"null").',';
+		$sql .= ' ordre = '.(isset($this->order)?"'".$this->db->escape($this->order)."'":"null").',';
+		$sql .= ' jonction = '.(isset($this->from)?"'".$this->db->escape($this->from)."'":"null").',';
 		$sql .= ' table = '.(isset($this->table)?"'".$this->db->escape($this->table)."'":"null").',';
-		$sql .= ' as = '.(isset($this->as)?"'".$this->db->escape($this->as)."'":"null").',';
+		$sql .= ' alias = '.(isset($this->as)?"'".$this->db->escape($this->as)."'":"null").',';
 		$sql .= ' field1 = '.(isset($this->field1)?"'".$this->db->escape($this->field1)."'":"null").',';
 		$sql .= ' field2 = '.(isset($this->field2)?"'".$this->db->escape($this->field2)."'":"null");
 
