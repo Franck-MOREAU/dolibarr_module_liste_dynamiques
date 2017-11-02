@@ -232,7 +232,7 @@ if($action == 'edit-field'){
 	$col->field = GETPOST('field');
 	$col->alias = GETPOST('alias');
 	$col->sub_title = GETPOST('sub_title');
-	$where->update($user);
+	$col->update($user);
 }
 
 if($step>1){
