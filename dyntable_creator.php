@@ -174,6 +174,66 @@ if($action == 'edit-where'){
 	$where->update($user);
 }
 
+if($action == 'add-field'){
+	$col = new dyntable_fields($db);
+	$col->fk_dyntable = $id;
+	$col->ordre = GETPOST('order');
+	$col->type = GETPOST('type');
+	$col->name = GETPOST('name');
+	$col->label = GETPOST('label');
+	$col->checked = GETPOST('checked');
+	$col->align = GETPOST('align');
+	$col->unit = GETPOST('unit');
+	$col->enabled = GETPOST('enabled');
+	$col->field = GETPOST('field');
+	$col->alias = GETPOST('alias');
+	$col->sub_title = GETPOST('sub_title');
+	$col->create($user);
+}
+
+if($action == 'del_field'){
+	$col_id = GETPOST('element');
+	$col = new Dyntable_fields($db);
+	$col->fetch($col_id);
+	$col->delete($user);
+}
+
+if($action == 'edit_field'){
+	$col_id = GETPOST('element');
+	$col = new Dyntable_fields($db);
+	$col->fetch($col_id);
+	$edit_ordre = $col->ordre;
+	$edit_type = $col->type;
+	$edit_name = $col->name;
+	$edit_label = $col->label;
+	$edit_checked = $col->checked;
+	$edit_align = $col->align;
+	$edit_unit = $col->unit;
+	$edit_enabled = $col->enabled;
+	$edit_field = $col->field;
+	$edit_alias = $col->alias;
+	$edit_sub_title = $col->sub_title;
+}
+
+if($action == 'edit-field'){
+	$col = new dyntable_fields($db);
+	$col_id = GETPOST('element');
+	$col->fetch($col_id);
+
+	$col->fk_dyntable = $id;
+	$col->ordre = GETPOST('order');
+	$col->type = GETPOST('type');
+	$col->name = GETPOST('name');
+	$col->label = GETPOST('label');
+	$col->checked = GETPOST('checked');
+	$col->align = GETPOST('align');
+	$col->unit = GETPOST('unit');
+	$col->enabled = GETPOST('enabled');
+	$col->field = GETPOST('field');
+	$col->alias = GETPOST('alias');
+	$col->sub_title = GETPOST('sub_title');
+	$where->update($user);
+}
 
 if($step>1){
 	$object = new Dyntable($db);
@@ -647,8 +707,8 @@ if($step==4){
 		print '<td>' . $line->alias . '</td>';
 		print '<td>' . $line->sub_title . '</td>';
 		print '<td>';
-		print '<a href="' . $_SERVER['PHP_SELF'] . '?id='.$id.'&action=del_where&element='. $line->id .'&step=3">' . img_delete() . '</a>';
-		print '<a href="' . $_SERVER['PHP_SELF'] . '?id='.$id.'&action=edit_where&element='. $line->id .'&step=3">' . img_edit(). '</a>';
+		print '<a href="' . $_SERVER['PHP_SELF'] . '?id='.$id.'&action=del_field&element='. $line->id .'&step=3">' . img_delete() . '</a>';
+		print '<a href="' . $_SERVER['PHP_SELF'] . '?id='.$id.'&action=edit_field&element='. $line->id .'&step=3">' . img_edit(). '</a>';
 		print '</td>';
 		print '</tr>';
 	}
