@@ -610,7 +610,7 @@ if($step==3){
 	dol_fiche_end();
 }
 
-if($step=4){
+if($step==4){
 	dol_fiche_head();
 	print_fiche_titre($title.' - Selection des colones de la liste', '', dol_buildpath('/dyntable/img/object_list.png', 1), 1);
 
