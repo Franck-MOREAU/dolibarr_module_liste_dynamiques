@@ -306,7 +306,7 @@ if($step == 1){
 	 		success: function(msg){
 	 			alert( "erreur: " + msg );
 	 			if (msg != ""){
-	 				document.getElementById('div.field2_place').innerHTML = msg;
+	 				document.getElementById('field2_place').innerHTML = msg;
 	 			}
 	 		},
 	 		error: function(msg){
