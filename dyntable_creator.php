@@ -144,10 +144,11 @@ $title = $langs->trans("createlisttitle");
 
 $form = new Form($db);
 llxHeader('', $title);
-dol_fiche_head();
-print_fiche_titre($title.' - Step 1', '', dol_buildpath('/dyntable/img/object_list.png', 1), 1);
 
 if($step == 1){
+	dol_fiche_head();
+	print_fiche_titre($title.' - Step 1', '', dol_buildpath('/dyntable/img/object_list.png', 1), 1);
+
 	print '<form name="addlead" action="' . $_SERVER["PHP_SELF"] . '" method="POST">';
 	print '<input type="hidden" name="token" value="' . $_SESSION['newtoken'] . '">';
 	print '<input type="hidden" name="action" value="new-step1">';
@@ -200,6 +201,7 @@ if($step == 1){
 
 	print '</form>';
 
+	dol_fiche_end();
 	?>
 	<script type="text/javascript" language="javascript">
 	document.getElementById("export_button").onchange = function(){
@@ -211,7 +213,10 @@ if($step == 1){
 	}
 	</script>
 	<?php
-}elseif($step == 2){
+}elseif($step>1){
+	dol_fiche_head();
+	print_fiche_titre($title.' - Step 1', '', dol_buildpath('/dyntable/img/object_list.png', 1), 1);
+
 	print '<table class="border" width="100%">';
 	print '<tr>';
 	print '<td class="fieldrequired"  width="50%" colspan="2">';
@@ -253,7 +258,8 @@ if($step == 1){
 	print '</table>';
 
 	dol_fiche_end();
-
+}
+if($step == 2){
 	dol_fiche_head();
 	print_fiche_titre($title.' - Step 2', '', dol_buildpath('/dyntable/img/object_list.png', 1), 1);
 
@@ -377,7 +383,37 @@ if($step == 1){
 	}
 	</script>
 	<?php
+}elseif($step>2){
+	dol_fiche_head();
+	print_fiche_titre($title.' - Step 2', '', dol_buildpath('/dyntable/img/object_list.png', 1), 1);
 
+	$from = new dyntable_from($db);
+	$from->fetchAll('ASC','ordre',0,0,array('fk_dyntable'=>$id),'AND');
+
+	print '<table class="border" width="100%">';
+	print '<tr>';
+	print '<td> ordre </td>';
+	print '<td> type de jonction </td>';
+	print '<td> nom de la table </td>';
+	print '<td> alias </td>';
+	print '<td> champs de jonction 1 </td>';
+	print '<td> champs de jonction 2 </td>';
+	print '</tr>';
+
+	foreach ($from->lines as $line){
+		print '<tr>';
+		print '<td>'. $line->order . '</td>';
+		print '<td>' . $line->from . '</td>';
+		print '<td>' . $line->table . '</td>';
+		print '<td>' . $line->as . '</td>';
+		print '<td>' . $line->field1 . '</td>';
+		print '<td>' . $line->field2 . '</td>';
+		print '</tr>';
+	}
+	print '<tr>';
+
+	print '</tr>';
+	print '</table>';
 
 }
 
