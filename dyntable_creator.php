@@ -170,7 +170,7 @@ if($action == 'edit-where'){
 	$where->field = GETPOST('field');
 	$where->operateur = GETPOST('operateur');
 	$where->val1 = GETPOST('val1');
-	$where->val2 = GETPOST('field2');
+	$where->val2 = GETPOST('val2');
 	$where->update($user);
 }
 
