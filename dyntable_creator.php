@@ -347,6 +347,8 @@ if($step == 1){
 	print '</td>';
 
 	print '</form>';
+	print '</tr>';
+	print '</table>';
 
 	print '<div class="inline-block divButAction"><a class="butAction" href="' . $_SERVER["PHP_SELF"] . '?id=' . $id . '&step=3">' . $langs->trans('nextstep') . '</a></div>';
 	print '<div class="inline-block divButAction"><a class="butAction" href="' . $_SERVER["PHP_SELF"] . '?id=' . $id . '&step=1">' . $langs->trans('prevstep') . '</a></div>'
