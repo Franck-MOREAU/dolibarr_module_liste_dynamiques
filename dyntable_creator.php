@@ -585,6 +585,7 @@ if($step==3){
 	$where = new dyntable_where($db);
 	$where->fetchAll('ASC','ordre',0,0,array('fk_dyntable'=> $id),'AND');
 
+	print '<table class="border" width="100%">';
 	print '<tr>';
 	print '<td class="fieldrequired"> ordre </td>';
 	print '<td class="fieldrequired"> Jonction </td>';
@@ -604,6 +605,7 @@ if($step==3){
 		print '<td>' . $line->val2 . '</td>';
 		print '</tr>';
 	}
+	print '</table>';
 
 	dol_fiche_end();
 }
