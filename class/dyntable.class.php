@@ -1830,9 +1830,9 @@ class dyntable_from{
 		$sql .= ' '.(! isset($this->order)?'NULL':"'".$this->db->escape($this->order)."'").',';
 		$sql .= ' '.(! isset($this->from)?'NULL':"'".$this->db->escape($this->from)."'").',';
 		$sql .= ' '.(! isset($this->table)?'NULL':"'".$this->db->escape($this->table)."'").',';
-		$sql .= ' '.(! isset($this->as)?'NULL':$this->db->escape($this->as)).',';
-		$sql .= ' '.(! isset($this->field1)?'NULL':$this->db->escape($this->field1)).',';
-		$sql .= ' '.(! isset($this->field2)?'NULL':$this->db->escape($this->field2));
+		$sql .= ' '.(! isset($this->as)?'NULL':"'".$this->db->escape($this->as)."'").',';
+		$sql .= ' '.(! isset($this->field1)?'NULL':"'".$this->db->escape($this->field1)."'").',';
+		$sql .= ' '.(! isset($this->field2)?'NULL':"'".$this->db->escape($this->field2)."'").',';
 
 
 		$sql .= ')';
