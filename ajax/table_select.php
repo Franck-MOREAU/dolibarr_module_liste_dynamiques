@@ -21,4 +21,4 @@ foreach ($champs as $champ){
 
 $return = $form->selectarray('field2', $fields,'field2',1,0,1,'',0,0,0,'','',1);
 
-echo $return;
+echo 'ca marche';
