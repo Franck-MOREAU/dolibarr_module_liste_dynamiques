@@ -781,6 +781,10 @@ if($step==4){
 	print $form->selectarray('operateur', $operateur,$edit_operateur,1,0,1,'',0,0,0,'','',0);
 	print '</td>';
 
+	print '<td class="fieldrequired">';
+	print '<input type="submit" class="button" value="' . $langs->trans("Create") . '">';
+	print '</td>';
+
 	print '</form>';
 	print '</tr>';
 
