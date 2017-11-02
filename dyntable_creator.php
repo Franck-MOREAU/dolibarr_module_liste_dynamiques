@@ -78,6 +78,7 @@ if($action == 'add-from'){
 	if($res<0){
 		echo $res;
 		var_dump($from->errors);
+		echo $db->lastquery;
 		setEventMessages(null, $from->errors, 'errors');
 	}
 }
