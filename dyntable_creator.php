@@ -284,7 +284,7 @@ if($step == 1){
 	print '</td>';
 
 	print '<td class="fieldrequired">';
-	print $form->selectarray('field2', $fields,'field2',1,0,1,'',0,0,0,'','',1);
+	print '<div id="field2_place"></div>';
 	print '</td>';
 
 	print '<td class="fieldrequired">';
@@ -296,23 +296,25 @@ if($step == 1){
 	?>
 	<script type="text/javascript" language="javascript">
 
- 	document.getElementById("table").onchange = function(){
- 		alert( "erreur: ");
- 		if (document.getElementById("table").value == "-1"){
- 			document.getElementById("add_button").style.display = "none"
- 		} else {
- 			document.getElementById("add_button").style.display = ""
- 		}
- 	}
+	document.getElementById("table").onchange = function(){
+		$.ajax({
+	 		method: "POST",
+	 		url: "ajax/table_select.php",
+	 		data: {
+	 			table_ajax: document.getElementById("table").value,
+	 		},
+	 		success: function(msg){
+	 			if (msg != ""){
+	 				$('div.field2_place ').first().prepend(msg);
+	 			}
+	 		},
+	 		error: function(msg){
+	 			alert( "erreur: " + msg );
+	 		}
+		})
+	}
 
-	jQuery(document).ready(function () {
-		var from_query = document.getElementById("query_from").value
-		if (undefined == from_query){
-			document.getElementById("jonction_div").style.display = "none"
-		} else {
-			document.getElementById("jonction_div").style.display = ""
-		}
-	})
+
 
 	</script>
 	<?php
