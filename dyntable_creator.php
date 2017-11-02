@@ -74,7 +74,8 @@ if($action == 'add-from'){
 	$from->as = GETPOST('alias');
 	$from->field1 = GETPOST('field1');
 	$from->field2 = GETPOST('field2');
-	$from->create($user);
+	$res = $from->create($user);
+	echo $res;
 }
 
 if($step>1){
