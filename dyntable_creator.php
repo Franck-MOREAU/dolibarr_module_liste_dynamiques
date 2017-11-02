@@ -130,7 +130,7 @@ if($action == 'edit-from'){
 	$from->field1 = $field1;
 	$from->field2 = $field2;
 	$res = $from->update($user);
-	echo $res;
+	echo $db->lastquery;
 }
 
 if($step>1){
