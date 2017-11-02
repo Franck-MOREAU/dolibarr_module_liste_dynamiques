@@ -129,7 +129,8 @@ if($action == 'edit-from'){
 	$from->as = GETPOST('alias');
 	$from->field1 = $field1;
 	$from->field2 = $field2;
-	$from->update($user);
+	$res = $from->update($user);
+	echo $res;
 }
 
 if($step>1){
@@ -335,6 +336,7 @@ if($step == 1){
 
 	print '</select>';
 	print '</td>';
+
 
 	print '<td class="fieldrequired">';
 	print '<input type="submit" class="button" value="' . $langs->trans("Create") . '">';
