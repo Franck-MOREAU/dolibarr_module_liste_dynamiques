@@ -113,6 +113,8 @@ if($action == 'edit_from'){
 
 if($action == 'edit-from'){
 	$from = new dyntable_from($db);
+	$edit_id = GETPOST('element');
+	$from->fetch($edit_id);
 	$field1 = GETPOST('field1');
 	$field2 = GETPOST('field2');
 	if($field1==-1){
