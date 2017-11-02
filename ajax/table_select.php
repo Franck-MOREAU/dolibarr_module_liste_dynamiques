@@ -16,7 +16,7 @@ $champs =$db->DDLInfoTable($table);
 $fields = array();
 
 foreach ($champs as $champ){
-	$fields[]= $champ[0] . '</br>';
+	$fields[]= $champ[0];
 }
 
 $return = $form->selectarray('field2', $fields,'field2',1,0,1,'',0,0,0,'','',1);
