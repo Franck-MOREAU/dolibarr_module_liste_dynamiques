@@ -328,7 +328,7 @@ if($step == 1){
 		$champs =$db->DDLInfoTable($edit_table);
 		foreach ($champs as $champ){
 			$name = $edit_alias. '.' . $champ[0];
-			print '<option value="' . $name . '"' . ($name=$edit_field2?' SELECTED':'') . '>' . $name .'</option>';
+			print '<option value="' . $name . '"' . ($name==$edit_field2?' SELECTED':'') . '>' . $name .'</option>';
 		}
 
 	}
