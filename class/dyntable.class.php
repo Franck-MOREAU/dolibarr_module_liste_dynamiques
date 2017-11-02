@@ -1940,7 +1940,7 @@ class dyntable_from{
 		$sqlwhere = array();
 		if (count($filter) > 0) {
 			foreach ($filter as $key => $value) {
-				$sqlwhere [] = $key . ' LIKE \'%' . $this->db->escape($value) . '%\'';
+				$sqlwhere [] = $key . ' = ' . $this->db->escape($value);
 			}
 		}
 		if (count($sqlwhere) > 0) {
