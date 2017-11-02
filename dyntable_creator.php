@@ -318,7 +318,7 @@ if($step == 1){
 			$fields[] = $line->as . '.' . $field[0];
 		}
 	}
-	print $form->selectarray('field1', $fields,$edit_fields1,1,0,1,'',0,0,0,'','',1);
+	print $form->selectarray('field1', $fields,$edit_field1,1,0,1,'',0,0,0,'','',1);
 	print '</td>';
 
 	print '<td class="fieldrequired">';
