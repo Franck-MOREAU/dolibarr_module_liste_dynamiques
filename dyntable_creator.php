@@ -548,8 +548,8 @@ if($step==3){
 
 	print '</br>';
 
-	print '<div class="inline-block divButAction"><a class="butAction" href="' . $_SERVER["PHP_SELF"] . '?id=' . $id . '&step=3">' . $langs->trans('nextstep') . '</a></div>';
-	print '<div class="inline-block divButAction"><a class="butAction" href="' . $_SERVER["PHP_SELF"] . '?id=' . $id . '&step=1">' . $langs->trans('prevstep') . '</a></div>';
+	print '<div class="inline-block divButAction"><a class="butAction" href="' . $_SERVER["PHP_SELF"] . '?id=' . $id . '&step=4">' . $langs->trans('nextstep') . '</a></div>';
+	print '<div class="inline-block divButAction"><a class="butAction" href="' . $_SERVER["PHP_SELF"] . '?id=' . $id . '&step=2">' . $langs->trans('prevstep') . '</a></div>';
 
 	dol_fiche_end();
 
