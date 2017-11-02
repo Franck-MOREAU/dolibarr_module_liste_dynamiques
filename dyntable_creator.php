@@ -410,11 +410,7 @@ if($step == 2){
 		print '<td>' . $line->field2 . '</td>';
 		print '</tr>';
 	}
-	print '<tr>';
-
-	print '</tr>';
 	print '</table>';
-
 }
 
 
