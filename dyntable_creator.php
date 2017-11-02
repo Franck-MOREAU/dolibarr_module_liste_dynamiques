@@ -324,7 +324,7 @@ if($step == 1){
 	print '<td class="fieldrequired">';
 	print '<select id="field2" class="flat field2" name="field2">';
 	print '<option class="optiongrey" value="-1">&nbsp;</option>';
-	if($action == edit_from){
+	if($action == 'edit_from'){
 		$champs =$db->DDLInfoTable($table);
 		foreach ($champs as $champ){
 			$name = $edit_alias. '.' . $champ[0];
