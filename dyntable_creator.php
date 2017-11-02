@@ -284,7 +284,9 @@ if($step == 1){
 	print '</td>';
 
 	print '<td class="fieldrequired">';
-	print '<div id="field2_place"></div>';
+	print '<select id="field2" class="flat field2" name="field2">';
+	print '<option class="optiongrey" value="-1">&nbsp;</option>';
+	print '</select>';
 	print '</td>';
 
 	print '<td class="fieldrequired">';
@@ -306,7 +308,7 @@ if($step == 1){
 	 		},
 	 		success: function(msg){
 	 			if (msg != ""){
-	 				document.getElementById('field2_place').innerHTML = msg;
+	 				document.getElementById('field2').innerHTML += msg;
 	 			}
 	 		},
 	 		error: function(msg){

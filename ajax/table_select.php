@@ -14,12 +14,8 @@ $form = new Form($db);
 
 $champs =$db->DDLInfoTable($table);
 
-$fields = array();
-
 foreach ($champs as $champ){
-	$fields[]= $alias. '.' . $champ[0];
+	$fields.= '<option value="' . $alias. '.' . $champ[0] . '">' . $alias. '.' . $champ[0] .'</option>';
 }
 
-$return = $form->selectarray('field2', $fields,'field2',1,0,1,'',0,0,0,'','',0);
-
-echo $return;
+echo $fields;
