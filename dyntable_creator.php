@@ -75,7 +75,9 @@ if($action == 'add-from'){
 	$from->field1 = GETPOST('field1');
 	$from->field2 = GETPOST('field2');
 	$res = $from->create($user);
-	echo $res;
+	if($id<0){
+		setEventMessages(null, $from->errors, 'errors');
+	}
 }
 
 if($step>1){
