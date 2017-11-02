@@ -266,6 +266,10 @@ if($step == 1){
 	print '</td>';
 
 	print '<td class="fieldrequired">';
+	print $form->selectarray('field2', $fields,'field2',1,0,1,'',0,0,0,'','',1);
+	print '</td>';
+
+	print '<td class="fieldrequired">';
 	print '<input type="submit" class="button" value="' . $langs->trans("Create") . '">';
 	print '</td>';
 
