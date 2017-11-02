@@ -269,7 +269,7 @@ if($step == 1){
 	print '</td>';
 
 	print '<td class="fieldrequired">';
-	print '<input type="text" name="alias" size="15" value=""/>';
+	print '<input type="text" name="alias" id="alias" size="15" value=""/>';
 	print '</td>';
 
 	print '<td class="fieldrequired">';
@@ -296,7 +296,7 @@ if($step == 1){
 	?>
 	<script type="text/javascript" language="javascript">
 
-	document.getElementById("table").onchange = function(){
+	document.getElementById("alias").onchange = function(){
 		$.ajax({
 	 		method: "POST",
 	 		url: "ajax/table_select.php",
