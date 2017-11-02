@@ -151,7 +151,7 @@ if($action == 'edit_where'){
 	$where_id = GETPOST('element');
 	$where = new dyntable_where($db);
 	$where->fetch($where_id);
-	$edit_order = $where->ordre;
+	$edit_ordre = $where->ordre;
 	$edit_where = $where->where;
 	$edit_field = $where->field;
 	$edit_operateur = $where->operateur;
