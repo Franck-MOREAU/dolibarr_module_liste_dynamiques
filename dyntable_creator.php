@@ -77,6 +77,7 @@ if($action == 'add-from'){
 	$res = $from->create($user);
 	if($res<0){
 		echo $res;
+		var_dump($from->errors);
 		setEventMessages(null, $from->errors, 'errors');
 	}
 }
