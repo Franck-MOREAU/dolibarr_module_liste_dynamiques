@@ -244,6 +244,7 @@ if($step == 1){
 		print '<td>' . $line->field2 . '</td>';
 		print '<td>';
 		print '<a href="' . $_SERVER['PHP_SELF'] . '?id='.$id.'&action=del_from&element='. $line->id .'&step=2">' . img_delete() . '</a>';
+		print '<a href="' . $_SERVER['PHP_SELF'] . '?id='.$id.'&action=edit_from&element='. $line->id .'&step=2">' . img_edit(). '</a>';
 		print '</td>';
 		print '</tr>';
 	}
@@ -255,12 +256,12 @@ if($step == 1){
 	print '<input type="hidden" name="id" value="'. $id .'">';
 
 	print '<td class="fieldrequired">';
-	print '<input type="text" name="order" size="3" value=""/>';
+	print '<input type="text" name="order" size="3" value="' . $edit_order . '"/>';
 	print '</td>';
 
 	print '<td class="fieldrequired">';
 	$join = array('FROM','INNER JOIN', 'LEFT JOIN', 'JOIN', 'UNION');
-	print $form->selectarray('jonction', $join,'jonction',1,0,1,'',0,0,0,'','',0);
+	print $form->selectarray('jonction', $join,'',1,0,1,'',0,0,0,'','',0);
 	print '</td>';
 
 	print '<td class="fieldrequired">';
@@ -297,7 +298,6 @@ if($step == 1){
 
 	?>
 	<script type="text/javascript" language="javascript">
-
 	document.getElementById("alias").onchange = function(){
 		$.ajax({
 	 		method: "POST",
@@ -316,9 +316,6 @@ if($step == 1){
 	 		}
 		})
 	}
-
-
-
 	</script>
 	<?php
 
