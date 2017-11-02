@@ -1637,6 +1637,8 @@ class Dyntable_tools
 
 class Dyntable_fields
 {
+	public $id;
+	public $ordre;
 	public $name;
 	public $label;
 	public $checked;
@@ -1645,16 +1647,487 @@ class Dyntable_fields
 	public $unit;
 	public $align;
 	public $alias;
-	public $post_traitement = array();
-	public $search = array();
-	public $type;
-	public $formule;
-	public $filter = array();
+	public $enabled;
+	public $fk_dyntable;
+
+	public $table_element = 'dyntable_fields';
+
 
 	function __construct($db)
 	{
 		$this->db = $db;
 	}
+
+	public function create(User $user, $notrigger = false)
+	{
+		dol_syslog(__METHOD__, LOG_DEBUG);
+
+		$error = 0;
+
+		// Clean parameters
+
+		if (isset($this->fk_dyntable)) {
+			$this->fk_dyntable = trim($this->fk_dyntable);
+		}
+		if (isset($this->ordre)) {
+			$this->ordre = trim($this->ordre);
+		}
+		if (isset($this->name)) {
+			$this->name = trim($this->name);
+		}
+		if (isset($this->label)) {
+			$this->label = trim($this->label);
+		}
+		if (isset($this->checked)) {
+			$this->checked = trim($this->checked);
+		}
+		if (isset($this->sub_title)) {
+			$this->sub_title = trim($this->sub_title);
+		}
+		if (isset($this->field)) {
+			$this->field = trim($this->field);
+		}
+		if (isset($this->unit)) {
+			$this->unit = trim($this->unit);
+		}
+		if (isset($this->align)) {
+			$this->align = trim($this->align);
+		}
+		if (isset($this->alias)) {
+			$this->alias = trim($this->alias);
+		}
+		if (isset($this->enabled)) {
+			$this->enabled = trim($this->enabled);
+		}
+
+
+		// Check parameters
+		// Put here code to add control on parameters values
+
+		if(!isset($this->fk_dyntable)){
+			$error ++;
+			$this->errors[] = 'fk_dyntable could not be empty';
+		}
+
+		if(!isset($this->ordre)){
+			$error ++;
+			$this->errors[] = 'order could not be empty';
+		}
+
+		if(!isset($this->name)){
+			$error ++;
+			$this->errors[] = 'name could not be empty';
+		}
+
+		if(!isset($this->label)){
+			$error ++;
+			$this->errors[] = 'label could not be empty';
+		}
+
+		if(!isset($this->checked)){
+			$error ++;
+			$this->errors[] = 'checked could not be empty';
+		}
+
+		if(!isset($this->field)){
+			$error ++;
+			$this->errors[] = 'field could not be empty';
+		}
+
+		if(!isset($this->align)){
+			$error ++;
+			$this->errors[] = 'align could not be empty';
+		}
+
+		if(!isset($this->alias)){
+			$error ++;
+			$this->errors[] = 'alias could not be empty';
+		}
+
+		if(!isset($this->enabled)){
+			$error ++;
+			$this->errors[] = 'enabled could not be empty';
+		}
+		// Insert request
+		$sql = 'INSERT INTO ' . MAIN_DB_PREFIX . $this->table_element . '(';
+
+		$sql.= 'fk_dyntable,';
+		$sql.= 'ordre,';
+		$sql.= 'nom,';
+		$sql.= 'label,';
+		$sql.= 'field,';
+		$sql.= 'alias,';
+		$sql.= 'sub_title,';
+		$sql.= 'align,';
+		$sql.= 'enabled,';
+		$sql.= 'checked,';
+		$sql.= 'unit';
+
+
+		$sql .= ') VALUES (';
+
+		$sql .= ' '.(! isset($this->fk_dyntable)?'NULL':"'".$this->db->escape($this->fk_dyntable)."'").',';
+		$sql .= ' '.(! isset($this->ordre)?'NULL':"'".$this->db->escape($this->ordre)."'").',';
+		$sql .= ' '.(! isset($this->name)?'NULL':"'".$this->db->escape($this->name)."'").',';
+		$sql .= ' '.(! isset($this->label)?'NULL':"'".$this->db->escape($this->label)."'").',';
+		$sql .= ' '.(! isset($this->field)?'NULL':"'".$this->db->escape($this->field)."'").',';
+		$sql .= ' '.(! isset($this->alias)?'NULL':"'".$this->db->escape($this->alias)."'").',';
+		$sql .= ' '.(! isset($this->sub_title)?'NULL':"'".$this->db->escape($this->sub_title)."'").',';
+		$sql .= ' '.(! isset($this->align)?'NULL':"'".$this->db->escape($this->align)."'").',';
+		$sql .= ' '.(! isset($this->enabled)?'NULL':"'".$this->db->escape($this->enabled)."'").',';
+		$sql .= ' '.(! isset($this->checked)?'NULL':"'".$this->db->escape($this->checked)."'").',';
+		$sql .= ' '.(! isset($this->unit)?'NULL':"'".$this->db->escape($this->unit)."'");
+
+
+		$sql .= ')';
+
+		$this->db->begin();
+
+		$resql = $this->db->query($sql);
+		if (!$resql) {
+			$error ++;
+			$this->errors[] = 'Error ' . $this->db->lasterror();
+			dol_syslog(__METHOD__ . ' ' . join(',', $this->errors), LOG_ERR);
+		}
+
+		if (!$error) {
+			$this->id = $this->db->last_insert_id(MAIN_DB_PREFIX . $this->table_element);
+
+			if (!$notrigger) {
+				// Uncomment this and change MYOBJECT to your own tag if you
+				// want this action to call a trigger.
+
+				//// Call triggers
+				//$result=$this->call_trigger('MYOBJECT_CREATE',$user);
+				//if ($result < 0) $error++;
+				//// End call triggers
+			}
+		}
+
+		// Commit or rollback
+		if ($error) {
+			$this->db->rollback();
+
+			return - 1 * $error;
+		} else {
+			$this->db->commit();
+
+			return $this->id;
+		}
+	}
+
+	public function fetch($id)
+	{
+		dol_syslog(__METHOD__, LOG_DEBUG);
+
+		$sql = 'SELECT';
+		$sql .= ' t.rowid,';
+		$sql .= " t.fk_dyntable,";
+		$sql .= " t.ordre,";
+		$sql .= " t.nom,";
+		$sql .= " t.label,";
+		$sql .= " t.field,";
+		$sql .= " t.alias,";
+		$sql .= " t.sub_title,";
+		$sql .= " t.align,";
+		$sql .= " t.enabled,";
+		$sql .= " t.checked,";
+		$sql .= " t.unit";
+
+
+		$sql .= ' FROM ' . MAIN_DB_PREFIX . $this->table_element . ' as t';
+		$sql .= ' WHERE t.rowid = ' . $id;
+
+		$resql = $this->db->query($sql);
+		if ($resql) {
+			$numrows = $this->db->num_rows($resql);
+			if ($numrows) {
+				$obj = $this->db->fetch_object($resql);
+
+				$this->id = $obj->rowid;
+				$this->fk_dyntable = $obj->fk_dyntable;
+				$this->ordre = $obj->ordre;
+				$this->name = $obj->nom;
+				$this->label = $obj->label;
+				$this->field = $obj->field;
+				$this->alias = $obj->alias;
+				$this->sub_title = $obj->sub_title;
+				$this->align = $obj->align;
+				$this->enabled = $obj->enabled;
+				$this->checked = $obj->checked;
+				$this->unit = $obj->unit;
+			}
+			$this->db->free($resql);
+
+			if ($numrows) {
+				return 1;
+			} else {
+				return 0;
+			}
+		} else {
+			$this->errors[] = 'Error ' . $this->db->lasterror();
+			dol_syslog(__METHOD__ . ' ' . join(',', $this->errors), LOG_ERR);
+
+			return - 1;
+		}
+	}
+
+	public function fetchAll($sortorder='', $sortfield='', $limit=0, $offset=0, array $filter = array(), $filtermode='AND')
+	{
+		dol_syslog(__METHOD__, LOG_DEBUG);
+
+		$sql = 'SELECT';
+		$sql .= ' t.rowid,';
+		$sql .= " t.fk_dyntable,";
+		$sql .= " t.ordre,";
+		$sql .= " t.nom,";
+		$sql .= " t.label,";
+		$sql .= " t.field,";
+		$sql .= " t.alias,";
+		$sql .= " t.sub_title,";
+		$sql .= " t.align,";
+		$sql .= " t.enabled,";
+		$sql .= " t.checked,";
+		$sql .= " t.unit";
+
+		$sql .= ' FROM ' . MAIN_DB_PREFIX . $this->table_element. ' as t';
+
+		// Manage filter
+		$sqlwhere = array();
+		if (count($filter) > 0) {
+			foreach ($filter as $key => $value) {
+				$sqlwhere [] = $key . ' = ' . $this->db->escape($value);
+			}
+		}
+		if (count($sqlwhere) > 0) {
+			$sql .= ' WHERE ' . implode(' '.$filtermode.' ', $sqlwhere);
+		}
+
+		if (!empty($sortfield)) {
+			$sql .= $this->db->order($sortfield,$sortorder);
+		}
+		if (!empty($limit)) {
+			$sql .=  ' ' . $this->db->plimit($limit + 1, $offset);
+		}
+		$this->lines = array();
+
+		$resql = $this->db->query($sql);
+		if ($resql) {
+			$num = $this->db->num_rows($resql);
+
+			while ($obj = $this->db->fetch_object($resql)) {
+				$line = new Dyntable_fields($this->db);
+
+				$line->id = $obj->rowid;
+				$line->fk_dyntable = $obj->fk_dyntable;
+				$line->ordre = $obj->ordre;
+				$line->name = $obj->nom;
+				$line->label = $obj->label;
+				$line->field = $obj->field;
+				$line->alias = $obj->alias;
+				$line->sub_title = $obj->sub_title;
+				$line->align = $obj->align;
+				$line->enabled = $obj->enabled;
+				$line->checked = $obj->checked;
+				$line->unit = $obj->unit;
+
+				$this->lines[$line->id] = $line;
+			}
+			$this->db->free($resql);
+
+			return $num;
+		} else {
+			$this->errors[] = 'Error ' . $this->db->lasterror();
+			dol_syslog(__METHOD__ . ' ' . join(',', $this->errors), LOG_ERR);
+
+			return - 1;
+		}
+	}
+
+
+	public function update(User $user, $notrigger = false)
+	{
+		$error = 0;
+
+		dol_syslog(__METHOD__, LOG_DEBUG);
+
+		// Clean parameters
+
+		if (isset($this->fk_dyntable)) {
+			$this->fk_dyntable = trim($this->fk_dyntable);
+		}
+		if (isset($this->ordre)) {
+			$this->ordre = trim($this->ordre);
+		}
+		if (isset($this->name)) {
+			$this->name = trim($this->name);
+		}
+		if (isset($this->label)) {
+			$this->label = trim($this->label);
+		}
+		if (isset($this->checked)) {
+			$this->checked = trim($this->checked);
+		}
+		if (isset($this->sub_title)) {
+			$this->sub_title = trim($this->sub_title);
+		}
+		if (isset($this->field)) {
+			$this->field = trim($this->field);
+		}
+		if (isset($this->unit)) {
+			$this->unit = trim($this->unit);
+		}
+		if (isset($this->align)) {
+			$this->align = trim($this->align);
+		}
+		if (isset($this->alias)) {
+			$this->alias = trim($this->alias);
+		}
+		if (isset($this->enabled)) {
+			$this->enabled = trim($this->enabled);
+		}
+
+
+		// Check parameters
+		// Put here code to add control on parameters values
+
+		if(!isset($this->fk_dyntable)){
+			$error ++;
+			$this->errors[] = 'fk_dyntable could not be empty';
+		}
+
+		if(!isset($this->ordre)){
+			$error ++;
+			$this->errors[] = 'order could not be empty';
+		}
+
+		if(!isset($this->name)){
+			$error ++;
+			$this->errors[] = 'name could not be empty';
+		}
+
+		if(!isset($this->label)){
+			$error ++;
+			$this->errors[] = 'label could not be empty';
+		}
+
+		if(!isset($this->checked)){
+			$error ++;
+			$this->errors[] = 'checked could not be empty';
+		}
+
+		if(!isset($this->field)){
+			$error ++;
+			$this->errors[] = 'field could not be empty';
+		}
+
+		if(!isset($this->align)){
+			$error ++;
+			$this->errors[] = 'align could not be empty';
+		}
+
+		if(!isset($this->alias)){
+			$error ++;
+			$this->errors[] = 'alias could not be empty';
+		}
+
+		if(!isset($this->enabled)){
+			$error ++;
+			$this->errors[] = 'enabled could not be empty';
+		}
+		// Update request
+		$sql = 'UPDATE ' . MAIN_DB_PREFIX . $this->table_element . ' SET';
+
+		$sql .= ' fk_dyntable = '.(isset($this->fk_dyntable)?"'".$this->db->escape($this->fk_dyntable)."'":"null").',';
+		$sql .= ' ordre = '.(isset($this->order)?"'".$this->db->escape($this->order)."'":"null").',';
+		$sql .= ' nom = '.(isset($this->name)?"'".$this->db->escape($this->name)."'":"null").',';
+		$sql .= ' label = '.(isset($this->label)?"'".$this->db->escape($this->label)."'":"null").',';
+		$sql .= ' field = '.(isset($this->field)?"'".$this->db->escape($this->field)."'":"null").',';
+		$sql .= ' alias = '.(isset($this->alias)?"'".$this->db->escape($this->alias)."'":"null").',';
+		$sql .= ' sub_title = '.(isset($this->sub_title)?"'".$this->db->escape($this->sub_title)."'":"null").',';
+		$sql .= ' align = '.(isset($this->align)?"'".$this->db->escape($this->align)."'":"null").',';
+		$sql .= ' enabled = '.(isset($this->enabled)?"'".$this->db->escape($this->enabled)."'":"null").',';
+		$sql .= ' checked = '.(isset($this->checked)?"'".$this->db->escape($this->checked)."'":"null").',';
+		$sql .= ' unit = '.(isset($this->unit)?"'".$this->db->escape($this->unit)."'":"null");
+
+		$sql .= ' WHERE rowid=' . $this->id;
+
+		$this->db->begin();
+
+		$resql = $this->db->query($sql);
+		if (!$resql) {
+			$error ++;
+			$this->errors[] = 'Error ' . $this->db->lasterror();
+			dol_syslog(__METHOD__ . ' ' . join(',', $this->errors), LOG_ERR);
+		}
+
+		if (!$error && !$notrigger) {
+			// Uncomment this and change MYOBJECT to your own tag if you
+			// want this action calls a trigger.
+
+			//// Call triggers
+			//$result=$this->call_trigger('MYOBJECT_MODIFY',$user);
+			//if ($result < 0) { $error++; //Do also what you must do to rollback action if trigger fail}
+			//// End call triggers
+		}
+
+		// Commit or rollback
+		if ($error) {
+			$this->db->rollback();
+
+			return - 1 * $error;
+		} else {
+			$this->db->commit();
+
+			return 1;
+		}
+	}
+
+
+	public function delete(User $user, $notrigger = false)
+	{
+		dol_syslog(__METHOD__, LOG_DEBUG);
+
+		$error = 0;
+
+		$this->db->begin();
+
+		if (!$error) {
+			if (!$notrigger) {
+				// Uncomment this and change MYOBJECT to your own tag if you
+				// want this action calls a trigger.
+
+				//// Call triggers
+				//$result=$this->call_trigger('MYOBJECT_DELETE',$user);
+				//if ($result < 0) { $error++; //Do also what you must do to rollback action if trigger fail}
+				//// End call triggers
+			}
+		}
+
+		if (!$error) {
+			$sql = 'DELETE FROM ' . MAIN_DB_PREFIX . $this->table_element;
+			$sql .= ' WHERE rowid=' . $this->id;
+
+			$resql = $this->db->query($sql);
+			if (!$resql) {
+				$error ++;
+				$this->errors[] = 'Error ' . $this->db->lasterror();
+				dol_syslog(__METHOD__ . ' ' . join(',', $this->errors), LOG_ERR);
+			}
+		}
+
+		// Commit or rollback
+		if ($error) {
+			$this->db->rollback();
+
+			return - 1 * $error;
+		} else {
+			$this->db->commit();
+
+			return 1;
+		}
+	}
+
 
 	function traitement($value,$line,$option){
 		switch ($this->post_traitement[0]){
