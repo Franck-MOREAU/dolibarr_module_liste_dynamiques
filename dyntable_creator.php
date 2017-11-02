@@ -433,7 +433,7 @@ if($step==3){
 	print '<td></td>';
 	print '</tr>';
 
-	foreach ($from->lines as $line){
+	foreach ($where->lines as $line){
 		print '<tr>';
 		print '<td>'. $line->ordre . '</td>';
 		print '<td>' . $line->where . '</td>';
@@ -521,7 +521,7 @@ if($step==3){
 	print '<td> valeur 2 </td>';
 	print '</tr>';
 
-	foreach ($from->lines as $line){
+	foreach ($where->lines as $line){
 		print '<tr>';
 		print '<td>'. $line->ordre . '</td>';
 		print '<td>' . $line->where . '</td>';
