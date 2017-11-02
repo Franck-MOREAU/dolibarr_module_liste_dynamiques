@@ -359,8 +359,9 @@ if($step == 2){
 	print '</br>';
 
 	print '<div class="inline-block divButAction"><a class="butAction" href="' . $_SERVER["PHP_SELF"] . '?id=' . $id . '&step=3">' . $langs->trans('nextstep') . '</a></div>';
-	print '<div class="inline-block divButAction"><a class="butAction" href="' . $_SERVER["PHP_SELF"] . '?id=' . $id . '&step=1">' . $langs->trans('prevstep') . '</a></div>'
+	print '<div class="inline-block divButAction"><a class="butAction" href="' . $_SERVER["PHP_SELF"] . '?id=' . $id . '&step=1">' . $langs->trans('prevstep') . '</a></div>';
 
+	dol_fiche_end();
 	?>
 	<script type="text/javascript" language="javascript">
 	document.getElementById("alias").onchange = function(){
@@ -411,8 +412,128 @@ if($step == 2){
 		print '</tr>';
 	}
 	print '</table>';
+	dol_fiche_end();
 }
+if($step==3){
+	dol_fiche_head();
+	print_fiche_titre($title.' - Step 3', '', dol_buildpath('/dyntable/img/object_list.png', 1), 1);
 
+	$where = new dyntable_where($db);
+	$where->fetchAll('ASC','ordre',0,0,array('fk_dyntable'=> $id),'AND');
+
+
+	print '<table class="border" width="100%">';
+	print '<tr>';
+	print '<td> ordre </td>';
+	print '<td> Jonction </td>';
+	print '<td> champ </td>';
+	print '<td> opérateur </td>';
+	print '<td> valeur 1 </td>';
+	print '<td> valeur 2 </td>';
+	print '<td></td>';
+	print '</tr>';
+
+	foreach ($from->lines as $line){
+		print '<tr>';
+		print '<td>'. $line->ordre . '</td>';
+		print '<td>' . $line->where . '</td>';
+		print '<td>' . $line->field . '</td>';
+		print '<td>' . $line->operateur . '</td>';
+		print '<td>' . $line->val1 . '</td>';
+		print '<td>' . $line->val2 . '</td>';
+		print '<td>';
+		print '<a href="' . $_SERVER['PHP_SELF'] . '?id='.$id.'&action=del_where&element='. $line->id .'&step=3">' . img_delete() . '</a>';
+		print '<a href="' . $_SERVER['PHP_SELF'] . '?id='.$id.'&action=edit_where&element='. $line->id .'&step=3">' . img_edit(). '</a>';
+		print '</td>';
+		print '</tr>';
+	}
+
+	print '<tr>';
+	print '<form name="addlead" action="' . $_SERVER["PHP_SELF"] . '" method="POST">';
+	print '<input type="hidden" name="token" value="' . $_SESSION['newtoken'] . '">';
+	if($action == 'edit_where'){
+		print '<input type="hidden" name="action" value="edit-where">';
+		print '<input type="hidden" name="element" value="' . GETPOST('element') . '">';
+	}else{
+		print '<input type="hidden" name="action" value="add-where">';
+	}
+	print '<input type="hidden" name="step" value="3">';
+	print '<input type="hidden" name="id" value="'. $id .'">';
+
+	print '<td class="fieldrequired">';
+	print '<input type="text" name="order" size="3" value="' . $edit_ordre . '"/>';
+	print '</td>';
+
+	print '<td class="fieldrequired">';
+	$join = array('WHERE','AND', 'OR');
+	print $form->selectarray('jonction', $join,$edit_where,1,0,1,'',0,0,0,'','',0);
+	print '</td>';
+
+	print '<td class="fieldrequired">';
+	$fields = array();
+	$from = new dyntable_from($db);
+	$from->fetchAll('ASC','ordre',0,0,array('fk_dyntable'=>$id),'AND');
+	foreach ($from->lines as $line){
+		$tableinfo=$db->DDLInfoTable($line->table);
+		foreach ($tableinfo as $field){
+			$fields[] = $line->as . '.' . $field[0];
+		}
+	}
+	print $form->selectarray('field', $fields,$edit_field1,1,0,1,'',0,0,0,'','',1);
+	print '</td>';
+
+	print '<td class="fieldrequired">';
+	$operateur = array('=','<', '>','<>','>=','<=','IS NULL','IS NOT NULL','IN', 'NOT IN','BETWEEN', 'NOT BETWEEN');
+	print $form->selectarray('opérateur', $operateur,$edit_operateur,1,0,1,'',0,0,0,'','',0);
+	print '</td>';
+
+	print '<td class="fieldrequired">';
+	print '<input type="text" name="val1" id="val1" size="15" value="' . $edit_val1 . '"/>';
+	print '</td>';
+
+	print '<td class="fieldrequired">';
+	print '<input type="text" name="val2" id="val2" size="15" value="' . $edit_val2 . '"/>';
+	print '</td>';
+
+	print '<td class="fieldrequired">';
+	print '<input type="submit" class="button" value="' . $langs->trans("Create") . '">';
+	print '</td>';
+
+	print '</form>';
+	print '</tr>';
+
+	print '</table>';
+	dol_fiche_end();
+
+}elseif ($step>3){
+	dol_fiche_head();
+	print_fiche_titre($title.' - Step 3', '', dol_buildpath('/dyntable/img/object_list.png', 1), 1);
+
+	$where = new dyntable_where($db);
+	$where->fetchAll('ASC','ordre',0,0,array('fk_dyntable'=> $id),'AND');
+
+	print '<tr>';
+	print '<td> ordre </td>';
+	print '<td> Jonction </td>';
+	print '<td> champ </td>';
+	print '<td> opérateur </td>';
+	print '<td> valeur 1 </td>';
+	print '<td> valeur 2 </td>';
+	print '</tr>';
+
+	foreach ($from->lines as $line){
+		print '<tr>';
+		print '<td>'. $line->ordre . '</td>';
+		print '<td>' . $line->where . '</td>';
+		print '<td>' . $line->field . '</td>';
+		print '<td>' . $line->operateur . '</td>';
+		print '<td>' . $line->val1 . '</td>';
+		print '<td>' . $line->val2 . '</td>';
+		print '</tr>';
+	}
+
+	dol_fiche_end();
+}
 
 ?>
 <script type="text/javascript" language="javascript">
