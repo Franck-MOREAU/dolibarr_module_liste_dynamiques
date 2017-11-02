@@ -613,9 +613,14 @@ if($step==3){
 if($step==4){
 	dol_fiche_head();
 	print_fiche_titre($title.' - Selection des colones de la liste', '', dol_buildpath('/dyntable/img/object_list.png', 1), 1);
+
+	$col = new Dyntable_fields($db);
+	$col->fetchAll('ASC','ordre',0,0,array('fk_dyntable'=> $id),'AND');
+
 	print '<table class="border" width="100%">';
 	print '<tr>';
 	print '<td class="fieldrequired"> ordre </td>';
+	print '<td class="fieldrequired"> type </td>';
 	print '<td class="fieldrequired"> nom </td>';
 	print '<td class="fieldrequired"> titre col. </td>';
 	print '<td class="fieldrequired"> sel (def) </td>';
@@ -627,6 +632,98 @@ if($step==4){
 	print '<td class="fieldrequired"> surtitre </td>';
 	print '<td class="fieldrequired"></td>';
 	print '</tr>';
+
+	foreach ($col->lines as $line){
+		print '<tr>';
+		print '<td>'. $line->ordre . '</td>';
+		print '<td>'. $line->type . '</td>';
+		print '<td>' . $line->name . '</td>';
+		print '<td>' . $line->label . '</td>';
+		print '<td>' . $line->checked . '</td>';
+		print '<td>' . $line->align . '</td>';
+		print '<td>' . $line->unit . '</td>';
+		print '<td>' . $line->enabled . '</td>';
+		print '<td>' . $line->field . '</td>';
+		print '<td>' . $line->alias . '</td>';
+		print '<td>' . $line->sub_title . '</td>';
+		print '<td>';
+		print '<a href="' . $_SERVER['PHP_SELF'] . '?id='.$id.'&action=del_where&element='. $line->id .'&step=3">' . img_delete() . '</a>';
+		print '<a href="' . $_SERVER['PHP_SELF'] . '?id='.$id.'&action=edit_where&element='. $line->id .'&step=3">' . img_edit(). '</a>';
+		print '</td>';
+		print '</tr>';
+	}
+
+	print '<tr>';
+	print '<form name="addlead" action="' . $_SERVER["PHP_SELF"] . '" method="POST">';
+	print '<input type="hidden" name="token" value="' . $_SESSION['newtoken'] . '">';
+	if($action == 'edit_field'){
+		print '<input type="hidden" name="action" value="edit-field">';
+		print '<input type="hidden" name="element" value="' . GETPOST('element') . '">';
+	}else{
+		print '<input type="hidden" name="action" value="add-field">';
+	}
+	print '<input type="hidden" name="step" value="4">';
+	print '<input type="hidden" name="id" value="'. $id .'">';
+
+	print '<td class="fieldrequired">';
+	print '<input type="text" name="order" size="3" value="' . $edit_ordre . '"/>';
+	print '</td>';
+
+	print '<td class="fieldrequired">';
+	$type = array('champs','calcul', 'bouton');
+	print $form->selectarray('type', $type,$edit_type,1,0,1,'',0,0,0,'','',0);
+	print '</td>';
+
+	print '<td class="fieldrequired">';
+	print '<input type="text" name="name" size="10" value="' . $edit_name . '"/>';
+	print '</td>';
+
+	print '<td class="fieldrequired">';
+	print '<input type="text" name="label" size="10" value="' . $edit_label . '"/>';
+	print '</td>';
+
+	print '<td class="fieldrequired">';
+	print $form->selectyesno("checked",$edit_checked,1);
+	print '</td>';
+
+	print '<td class="fieldrequired">';
+	$align = array('left','center', 'right');
+	print $form->selectarray('align', $align,$edit_align,1,0,1,'',0,0,0,'','',0);
+	print '</td>';
+
+	print '<td class="fieldrequired">';
+	print '<input type="text" name="unit" size="3" value="' . $edit_unit . '"/>';
+	print '</td>';
+
+	print '<td class="fieldrequired">';
+	print $form->selectyesno("enabled",$edit_enabled,1);
+	print '</td>';
+
+	print '<td class="fieldrequired">';
+	$fields = array();
+	$from = new dyntable_from($db);
+	$from->fetchAll('ASC','ordre',0,0,array('fk_dyntable'=>$id),'AND');
+	foreach ($from->lines as $line){
+		$tableinfo=$db->DDLInfoTable($line->table);
+		foreach ($tableinfo as $field){
+			$fields[] = $line->as . '.' . $field[0];
+		}
+	}
+	print $form->selectarray('field', $fields,$edit_field,1,0,1,'',0,0,0,'','',1);
+	print '</td>';
+
+	print '<td class="fieldrequired">';
+	print '<input type="text" name="alias" size="10" value="' . $edit_alias . '"/>';
+	print '</td>';
+
+	print '<td class="fieldrequired">';
+	$operateur = array('=','<', '>','<>','>=','<=','IS NULL','IS NOT NULL','IN', 'NOT IN','BETWEEN', 'NOT BETWEEN');
+	print $form->selectarray('operateur', $operateur,$edit_operateur,1,0,1,'',0,0,0,'','',0);
+	print '</td>';
+
+	print '</form>';
+	print '</tr>';
+
 
 	print '</table>';
 	print '</br>';
