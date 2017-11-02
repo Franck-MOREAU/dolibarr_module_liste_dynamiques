@@ -188,7 +188,7 @@ llxHeader('', $title);
 
 if($step == 1){
 	dol_fiche_head();
-	print_fiche_titre($title.' - Step 1', '', dol_buildpath('/dyntable/img/object_list.png', 1), 1);
+	print_fiche_titre($title.' - Informations Générales', '', dol_buildpath('/dyntable/img/object_list.png', 1), 1);
 
 	print '<form name="addlead" action="' . $_SERVER["PHP_SELF"] . '" method="POST">';
 	print '<input type="hidden" name="token" value="' . $_SESSION['newtoken'] . '">';
@@ -256,7 +256,7 @@ if($step == 1){
 	<?php
 }elseif($step>1){
 	dol_fiche_head();
-	print_fiche_titre($title.' - Step 1', '', dol_buildpath('/dyntable/img/object_list.png', 1), 1);
+	print_fiche_titre($title.' - Informations Générales', '', dol_buildpath('/dyntable/img/object_list.png', 1), 1);
 
 	print '<table class="border" width="100%">';
 	print '<tr>';
@@ -302,7 +302,7 @@ if($step == 1){
 }
 if($step == 2){
 	dol_fiche_head();
-	print_fiche_titre($title.' - Step 2', '', dol_buildpath('/dyntable/img/object_list.png', 1), 1);
+	print_fiche_titre($title.' - Sélection des tables et jointures', '', dol_buildpath('/dyntable/img/object_list.png', 1), 1);
 
 	$from = new dyntable_from($db);
 	$from->fetchAll('ASC','ordre',0,0,array('fk_dyntable'=>$id),'AND');
@@ -427,7 +427,7 @@ if($step == 2){
 	<?php
 }elseif($step>2){
 	dol_fiche_head();
-	print_fiche_titre($title.' - Step 2', '', dol_buildpath('/dyntable/img/object_list.png', 1), 1);
+	print_fiche_titre($title.' - Sélection des tables et jointures', '', dol_buildpath('/dyntable/img/object_list.png', 1), 1);
 
 	$from = new dyntable_from($db);
 	$from->fetchAll('ASC','ordre',0,0,array('fk_dyntable'=>$id),'AND');
@@ -457,7 +457,7 @@ if($step == 2){
 }
 if($step==3){
 	dol_fiche_head();
-	print_fiche_titre($title.' - Step 3', '', dol_buildpath('/dyntable/img/object_list.png', 1), 1);
+	print_fiche_titre($title.' - Clause WHERE permanente', '', dol_buildpath('/dyntable/img/object_list.png', 1), 1);
 
 	$where = new dyntable_where($db);
 	$where->fetchAll('ASC','ordre',0,0,array('fk_dyntable'=> $id),'AND');
@@ -580,7 +580,7 @@ if($step==3){
 
 }elseif ($step>3){
 	dol_fiche_head();
-	print_fiche_titre($title.' - Step 3', '', dol_buildpath('/dyntable/img/object_list.png', 1), 1);
+	print_fiche_titre($title.' - Clause WHERE permanente', '', dol_buildpath('/dyntable/img/object_list.png', 1), 1);
 
 	$where = new dyntable_where($db);
 	$where->fetchAll('ASC','ordre',0,0,array('fk_dyntable'=> $id),'AND');
@@ -606,6 +606,25 @@ if($step==3){
 		print '</tr>';
 	}
 	print '</table>';
+
+	dol_fiche_end();
+}
+
+if($step=4){
+	dol_fiche_head();
+	print_fiche_titre($title.' - Selection des colones de la liste', '', dol_buildpath('/dyntable/img/object_list.png', 1), 1);
+
+
+
+	print '</br>';
+
+	print '<div class="inline-block divButAction"><a class="butAction" href="' . $_SERVER["PHP_SELF"] . '?id=' . $id . '&step=4">' . $langs->trans('nextstep') . '</a></div>';
+	print '<div class="inline-block divButAction"><a class="butAction" href="' . $_SERVER["PHP_SELF"] . '?id=' . $id . '&step=2">' . $langs->trans('prevstep') . '</a></div>';
+	dol_fiche_end();
+}elseif($step>4){
+	dol_fiche_head();
+	print_fiche_titre($title.' - Selection des colones de la liste', '', dol_buildpath('/dyntable/img/object_list.png', 1), 1);
+
 
 	dol_fiche_end();
 }
