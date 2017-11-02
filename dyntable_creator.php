@@ -305,7 +305,7 @@ if($step == 1){
 	 		},
 	 		success: function(msg){
 	 			if (msg != ""){
-	 				$('div.field2_place ').first().prepend(msg);
+	 				$('div.field2_place').first().innerHTML = msg;
 	 			}
 	 		},
 	 		error: function(msg){
