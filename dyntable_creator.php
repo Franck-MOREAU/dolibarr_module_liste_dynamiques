@@ -205,7 +205,8 @@ if($step == 1){
 	print_fiche_titre($title.' - Step 2', '', dol_buildpath('/dyntable/img/object_list.png', 1), 1);
 
 	$from = new dyntable_from($db);
-	$from->fetchAll('ASC','order',0,0,array('fk_dyntable'=>$id),'AND');
+	$res = $from->fetchAll('ASC','order',0,0,array('fk_dyntable'=>$id),'AND');
+	print 'res: ' . $res;
 
 	print '<table class="border" width="100%">';
 	print '<tr>';
