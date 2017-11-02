@@ -254,6 +254,7 @@ if($step == 1){
 
 	dol_fiche_end();
 
+	dol_fiche_head();
 	print_fiche_titre($title.' - Step 2', '', dol_buildpath('/dyntable/img/object_list.png', 1), 1);
 
 	$from = new dyntable_from($db);
@@ -384,6 +385,6 @@ if($step == 1){
 </script>
 <?php
 
-dol_fiche_end();
+
 llxFooter();
 $db->close();
