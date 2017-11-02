@@ -707,8 +707,8 @@ if($step==4){
 		print '<td>' . $line->alias . '</td>';
 		print '<td>' . $line->sub_title . '</td>';
 		print '<td>';
-		print '<a href="' . $_SERVER['PHP_SELF'] . '?id='.$id.'&action=del_field&element='. $line->id .'&step=3">' . img_delete() . '</a>';
-		print '<a href="' . $_SERVER['PHP_SELF'] . '?id='.$id.'&action=edit_field&element='. $line->id .'&step=3">' . img_edit(). '</a>';
+		print '<a href="' . $_SERVER['PHP_SELF'] . '?id='.$id.'&action=del_field&element='. $line->id .'&step=4">' . img_delete() . '</a>';
+		print '<a href="' . $_SERVER['PHP_SELF'] . '?id='.$id.'&action=edit_field&element='. $line->id .'&step=4">' . img_edit(). '</a>';
 		print '</td>';
 		print '</tr>';
 	}
