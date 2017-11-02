@@ -206,7 +206,7 @@ if($step == 1){
 
 	$from = new dyntable_from($db);
 	$res = $from->fetchAll('ASC','order',0,0,array('fk_dyntable'=>$id),'AND');
-	print 'res: ' . var_dump($from->errors);
+	print 'res: ' . $db->lastquery;
 
 	print '<table class="border" width="100%">';
 	print '<tr>';
