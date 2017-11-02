@@ -546,6 +546,28 @@ if($step==3){
 	print '</table>';
 	dol_fiche_end();
 
+	?>
+	<script type="text/javascript" language="javascript">
+	document.getElementById("operateur").onchange = function(){
+		var noval = ['IS NULL','IS NOT NULL'];
+		var oneval = ['=','<', '>','<>','>=','<=','IN', 'NOT IN'];
+		var twoval = ['BETWEEN', 'NOT BETWEEN'];
+
+		if (noval.indexOf(document.getElementById("operateur").value) > -1){
+			document.getElementById("val1").style.display = "none";
+			document.getElementById("val2").style.display = "none";
+		} else if (oneval.indexOf(document.getElementById("operateur").value) > -1){
+			document.getElementById("val1").style.display = "";
+			document.getElementById("val2").style.display = "none";
+		} else if (twoval.indexOf(document.getElementById("operateur").value) > -1){
+			document.getElementById("val1").style.display = "";
+			document.getElementById("val2").style.display = "";
+		}
+	}
+
+	</script>
+	<?php
+
 }elseif ($step>3){
 	dol_fiche_head();
 	print_fiche_titre($title.' - Step 3', '', dol_buildpath('/dyntable/img/object_list.png', 1), 1);
