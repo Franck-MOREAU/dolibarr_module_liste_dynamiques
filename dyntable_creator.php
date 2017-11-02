@@ -302,6 +302,7 @@ if($step == 1){
 	 		url: "ajax/table_select.php",
 	 		data: {
 	 			table_ajax: document.getElementById("table").value,
+	 			alias_ajax: document.getElementById("alias").value,
 	 		},
 	 		success: function(msg){
 	 			if (msg != ""){
