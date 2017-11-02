@@ -529,11 +529,11 @@ if($step==3){
 	print '</td>';
 
 	print '<td class="fieldrequired">';
-	print '<input type="text" name="val1" id="val1" size="15" value="' . $edit_val1 . '"/>';
+	print '<input type="text" style="display:none" name="val1" id="val1" size="15" value="' . $edit_val1 . '"/>';
 	print '</td>';
 
 	print '<td class="fieldrequired">';
-	print '<input type="text" name="val2" id="val2" size="15" value="' . $edit_val2 . '"/>';
+	print '<input type="text" style="display:none" name="val2" id="val2" size="15" value="' . $edit_val2 . '"/>';
 	print '</td>';
 
 	print '<td class="fieldrequired">';
@@ -562,6 +562,9 @@ if($step==3){
 		} else if (twoval.indexOf(document.getElementById("operateur").value) > -1){
 			document.getElementById("val1").style.display = "";
 			document.getElementById("val2").style.display = "";
+		} else {
+			document.getElementById("val1").style.display = "none";
+			document.getElementById("val2").style.display = "none";
 		}
 	}
 
