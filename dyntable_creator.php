@@ -309,12 +309,12 @@ if($step == 2){
 
 	print '<table class="border" width="100%">';
 	print '<tr>';
-	print '<td> ordre </td>';
-	print '<td> type de jonction </td>';
-	print '<td> nom de la table </td>';
-	print '<td> alias </td>';
-	print '<td> champs de jonction 1 </td>';
-	print '<td> champs de jonction 2 </td>';
+	print '<td class="fieldrequired"> ordre </td>';
+	print '<td class="fieldrequired"> type de jonction </td>';
+	print '<td class="fieldrequired"> nom de la table </td>';
+	print '<td class="fieldrequired"> alias </td>';
+	print '<td class="fieldrequired"> champs de jonction 1 </td>';
+	print '<td class="fieldrequired"> champs de jonction 2 </td>';
 	print '<td></td>';
 	print '</tr>';
 
@@ -434,12 +434,12 @@ if($step == 2){
 
 	print '<table class="border" width="100%">';
 	print '<tr>';
-	print '<td> ordre </td>';
-	print '<td> type de jonction </td>';
-	print '<td> nom de la table </td>';
-	print '<td> alias </td>';
-	print '<td> champs de jonction 1 </td>';
-	print '<td> champs de jonction 2 </td>';
+	print '<td class="fieldrequired"> ordre </td>';
+	print '<td class="fieldrequired"> type de jonction </td>';
+	print '<td class="fieldrequired"> nom de la table </td>';
+	print '<td class="fieldrequired"> alias </td>';
+	print '<td class="fieldrequired"> champs de jonction 1 </td>';
+	print '<td class="fieldrequired"> champs de jonction 2 </td>';
 	print '</tr>';
 
 	foreach ($from->lines as $line){
@@ -465,12 +465,12 @@ if($step==3){
 
 	print '<table class="border" width="100%">';
 	print '<tr>';
-	print '<td> ordre </td>';
-	print '<td> Jonction </td>';
-	print '<td> champ </td>';
-	print '<td> opérateur </td>';
-	print '<td> valeur 1 </td>';
-	print '<td> valeur 2 </td>';
+	print '<td class="fieldrequired"> ordre </td>';
+	print '<td class="fieldrequired"> Jonction </td>';
+	print '<td class="fieldrequired"> champ </td>';
+	print '<td class="fieldrequired"> opérateur </td>';
+	print '<td class="fieldrequired"> valeur 1 </td>';
+	print '<td class="fieldrequired"> valeur 2 </td>';
 	print '<td></td>';
 	print '</tr>';
 
@@ -536,6 +536,7 @@ if($step==3){
 	print '<input type="text" style="display:none" name="val2" id="val2" size="15" value="' . $edit_val2 . '"/>';
 	print '</td>';
 
+
 	print '<td class="fieldrequired">';
 	print '<input type="submit" class="button" value="' . $langs->trans("Create") . '">';
 	print '</td>';
@@ -579,12 +580,12 @@ if($step==3){
 	$where->fetchAll('ASC','ordre',0,0,array('fk_dyntable'=> $id),'AND');
 
 	print '<tr>';
-	print '<td> ordre </td>';
-	print '<td> Jonction </td>';
-	print '<td> champ </td>';
-	print '<td> opérateur </td>';
-	print '<td> valeur 1 </td>';
-	print '<td> valeur 2 </td>';
+	print '<td class="fieldrequired"> ordre </td>';
+	print '<td class="fieldrequired"> Jonction </td>';
+	print '<td class="fieldrequired"> champ </td>';
+	print '<td class="fieldrequired"> opérateur </td>';
+	print '<td class="fieldrequired"> valeur 1 </td>';
+	print '<td class="fieldrequired"> valeur 2 </td>';
 	print '</tr>';
 
 	foreach ($where->lines as $line){
