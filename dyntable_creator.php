@@ -235,7 +235,7 @@ if($step == 1){
 	print '</td>';
 
 	print '<td class="fieldrequired">';
-	$join = array('INNER JOIN', 'LEFT JOIN', 'JOIN', 'UNION');
+	$join = array('FROM','INNER JOIN', 'LEFT JOIN', 'JOIN', 'UNION');
 	print $form->selectarray('jonction', $join,'jonction',1,0,1,'',0,0,0,'','',0);
 	print '</td>';
 
