@@ -131,8 +131,7 @@ if($action == 'edit-from'){
 	$from->as = GETPOST('alias');
 	$from->field1 = $field1;
 	$from->field2 = $field2;
-	$res = $from->update($user);
-	echo $db->lastquery;
+	$from->update($user);
 }
 
 if($step>1){
