@@ -26,3 +26,5 @@ limit = Nb Enr par page
 export_button = Boutton exporter
 select_field_button = Boutton de selection de champs
 export_name = nom d'export
+nextstep = Etape Suivante
+prevstep = Etape Précédente
