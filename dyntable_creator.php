@@ -265,7 +265,7 @@ if($step == 1){
 
 	print '<td class="fieldrequired">';
 	$tables = $db->DDLListTables($db->database_name,MAIN_DB_PREFIX.'%');
-	print $form->selectarray('table', $tables,'table',1,0,1,'',0,0,0,'','',0);
+	print $form->selectarray('table', $tables,'table',1,0,1,'',0,0,0,'','',1);
 	print '</td>';
 
 	print '<td class="fieldrequired">';
