@@ -65,6 +65,18 @@ if($action == 'new-step1'){
 	}
 }
 
+if($action == 'add-from'){
+	$from = new dyntable_from($db);
+	$from->fk_dyntable = $id;
+	$from->order = GETPOST('order');
+	$from->from = GETPOST('jonction');
+	$from->table = GETPOST('table');
+	$from->as = GETPOST('alias');
+	$from->field1 = GETPOST('field1');
+	$from->field2 = GETPOST('field2');
+	$from->create($user);
+}
+
 if($step>1){
 	$object = new Dyntable($db);
 	$object->fetch($id);
