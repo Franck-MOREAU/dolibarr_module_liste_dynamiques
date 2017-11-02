@@ -83,7 +83,7 @@ if($action == 'add-from'){
 	}
 }
 
-if($action == 'delete_from'){
+if($action == 'del_from'){
 	$from_id = GETPOST('element');
 	$from = new dyntable_from($db);
 	$from->fetch($from_id);
