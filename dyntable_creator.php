@@ -613,9 +613,22 @@ if($step==3){
 if($step==4){
 	dol_fiche_head();
 	print_fiche_titre($title.' - Selection des colones de la liste', '', dol_buildpath('/dyntable/img/object_list.png', 1), 1);
+	print '<table class="border" width="100%">';
+	print '<tr>';
+	print '<td class="fieldrequired"> ordre </td>';
+	print '<td class="fieldrequired"> nom </td>';
+	print '<td class="fieldrequired"> titre col. </td>';
+	print '<td class="fieldrequired"> sel (def) </td>';
+	print '<td class="fieldrequired"> Alignement </td>';
+	print '<td class="fieldrequired"> unité </td>';
+	print '<td class="fieldrequired"> visible </td>';
+	print '<td class="fieldrequired"> champ </td>';
+	print '<td class="fieldrequired"> alias </td>';
+	print '<td class="fieldrequired"> surtitre </td>';
+	print '<td class="fieldrequired"></td>';
+	print '</tr>';
 
-
-
+	print '</table>';
 	print '</br>';
 
 	print '<div class="inline-block divButAction"><a class="butAction" href="' . $_SERVER["PHP_SELF"] . '?id=' . $id . '&step=5">' . $langs->trans('nextstep') . '</a></div>';

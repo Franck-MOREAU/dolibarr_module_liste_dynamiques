@@ -1649,6 +1649,7 @@ class Dyntable_fields
 	public $alias;
 	public $enabled;
 	public $fk_dyntable;
+	public $type;
 
 	public $table_element = 'dyntable_fields';
 
@@ -1699,7 +1700,9 @@ class Dyntable_fields
 		if (isset($this->enabled)) {
 			$this->enabled = trim($this->enabled);
 		}
-
+		if (isset($this->type)) {
+			$this->type = trim($this->type);
+		}
 
 		// Check parameters
 		// Put here code to add control on parameters values
@@ -1748,6 +1751,11 @@ class Dyntable_fields
 			$error ++;
 			$this->errors[] = 'enabled could not be empty';
 		}
+		if(!isset($this->type)){
+			$error ++;
+			$this->errors[] = 'type could not be empty';
+		}
+
 		// Insert request
 		$sql = 'INSERT INTO ' . MAIN_DB_PREFIX . $this->table_element . '(';
 
@@ -1761,6 +1769,7 @@ class Dyntable_fields
 		$sql.= 'align,';
 		$sql.= 'enabled,';
 		$sql.= 'checked,';
+		$sql.= 'type,';
 		$sql.= 'unit';
 
 
@@ -1776,6 +1785,7 @@ class Dyntable_fields
 		$sql .= ' '.(! isset($this->align)?'NULL':"'".$this->db->escape($this->align)."'").',';
 		$sql .= ' '.(! isset($this->enabled)?'NULL':"'".$this->db->escape($this->enabled)."'").',';
 		$sql .= ' '.(! isset($this->checked)?'NULL':"'".$this->db->escape($this->checked)."'").',';
+		$sql .= ' '.(! isset($this->type)?'NULL':"'".$this->db->escape($this->type)."'").',';
 		$sql .= ' '.(! isset($this->unit)?'NULL':"'".$this->db->escape($this->unit)."'");
 
 
@@ -1832,6 +1842,7 @@ class Dyntable_fields
 		$sql .= " t.align,";
 		$sql .= " t.enabled,";
 		$sql .= " t.checked,";
+		$sql .= " t.type,";
 		$sql .= " t.unit";
 
 
@@ -1855,6 +1866,7 @@ class Dyntable_fields
 				$this->align = $obj->align;
 				$this->enabled = $obj->enabled;
 				$this->checked = $obj->checked;
+				$this->type = $obj->type;
 				$this->unit = $obj->unit;
 			}
 			$this->db->free($resql);
@@ -1888,6 +1900,7 @@ class Dyntable_fields
 		$sql .= " t.align,";
 		$sql .= " t.enabled,";
 		$sql .= " t.checked,";
+		$sql .= " t.type,";
 		$sql .= " t.unit";
 
 		$sql .= ' FROM ' . MAIN_DB_PREFIX . $this->table_element. ' as t';
@@ -1929,6 +1942,7 @@ class Dyntable_fields
 				$line->align = $obj->align;
 				$line->enabled = $obj->enabled;
 				$line->checked = $obj->checked;
+				$line->type = $obj->type;
 				$line->unit = $obj->unit;
 
 				$this->lines[$line->id] = $line;
@@ -1986,7 +2000,9 @@ class Dyntable_fields
 		if (isset($this->enabled)) {
 			$this->enabled = trim($this->enabled);
 		}
-
+		if (isset($this->type)) {
+			$this->type = trim($this->type);
+		}
 
 		// Check parameters
 		// Put here code to add control on parameters values
@@ -2035,6 +2051,12 @@ class Dyntable_fields
 			$error ++;
 			$this->errors[] = 'enabled could not be empty';
 		}
+
+		if(!isset($this->type)){
+			$error ++;
+			$this->errors[] = 'type could not be empty';
+		}
+
 		// Update request
 		$sql = 'UPDATE ' . MAIN_DB_PREFIX . $this->table_element . ' SET';
 
@@ -2048,6 +2070,7 @@ class Dyntable_fields
 		$sql .= ' align = '.(isset($this->align)?"'".$this->db->escape($this->align)."'":"null").',';
 		$sql .= ' enabled = '.(isset($this->enabled)?"'".$this->db->escape($this->enabled)."'":"null").',';
 		$sql .= ' checked = '.(isset($this->checked)?"'".$this->db->escape($this->checked)."'":"null").',';
+		$sql .= ' type = '.(isset($this->type)?"'".$this->db->escape($this->type)."'":"null").',';
 		$sql .= ' unit = '.(isset($this->unit)?"'".$this->db->escape($this->unit)."'":"null");
 
 		$sql .= ' WHERE rowid=' . $this->id;
@@ -2128,85 +2151,6 @@ class Dyntable_fields
 		}
 	}
 
-
-	function traitement($value,$line,$option){
-		switch ($this->post_traitement[0]){
-			case 'date':
-				$ret = dol_print_date($value,$this->post_traitement[1]);
-				break;
-			case 'num':
-				$ret = round($value,$this->post_traitement[1]) . (isset($this->unit)?' ' . $this->unit:'');
-				break;
-
-			case 'substr':
-				$ret = substr($value, $this->post_traitement[1],$this->post_traitement[2]) . (isset($this->unit)?' ' . $this->unit:'');
-				break;
-
-			case 'price':
-				$ret = price($value,'','',0,-1,$this->post_traitement[1]). (isset($this->unit)?' ' . $this->unit:'');
-				break;
-
-			case 'link':
-				if($line['total'] == 1){
-					$ret = $value . (isset($this->unit)?' ' . $this->unit:'');
-				}else{
-					$id = $this->post_traitement[3];
-					$ret = '<a href="' . DOL_URL_ROOT.$this->post_traitement[1].$this->post_traitement[2].$line[$id].'">' . $value . (isset($this->unit)?' ' . $this->unit:'') . '</a>';
-					break;
-				}
-
-			case 'link_to':
-				if($line['total'] == 1){
-					$ret = $value . (isset($this->unit)?' ' . $this->unit:'');
-				}else{
-					$id = $this->post_traitement[3];
-					$ret = '<a href="' . DOL_URL_ROOT.$this->post_traitement[1].$this->post_traitement[2].$line[$id]. (isset($option)? $option:'') . '">' . $value . (isset($this->unit)?' ' . $this->unit:'') . '</a>';
-					break;
-				}
-
-			default:
-				$ret = $value . (isset($this->unit)?' ' . $this->unit:'');
-		}
-
-		return $ret;
-
-	}
-
-	function calcul($line_array,$arrayfields){
-		$formule = $this->formule;
-		foreach ($arrayfields as $f){
-			$replace = '#' . $f->name . '#';
-			$value = $line_array[$f->name];
-			if(empty($value)) $value = "0";
-			$formule = str_replace($replace, $value, $formule);
-		}
-		$error_level = error_reporting();
-		error_reporting(0);
-
-		$res = eval("return " . $formule . ";");
-		if($res == FALSE) $res = '';
-		error_reporting($error_level);
-		return $res;
-
-	}
-
-	function button($option,$line_array,$arrayfields){
-		if($this->right){
-			$href = $this->href;
-			foreach ($arrayfields as $f){
-				$replace = '#' . $f->name . '#';
-				$value = $line_array[$f->name];
-				if(empty($value)) $value = "";
-				$href = str_replace($replace, $value, $href);
-			}
-			$href = $href.$option;
-			$res = '<a href="' . $href . '">' . $this->img . '</a>';
-		}else{
-			$res = '';
-		}
-		return $res;
-
-	}
 }
 class dyntable_from{
 	public $id;
