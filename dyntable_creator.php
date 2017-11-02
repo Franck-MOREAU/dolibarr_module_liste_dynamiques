@@ -99,6 +99,39 @@ if($action == 'del_from'){
 	$from->delete($user);
 }
 
+if($action == 'edit_from'){
+	$edit_id = GETPOST('element');
+	$from = new dyntable_from($db);
+	$from->fetch($edit_id);
+	$edit_order = $from->order;
+	$edit_from = $from->from;
+	$edit_table = $from->table;
+	$edit_alias = $from->as;
+	$edit_field1 = $from->field1;
+	$edit_field2 = $from->field2;
+}
+
+if($action == 'edit-from'){
+	$from = new dyntable_from($db);
+	$field1 = GETPOST('field1');
+	$field2 = GETPOST('field2');
+	if($field1==-1){
+		$field1 = '';
+	}
+	if($field2==-1){
+		$field2= '';
+	}
+
+	$from->fk_dyntable = $id;
+	$from->order = GETPOST('order');
+	$from->from = GETPOST('jonction');
+	$from->table = GETPOST('table');
+	$from->as = GETPOST('alias');
+	$from->field1 = $field1;
+	$from->field2 = $field2;
+	$from->update($user);
+}
+
 if($step>1){
 	$object = new Dyntable($db);
 	$object->fetch($id);
@@ -251,7 +284,11 @@ if($step == 1){
 	print '<tr>';
 	print '<form name="addlead" action="' . $_SERVER["PHP_SELF"] . '" method="POST">';
 	print '<input type="hidden" name="token" value="' . $_SESSION['newtoken'] . '">';
-	print '<input type="hidden" name="action" value="add-from">';
+	if($action == 'edit_from'){
+		print '<input type="hidden" name="action" value="edit-from">';
+	}else{
+		print '<input type="hidden" name="action" value="add-from">';
+	}
 	print '<input type="hidden" name="step" value="2">';
 	print '<input type="hidden" name="id" value="'. $id .'">';
 
@@ -261,16 +298,16 @@ if($step == 1){
 
 	print '<td class="fieldrequired">';
 	$join = array('FROM','INNER JOIN', 'LEFT JOIN', 'JOIN', 'UNION');
-	print $form->selectarray('jonction', $join,'',1,0,1,'',0,0,0,'','',0);
+	print $form->selectarray('jonction', $join,$edit_from,1,0,1,'',0,0,0,'','',0);
 	print '</td>';
 
 	print '<td class="fieldrequired">';
 	$tables = $db->DDLListTables($db->database_name,MAIN_DB_PREFIX.'%');
-	print $form->selectarray('table', $tables,'table',1,0,1,'',0,0,0,'','',1);
+	print $form->selectarray('table', $tables,$edit_table,1,0,1,'',0,0,0,'','',1);
 	print '</td>';
 
 	print '<td class="fieldrequired">';
-	print '<input type="text" name="alias" id="alias" size="15" value=""/>';
+	print '<input type="text" name="alias" id="alias" size="15" value="' . $edit_alias . '"/>';
 	print '</td>';
 
 	print '<td class="fieldrequired">';
@@ -281,12 +318,21 @@ if($step == 1){
 			$fields[] = $line->as . '.' . $field[0];
 		}
 	}
-	print $form->selectarray('field1', $fields,'field1',1,0,1,'',0,0,0,'','',1);
+	print $form->selectarray('field1', $fields,$edit_fields1,1,0,1,'',0,0,0,'','',1);
 	print '</td>';
 
 	print '<td class="fieldrequired">';
 	print '<select id="field2" class="flat field2" name="field2">';
 	print '<option class="optiongrey" value="-1">&nbsp;</option>';
+	if($action == edit_from){
+		$champs =$db->DDLInfoTable($table);
+		foreach ($champs as $champ){
+			$name = $edit_alias. '.' . $champ[0];
+			print '<option value="' . $name . '"' . ($name=$edit_field2?' SELECTED':'') . '>' . $name .'</option>';
+		}
+
+	}
+
 	print '</select>';
 	print '</td>';
 
