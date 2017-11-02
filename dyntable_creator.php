@@ -84,12 +84,6 @@ if($action == 'add-from'){
 	$from->field1 = $field1;
 	$from->field2 = $field2;
 	$res = $from->create($user);
-	if($res<0){
-		echo $res;
-		var_dump($from->errors);
-		echo $db->lastquery;
-		setEventMessages(null, $from->errors, 'errors');
-	}
 }
 
 if($action == 'del_from'){
@@ -133,6 +127,53 @@ if($action == 'edit-from'){
 	$from->field2 = $field2;
 	$from->update($user);
 }
+
+if($action == 'add-where'){
+	$where = new dyntable_where($db);
+	$where->fk_dyntable = $id;
+	$where->ordre = GETPOST('order');
+	$where->where = GETPOST('jonction');
+	$where->field = GETPOST('field');
+	$where->operateur = GETPOST('operateur');
+	$where->val1 = GETPOST('val1');
+	$where->val2 = GETPOST('val2');
+	$where->create($user);
+}
+
+if($action == 'del_where'){
+	$where_id = GETPOST('element');
+	$where = new dyntable_where($db);
+	$where->fetch($where_id);
+	$where->delete($user);
+}
+
+if($action == 'edit_where'){
+	$where_id = GETPOST('element');
+	$where = new dyntable_where($db);
+	$where->fetch($where_id);
+	$edit_order = $where->ordre;
+	$edit_where = $where->where;
+	$edit_field = $where->field;
+	$edit_operateur = $where->operateur;
+	$edit_val1 = $where->val1;
+	$edit_val2 = $where->val2;
+}
+
+if($action == 'edit-where'){
+	$where = new dyntable_where($db);
+	$edit_id = GETPOST('element');
+	$where->fetch($edit_id);
+
+	$where->fk_dyntable = $id;
+	$where->ordre = GETPOST('order');
+	$where->where = GETPOST('jonction');
+	$where->field = GETPOST('field');
+	$where->operateur = GETPOST('operateur');
+	$where->val1 = GETPOST('val1');
+	$where->val2 = GETPOST('field2');
+	$where->update($user);
+}
+
 
 if($step>1){
 	$object = new Dyntable($db);
@@ -484,7 +525,7 @@ if($step==3){
 
 	print '<td class="fieldrequired">';
 	$operateur = array('=','<', '>','<>','>=','<=','IS NULL','IS NOT NULL','IN', 'NOT IN','BETWEEN', 'NOT BETWEEN');
-	print $form->selectarray('opérateur', $operateur,$edit_operateur,1,0,1,'',0,0,0,'','',0);
+	print $form->selectarray('operateur', $operateur,$edit_operateur,1,0,1,'',0,0,0,'','',0);
 	print '</td>';
 
 	print '<td class="fieldrequired">';
