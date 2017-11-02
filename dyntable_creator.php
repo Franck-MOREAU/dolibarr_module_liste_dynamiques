@@ -186,33 +186,67 @@ if($step == 1){
 
 	print_fiche_titre($title.' - Step 2', '', dol_buildpath('/dyntable/img/object_list.png', 1), 1);
 
-	print '<form name="addlead" action="' . $_SERVER["PHP_SELF"] . '" method="POST">';
-	print '<input type="hidden" name="token" value="' . $_SESSION['newtoken'] . '">';
-	print '<input type="hidden" name="action" value="new-step1">';
-	print '<input type="hidden" name="step" value="2">';
-	print '<input type="hidden" name="id" value="'. $id .'">';
+	$from = new dyntable_from($db);
+	$from->fetchAll('ASC','order',0,0,array('fk_dyntable'=>$id),'AND');
 
 	print '<table class="border" width="100%">';
 	print '<tr>';
-	print '<td class="fieldrequired"  width="50%" colspan="2">';
-	print "Ajout d'une table </br></br>";
-	$join = array('INNER JOIN', 'LEFT JOIN', 'JOIN', 'UNION');
-	print '<div id="jonction_div">Jonction ' . $form->selectarray('jonction', $join,'jonction',1,0,1,'',0,0,0,'','',0) . '</br></br></div>';
-	$tables = $db->DDLListTables($db->database_name,MAIN_DB_PREFIX.'%');
-	print 'Table ' . $form->selectarray('table', $tables,'table',1,0,1,'',0,0,0,'','',0) . '</br></br>';
-	print '<div id="add_button" class="inline-block divButAction" style="height:13px; display:none"><a href="javascript:addtable()" class="butAction">Ajouter</a></div>';
+	print '<td> ordre </td>';
+	print '<td> type de jonction </td>';
+	print '<td> nom de la table </td>';
+	print '<td> alias </td>';
+	print '<td> champs de jonction 1 </td>';
+	print '<td> champs de jonction 2 </td>';
+	print '<td></td>';
+	print '</tr>';
+
+	foreach ($from->lines as $line){
+		print '<tr>';
+		print '<td>'. $line->order . '</td>';
+		print '<td>' . $line->from . '</td>';
+		print '<td>' . $line->table . '</td>';
+		print '<td>' . $line->as . '</td>';
+		print '<td>' . $line->field1 . '</td>';
+		print '<td>' . $line->field2 . '</td>';
+		print '<td></td>';
+		print '</tr>';
+	}
+	print '<tr>';
+	print '<form name="addlead" action="' . $_SERVER["PHP_SELF"] . '" method="POST">';
+	print '<input type="hidden" name="token" value="' . $_SESSION['newtoken'] . '">';
+	print '<input type="hidden" name="action" value="add-from">';
+	print '<input type="hidden" name="step" value="2">';
+	print '<input type="hidden" name="id" value="'. $id .'">';
+
+	print '<td class="fieldrequired">';
+	print '<input type="text" name="order" size="3" value=""/>';
 	print '</td>';
 
-	print '<td class="fieldrequired"  width="50%" colspan="2">';
-	Print '<div id="query_from">';
-	print '</div>';
+	print '<td class="fieldrequired">';
+	$join = array('INNER JOIN', 'LEFT JOIN', 'JOIN', 'UNION');
+	print $form->selectarray('jonction', $join,'jonction',1,0,1,'',0,0,0,'','',0);
 	print '</td>';
-	print '</tr>';
-	print '</table>';
-	print '<div class="center">';
+
+	print '<td class="fieldrequired">';
+	$tables = $db->DDLListTables($db->database_name,MAIN_DB_PREFIX.'%');
+	print $form->selectarray('table', $tables,'table',1,0,1,'',0,0,0,'','',0);
+	print '</td>';
+
+	print '<td class="fieldrequired">';
+	$fields = array();
+	foreach ($from->lines as $line){
+		$tableinfo=$db->DDLInfoTable($line->table);
+		foreach ($tableinfo as $field){
+			$fields[] = $line->as . '.' . $field[0];
+		}
+	}
+	print $form->selectarray('field1', $fields,'field1',1,0,1,'',0,0,0,'','',1);
+	print '</td>';
+
+	print '<td class="fieldrequired">';
 	print '<input type="submit" class="button" value="' . $langs->trans("Create") . '">';
-	print '&nbsp;<input type="button" class="button" value="' . $langs->trans("Cancel") . '" onClick="javascript:history.go(-1)">';
-	print '</div>';
+	print '</td>';
+
 	print '</form>';
 
 	?>
