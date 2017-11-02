@@ -1818,7 +1818,7 @@ class dyntable_from{
 		$sql.= 'fk_dyntable,';
 		$sql.= 'ordre,';
 		$sql.= 'jonction,';
-		$sql.= 'table,';
+		$sql.= 'linked_table,';
 		$sql.= 'alias,';
 		$sql.= 'field1,';
 		$sql.= 'field2';
@@ -1881,7 +1881,7 @@ class dyntable_from{
 		$sql .= " t.fk_dyntable,";
 		$sql .= " t.ordre,";
 		$sql .= " t.jonction,";
-		$sql .= " t.table,";
+		$sql .= " t.linked_table,";
 		$sql .= " t.alias,";
 		$sql .= " t.field1,";
 		$sql .= " t.field2";
@@ -1900,7 +1900,7 @@ class dyntable_from{
 				$this->fk_dyntable = $obj->fk_dyntable;
 				$this->order = $obj->ordre;
 				$this->from = $obj->jonction;
-				$this->table = $obj->table;
+				$this->table = $obj->linked_table;
 				$this->as = $obj->alias;
 				$this->field1 = $obj->field1;
 				$this->field2 = $obj->field2;
@@ -1929,7 +1929,7 @@ class dyntable_from{
 		$sql .= " t.fk_dyntable,";
 		$sql .= " t.ordre,";
 		$sql .= " t.jonction,";
-		$sql .= " t.table,";
+		$sql .= " t.linked_table,";
 		$sql .= " t.alias,";
 		$sql .= " t.field1,";
 		$sql .= " t.field2";
@@ -1966,7 +1966,7 @@ class dyntable_from{
 				$line->fk_dyntable = $obj->fk_dyntable;
 				$line->order = $obj->ordre;
 				$line->from = $obj->jonction;
-				$line->table = $obj->table;
+				$line->table = $obj->linked_table;
 				$line->as = $obj->alias;
 				$line->field1 = $obj->field1;
 				$line->field2 = $obj->field2;
@@ -2050,7 +2050,7 @@ class dyntable_from{
 		$sql .= ' fk_dyntable = '.(isset($this->fk_dyntable)?"'".$this->db->escape($this->fk_dyntable)."'":"null").',';
 		$sql .= ' ordre = '.(isset($this->order)?"'".$this->db->escape($this->order)."'":"null").',';
 		$sql .= ' jonction = '.(isset($this->from)?"'".$this->db->escape($this->from)."'":"null").',';
-		$sql .= ' table = '.(isset($this->table)?"'".$this->db->escape($this->table)."'":"null").',';
+		$sql .= ' linked_table = '.(isset($this->table)?"'".$this->db->escape($this->table)."'":"null").',';
 		$sql .= ' alias = '.(isset($this->as)?"'".$this->db->escape($this->as)."'":"null").',';
 		$sql .= ' field1 = '.(isset($this->field1)?"'".$this->db->escape($this->field1)."'":"null").',';
 		$sql .= ' field2 = '.(isset($this->field2)?"'".$this->db->escape($this->field2)."'":"null");
