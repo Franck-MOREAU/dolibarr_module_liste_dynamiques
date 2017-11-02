@@ -200,8 +200,6 @@ if($step == 1){
 
 	print '</form>';
 
-	print '<div class="inline-block divButAction"><a class="butAction" href="' . $_SERVER["PHP_SELF"] . '?id=' . $id . '&step=3">' . $langs->trans('nextstep') . '</a></div>';
-	print '<div class="inline-block divButAction"><a class="butAction" href="' . $_SERVER["PHP_SELF"] . '?id=' . $id . '&step=1">' . $langs->trans('prevstep') . '</a></div>'
 	?>
 	<script type="text/javascript" language="javascript">
 	document.getElementById("export_button").onchange = function(){
@@ -348,6 +346,9 @@ if($step == 1){
 	print '</td>';
 
 	print '</form>';
+
+	print '<div class="inline-block divButAction"><a class="butAction" href="' . $_SERVER["PHP_SELF"] . '?id=' . $id . '&step=3">' . $langs->trans('nextstep') . '</a></div>';
+	print '<div class="inline-block divButAction"><a class="butAction" href="' . $_SERVER["PHP_SELF"] . '?id=' . $id . '&step=1">' . $langs->trans('prevstep') . '</a></div>'
 
 	?>
 	<script type="text/javascript" language="javascript">
