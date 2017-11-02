@@ -304,6 +304,7 @@ if($step == 1){
 	 			table_ajax: document.getElementById("table").value,
 	 		},
 	 		success: function(msg){
+	 			alert( "erreur: " + msg );
 	 			if (msg != ""){
 	 				document.getElementById('div.field2_place').innerHTML = msg;
 	 			}
