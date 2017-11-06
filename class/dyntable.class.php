@@ -2950,4 +2950,403 @@ class dyntable_where{
 	}
 }
 
+class dyntable_having{
+	public $id;
+	public $fk_dyntable;
+	public $ordre;
+	public $where;
+	public $field;
+	public $operateur;
+	public $val1;
+	public $val2;
+
+	public $table_element ='dyntable_having';
+
+
+	function __construct($db)
+	{
+		$this->db = $db;
+
+	}
+
+	public function create(User $user, $notrigger = false)
+	{
+		dol_syslog(__METHOD__, LOG_DEBUG);
+
+		$error = 0;
+
+		// Clean parameters
+
+		if (isset($this->fk_dyntable)) {
+			$this->fk_dyntable = trim($this->fk_dyntable);
+		}
+		if (isset($this->ordre)) {
+			$this->ordre = trim($this->ordre);
+		}
+		if (isset($this->where)) {
+			$this->where = trim($this->where);
+		}
+		if (isset($this->field)) {
+			$this->field = trim($this->field);
+		}
+		if (isset($this->operateur)) {
+			$this->operateur = trim($this->operateur);
+		}
+		if (isset($this->val1)) {
+			$this->val1 = trim($this->val1);
+		}
+		if (isset($this->val2)) {
+			$this->val2 = trim($this->val2);
+		}
+
+		// Check parameters
+		// Put here code to add control on parameters values
+
+		if(!isset($this->fk_dyntable)){
+			$error ++;
+			$this->errors[] = 'fk_dyntable could not be empty';
+		}
+
+		if(!isset($this->ordre)){
+			$error ++;
+			$this->errors[] = 'order could not be empty';
+		}
+
+		if(!isset($this->where)){
+			$error ++;
+			$this->errors[] = 'where could not be empty';
+		}
+
+		if(!isset($this->field)){
+			$error ++;
+			$this->errors[] = 'field could not be empty';
+		}
+
+		if(!isset($this->operateur)){
+			$error ++;
+			$this->errors[] = 'operateur could not be empty';
+		}
+
+		// Insert request
+		$sql = 'INSERT INTO ' . MAIN_DB_PREFIX . $this->table_element . '(';
+
+		$sql.= 'fk_dyntable,';
+		$sql.= 'ordre,';
+		$sql.= 'jonction,';
+		$sql.= 'field,';
+		$sql.= 'operateur,';
+		$sql.= 'val1,';
+		$sql.= 'val2';
+
+
+		$sql .= ') VALUES (';
+
+		$sql .= ' '.(! isset($this->fk_dyntable)?'NULL':"'".$this->db->escape($this->fk_dyntable)."'").',';
+		$sql .= ' '.(! isset($this->ordre)?'NULL':"'".$this->db->escape($this->ordre)."'").',';
+		$sql .= ' '.(! isset($this->where)?'NULL':"'".$this->db->escape($this->where)."'").',';
+		$sql .= ' '.(! isset($this->field)?'NULL':"'".$this->db->escape($this->field)."'").',';
+		$sql .= ' '.(! isset($this->operateur)?'NULL':"'".$this->db->escape($this->operateur)."'").',';
+		$sql .= ' '.(! isset($this->val1)?'NULL':"'".$this->db->escape($this->val1)."'").',';
+		$sql .= ' '.(! isset($this->val2)?'NULL':"'".$this->db->escape($this->val2)."'");
+
+
+		$sql .= ')';
+
+		$this->db->begin();
+
+		$resql = $this->db->query($sql);
+		if (!$resql) {
+			$error ++;
+			$this->errors[] = 'Error ' . $this->db->lasterror();
+			dol_syslog(__METHOD__ . ' ' . join(',', $this->errors), LOG_ERR);
+		}
+
+		if (!$error) {
+			$this->id = $this->db->last_insert_id(MAIN_DB_PREFIX . $this->table_element);
+
+			if (!$notrigger) {
+				// Uncomment this and change MYOBJECT to your own tag if you
+				// want this action to call a trigger.
+
+				//// Call triggers
+				//$result=$this->call_trigger('MYOBJECT_CREATE',$user);
+				//if ($result < 0) $error++;
+				//// End call triggers
+			}
+		}
+
+		// Commit or rollback
+		if ($error) {
+			$this->db->rollback();
+
+			return - 1 * $error;
+		} else {
+			$this->db->commit();
+
+			return $this->id;
+		}
+	}
+
+	public function fetch($id)
+	{
+		dol_syslog(__METHOD__, LOG_DEBUG);
+
+		$sql = 'SELECT';
+		$sql .= ' t.rowid,';
+		$sql .= " t.fk_dyntable,";
+		$sql .= " t.ordre,";
+		$sql .= " t.jonction,";
+		$sql .= " t.field,";
+		$sql .= " t.operateur,";
+		$sql .= " t.val1,";
+		$sql .= " t.val2";
+
+
+		$sql .= ' FROM ' . MAIN_DB_PREFIX . $this->table_element . ' as t';
+		$sql .= ' WHERE t.rowid = ' . $id;
+
+		$resql = $this->db->query($sql);
+		if ($resql) {
+			$numrows = $this->db->num_rows($resql);
+			if ($numrows) {
+				$obj = $this->db->fetch_object($resql);
+
+				$this->id = $obj->rowid;
+				$this->fk_dyntable = $obj->fk_dyntable;
+				$this->ordre = $obj->ordre;
+				$this->where = $obj->jonction;
+				$this->field = $obj->field;
+				$this->operateur = $obj->operateur;
+				$this->val1 = $obj->val1;
+				$this->val2 = $obj->val2;
+			}
+			$this->db->free($resql);
+
+			if ($numrows) {
+				return 1;
+			} else {
+				return 0;
+			}
+		} else {
+			$this->errors[] = 'Error ' . $this->db->lasterror();
+			dol_syslog(__METHOD__ . ' ' . join(',', $this->errors), LOG_ERR);
+
+			return - 1;
+		}
+	}
+
+	public function fetchAll($sortorder='', $sortfield='', $limit=0, $offset=0, array $filter = array(), $filtermode='AND')
+	{
+		dol_syslog(__METHOD__, LOG_DEBUG);
+
+		$sql = 'SELECT';
+		$sql .= ' t.rowid,';
+		$sql .= " t.fk_dyntable,";
+		$sql .= " t.ordre,";
+		$sql .= " t.jonction,";
+		$sql .= " t.field,";
+		$sql .= " t.operateur,";
+		$sql .= " t.val1,";
+		$sql .= " t.val2";
+
+		$sql .= ' FROM ' . MAIN_DB_PREFIX . $this->table_element. ' as t';
+
+		// Manage filter
+		$sqlwhere = array();
+		if (count($filter) > 0) {
+			foreach ($filter as $key => $value) {
+				$sqlwhere [] = $key . ' = ' . $this->db->escape($value);
+			}
+		}
+		if (count($sqlwhere) > 0) {
+			$sql .= ' WHERE ' . implode(' '.$filtermode.' ', $sqlwhere);
+		}
+
+		if (!empty($sortfield)) {
+			$sql .= $this->db->order($sortfield,$sortorder);
+		}
+		if (!empty($limit)) {
+			$sql .=  ' ' . $this->db->plimit($limit + 1, $offset);
+		}
+		$this->lines = array();
+
+		$resql = $this->db->query($sql);
+		if ($resql) {
+			$num = $this->db->num_rows($resql);
+
+			while ($obj = $this->db->fetch_object($resql)) {
+				$line = new dyntable_where($this->db);
+
+				$line->id = $obj->rowid;
+				$line->fk_dyntable = $obj->fk_dyntable;
+				$line->ordre = $obj->ordre;
+				$line->where = $obj->jonction;
+				$line->field = $obj->field;
+				$line->operateur = $obj->operateur;
+				$line->val1 = $obj->val1;
+				$line->val2 = $obj->val2;
+
+				$this->lines[$line->id] = $line;
+			}
+			$this->db->free($resql);
+
+			return $num;
+		} else {
+			$this->errors[] = 'Error ' . $this->db->lasterror();
+			dol_syslog(__METHOD__ . ' ' . join(',', $this->errors), LOG_ERR);
+
+			return - 1;
+		}
+	}
+
+
+	public function update(User $user, $notrigger = false)
+	{
+		$error = 0;
+
+		dol_syslog(__METHOD__, LOG_DEBUG);
+
+		// Clean parameters
+
+		if (isset($this->fk_dyntable)) {
+			$this->fk_dyntable = trim($this->fk_dyntable);
+		}
+		if (isset($this->ordre)) {
+			$this->ordre = trim($this->ordre);
+		}
+		if (isset($this->where)) {
+			$this->where = trim($this->where);
+		}
+		if (isset($this->field)) {
+			$this->field = trim($this->field);
+		}
+		if (isset($this->operateur)) {
+			$this->operateur = trim($this->operateur);
+		}
+		if (isset($this->val1)) {
+			$this->val1 = trim($this->val1);
+		}
+		if (isset($this->val2)) {
+			$this->val2 = trim($this->val2);
+		}
+
+		// Check parameters
+		// Put here code to add a control on parameters values
+
+		if(!isset($this->fk_dyntable)){
+			$error ++;
+			$this->errors[] = 'fk_dyntable could not be empty';
+		}
+
+		if(!isset($this->ordre)){
+			$error ++;
+			$this->errors[] = 'order could not be empty';
+		}
+
+		if(!isset($this->where)){
+			$error ++;
+			$this->errors[] = 'from could not be empty';
+		}
+
+		if(!isset($this->field)){
+			$error ++;
+			$this->errors[] = 'table could not be empty';
+		}
+
+		if(!isset($this->operateur)){
+			$error ++;
+			$this->errors[] = 'as could not be empty';
+		}
+
+
+		// Update request
+		$sql = 'UPDATE ' . MAIN_DB_PREFIX . $this->table_element . ' SET';
+
+		$sql .= ' fk_dyntable = '.(isset($this->fk_dyntable)?"'".$this->db->escape($this->fk_dyntable)."'":"null").',';
+		$sql .= ' ordre = '.(isset($this->ordre)?"'".$this->db->escape($this->ordre)."'":"null").',';
+		$sql .= ' jonction = '.(isset($this->where)?"'".$this->db->escape($this->where)."'":"null").',';
+		$sql .= ' field = '.(isset($this->field)?"'".$this->db->escape($this->field)."'":"null").',';
+		$sql .= ' operateur = '.(isset($this->operateur)?"'".$this->db->escape($this->operateur)."'":"null").',';
+		$sql .= ' val1 = '.(isset($this->val1)?"'".$this->db->escape($this->val1)."'":"null").',';
+		$sql .= ' val2 = '.(isset($this->val2)?"'".$this->db->escape($this->val2)."'":"null");
+
+		$sql .= ' WHERE rowid=' . $this->id;
+
+		$this->db->begin();
+
+		$resql = $this->db->query($sql);
+		if (!$resql) {
+			$error ++;
+			$this->errors[] = 'Error ' . $this->db->lasterror();
+			dol_syslog(__METHOD__ . ' ' . join(',', $this->errors), LOG_ERR);
+		}
+
+		if (!$error && !$notrigger) {
+			// Uncomment this and change MYOBJECT to your own tag if you
+			// want this action calls a trigger.
+
+			//// Call triggers
+			//$result=$this->call_trigger('MYOBJECT_MODIFY',$user);
+			//if ($result < 0) { $error++; //Do also what you must do to rollback action if trigger fail}
+			//// End call triggers
+		}
+
+		// Commit or rollback
+		if ($error) {
+			$this->db->rollback();
+
+			return - 1 * $error;
+		} else {
+			$this->db->commit();
+
+			return 1;
+		}
+	}
+
+
+	public function delete(User $user, $notrigger = false)
+	{
+		dol_syslog(__METHOD__, LOG_DEBUG);
+
+		$error = 0;
+
+		$this->db->begin();
+
+		if (!$error) {
+			if (!$notrigger) {
+				// Uncomment this and change MYOBJECT to your own tag if you
+				// want this action calls a trigger.
+
+				//// Call triggers
+				//$result=$this->call_trigger('MYOBJECT_DELETE',$user);
+				//if ($result < 0) { $error++; //Do also what you must do to rollback action if trigger fail}
+				//// End call triggers
+			}
+		}
+
+		if (!$error) {
+			$sql = 'DELETE FROM ' . MAIN_DB_PREFIX . $this->table_element;
+			$sql .= ' WHERE rowid=' . $this->id;
+
+			$resql = $this->db->query($sql);
+			if (!$resql) {
+				$error ++;
+				$this->errors[] = 'Error ' . $this->db->lasterror();
+				dol_syslog(__METHOD__ . ' ' . join(',', $this->errors), LOG_ERR);
+			}
+		}
+
+		// Commit or rollback
+		if ($error) {
+			$this->db->rollback();
+
+			return - 1 * $error;
+		} else {
+			$this->db->commit();
+
+			return 1;
+		}
+	}
+}
+
 ?>

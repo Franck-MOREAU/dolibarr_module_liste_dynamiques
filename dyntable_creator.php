@@ -803,6 +803,160 @@ if($step==4){
 	dol_fiche_end();
 }
 
+if($step==5){
+	dol_fiche_head();
+	print_fiche_titre($title.' - Clause HAVING permanente', '', dol_buildpath('/dyntable/img/object_list.png', 1), 1);
+
+	$having = new dyntable_having($db);
+	$having->fetchAll('ASC','ordre',0,0,array('fk_dyntable'=> $id),'AND');
+
+
+	print '<table class="border" width="100%">';
+	print '<tr>';
+	print '<td class="fieldrequired"> ordre </td>';
+	print '<td class="fieldrequired"> Jonction </td>';
+	print '<td class="fieldrequired"> champ </td>';
+	print '<td class="fieldrequired"> opérateur </td>';
+	print '<td class="fieldrequired"> valeur 1 </td>';
+	print '<td class="fieldrequired"> valeur 2 </td>';
+	print '<td></td>';
+	print '</tr>';
+
+	foreach ($having->lines as $line){
+		print '<tr>';
+		print '<td>'. $line->ordre . '</td>';
+		print '<td>' . $line->where . '</td>';
+		print '<td>' . $line->field . '</td>';
+		print '<td>' . $line->operateur . '</td>';
+		print '<td>' . $line->val1 . '</td>';
+		print '<td>' . $line->val2 . '</td>';
+		print '<td>';
+		print '<a href="' . $_SERVER['PHP_SELF'] . '?id='.$id.'&action=del_where&element='. $line->id .'&step=3">' . img_delete() . '</a>';
+		print '<a href="' . $_SERVER['PHP_SELF'] . '?id='.$id.'&action=edit_where&element='. $line->id .'&step=3">' . img_edit(). '</a>';
+		print '</td>';
+		print '</tr>';
+	}
+
+	print '<tr>';
+	print '<form name="addlead" action="' . $_SERVER["PHP_SELF"] . '" method="POST">';
+	print '<input type="hidden" name="token" value="' . $_SESSION['newtoken'] . '">';
+	if($action == 'edit_having'){
+		print '<input type="hidden" name="action" value="edit-having">';
+		print '<input type="hidden" name="element" value="' . GETPOST('element') . '">';
+	}else{
+		print '<input type="hidden" name="action" value="add-having">';
+	}
+	print '<input type="hidden" name="step" value="3">';
+	print '<input type="hidden" name="id" value="'. $id .'">';
+
+	print '<td class="fieldrequired">';
+	print '<input type="text" name="order" size="3" value="' . $edit_ordre . '"/>';
+	print '</td>';
+
+	print '<td class="fieldrequired">';
+	$join = array('HAVING','AND', 'OR');
+	print $form->selectarray('jonction', $join,$edit_where,1,0,1,'',0,0,0,'','',0);
+	print '</td>';
+
+	print '<td class="fieldrequired">';
+	$fields = array();
+	$from = new Dyntable_fields($db);
+	$from->fetchAll('ASC','ordre',0,0,array('fk_dyntable'=>$id),'AND');
+	foreach ($from->lines as $line){
+		$fields[] = $line->field;
+	}
+	print $form->selectarray('field', $fields,$edit_field,1,0,1,'',0,0,0,'','',1);
+	print '</td>';
+
+	print '<td class="fieldrequired">';
+	$operateur = array('=','<', '>','<>','>=','<=','IS NULL','IS NOT NULL','IN', 'NOT IN','BETWEEN', 'NOT BETWEEN');
+	print $form->selectarray('operateur', $operateur,$edit_operateur,1,0,1,'',0,0,0,'','',0);
+	print '</td>';
+
+	print '<td class="fieldrequired">';
+	print '<input type="text" style="display:none" name="val1" id="val1" size="15" value="' . $edit_val1 . '"/>';
+	print '</td>';
+
+	print '<td class="fieldrequired">';
+	print '<input type="text" style="display:none" name="val2" id="val2" size="15" value="' . $edit_val2 . '"/>';
+	print '</td>';
+
+	print '<td class="fieldrequired">';
+	print '<input type="submit" class="button" value="' . $langs->trans("Create") . '">';
+	print '</td>';
+
+	print '</form>';
+	print '</tr>';
+
+	print '</table>';
+
+	print '</br>';
+
+	print '<div class="inline-block divButAction"><a class="butAction" href="' . $_SERVER["PHP_SELF"] . '?id=' . $id . '&step=6">' . $langs->trans('nextstep') . '</a></div>';
+	print '<div class="inline-block divButAction"><a class="butAction" href="' . $_SERVER["PHP_SELF"] . '?id=' . $id . '&step=4">' . $langs->trans('prevstep') . '</a></div>';
+
+	dol_fiche_end();
+
+	?>
+	<script type="text/javascript" language="javascript">
+	document.getElementById("operateur").onchange = function(){
+		var noval = ['IS NULL','IS NOT NULL'];
+		var oneval = ['=','<', '>','<>','>=','<=','IN', 'NOT IN'];
+		var twoval = ['BETWEEN', 'NOT BETWEEN'];
+
+		if (noval.indexOf(document.getElementById("operateur").value) > -1){
+			document.getElementById("val1").style.display = "none";
+			document.getElementById("val2").style.display = "none";
+		} else if (oneval.indexOf(document.getElementById("operateur").value) > -1){
+			document.getElementById("val1").style.display = "";
+			document.getElementById("val2").style.display = "none";
+		} else if (twoval.indexOf(document.getElementById("operateur").value) > -1){
+			document.getElementById("val1").style.display = "";
+			document.getElementById("val2").style.display = "";
+		} else {
+			document.getElementById("val1").style.display = "none";
+			document.getElementById("val2").style.display = "none";
+		}
+	}
+
+	</script>
+	<?php
+
+}elseif ($step>5){
+	dol_fiche_head();
+	print_fiche_titre($title.' - Clause HAVING permanente', '', dol_buildpath('/dyntable/img/object_list.png', 1), 1);
+
+	$where = new dyntable_having($db);
+	$where->fetchAll('ASC','ordre',0,0,array('fk_dyntable'=> $id),'AND');
+
+	print '<table class="border" width="100%">';
+	print '<tr>';
+	print '<td class="fieldrequired"> ordre </td>';
+	print '<td class="fieldrequired"> Jonction </td>';
+	print '<td class="fieldrequired"> champ </td>';
+	print '<td class="fieldrequired"> opérateur </td>';
+	print '<td class="fieldrequired"> valeur 1 </td>';
+	print '<td class="fieldrequired"> valeur 2 </td>';
+	print '</tr>';
+
+	foreach ($where->lines as $line){
+		print '<tr>';
+		print '<td>'. $line->ordre . '</td>';
+		print '<td>' . $line->where . '</td>';
+		print '<td>' . $line->field . '</td>';
+		print '<td>' . $line->operateur . '</td>';
+		print '<td>' . $line->val1 . '</td>';
+		print '<td>' . $line->val2 . '</td>';
+		print '</tr>';
+	}
+	print '</table>';
+
+	dol_fiche_end();
+}
+
+
+
+
 ?>
 <script type="text/javascript" language="javascript">
 
