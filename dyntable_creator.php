@@ -235,6 +235,53 @@ if($action == 'edit-field'){
 	$col->update($user);
 }
 
+if($action == 'add-having'){
+	$where = new dyntable_having($db);
+	$where->fk_dyntable = $id;
+	$where->ordre = GETPOST('order');
+	$where->where = GETPOST('jonction');
+	$where->field = GETPOST('field');
+	$where->operateur = GETPOST('operateur');
+	$where->val1 = GETPOST('val1');
+	$where->val2 = GETPOST('val2');
+	$where->create($user);
+}
+
+if($action == 'del_having'){
+	$where_id = GETPOST('element');
+	$where = new dyntable_having($db);
+	$where->fetch($where_id);
+	$where->delete($user);
+}
+
+if($action == 'edit_having'){
+	$where_id = GETPOST('element');
+	$where = new dyntable_having($db);
+	$where->fetch($where_id);
+	$edit_ordre = $where->ordre;
+	$edit_where = $where->where;
+	$edit_field = $where->field;
+	$edit_operateur = $where->operateur;
+	$edit_val1 = $where->val1;
+	$edit_val2 = $where->val2;
+}
+
+if($action == 'edit-having'){
+	$where = new dyntable_having($db);
+	$edit_id = GETPOST('element');
+	$where->fetch($edit_id);
+
+	$where->fk_dyntable = $id;
+	$where->ordre = GETPOST('order');
+	$where->where = GETPOST('jonction');
+	$where->field = GETPOST('field');
+	$where->operateur = GETPOST('operateur');
+	$where->val1 = GETPOST('val1');
+	$where->val2 = GETPOST('val2');
+	$where->update($user);
+}
+
+
 if($step>1){
 	$object = new Dyntable($db);
 	$object->fetch($id);
@@ -889,7 +936,7 @@ if($step==5){
 	}else{
 		print '<input type="hidden" name="action" value="add-having">';
 	}
-	print '<input type="hidden" name="step" value="3">';
+	print '<input type="hidden" name="step" value="5">';
 	print '<input type="hidden" name="id" value="'. $id .'">';
 
 	print '<td class="fieldrequired">';
