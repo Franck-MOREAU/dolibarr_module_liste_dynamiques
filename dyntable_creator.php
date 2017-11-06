@@ -799,6 +799,49 @@ if($step==4){
 	dol_fiche_head();
 	print_fiche_titre($title.' - Selection des colones de la liste', '', dol_buildpath('/dyntable/img/object_list.png', 1), 1);
 
+	$col = new Dyntable_fields($db);
+	$col->fetchAll('ASC','ordre',0,0,array('fk_dyntable'=> $id),'AND');
+
+	print '<table class="border" width="100%">';
+	print '<tr>';
+	print '<td class="fieldrequired"> ordre </td>';
+	print '<td class="fieldrequired"> type </td>';
+	print '<td class="fieldrequired"> nom </td>';
+	print '<td class="fieldrequired"> titre col. </td>';
+	print '<td class="fieldrequired"> sel (def) </td>';
+	print '<td class="fieldrequired"> Alignement </td>';
+	print '<td class="fieldrequired"> unité </td>';
+	print '<td class="fieldrequired"> visible </td>';
+	print '<td class="fieldrequired"> champ </td>';
+	print '<td class="fieldrequired"> alias </td>';
+	print '<td class="fieldrequired"> surtitre </td>';
+	print '<td class="fieldrequired"></td>';
+	print '</tr>';
+
+	foreach ($col->lines as $line){
+		print '<tr>';
+		print '<td>'. $line->ordre . '</td>';
+		print '<td>'. $line->type . '</td>';
+		print '<td>' . $line->name . '</td>';
+		print '<td>' . $line->label . '</td>';
+		print '<td>' . $line->checked . '</td>';
+		print '<td>' . $line->align . '</td>';
+		print '<td>' . $line->unit . '</td>';
+		print '<td>' . $line->enabled . '</td>';
+		print '<td>' . $line->field . '</td>';
+		print '<td>' . $line->alias . '</td>';
+		print '<td>' . $line->sub_title . '</td>';
+		print '<td>';
+		print '<a href="' . $_SERVER['PHP_SELF'] . '?id='.$id.'&action=del_field&element='. $line->id .'&step=4">' . img_delete() . '</a>';
+		print '<a href="' . $_SERVER['PHP_SELF'] . '?id='.$id.'&action=edit_field&element='. $line->id .'&step=4">' . img_edit(). '</a>';
+		print '</td>';
+		print '</tr>';
+	}
+
+	print '<tr>';
+
+	print '</table>';
+	print '</br>';
 
 	dol_fiche_end();
 }
